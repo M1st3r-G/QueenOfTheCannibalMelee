@@ -14,9 +14,11 @@ public class PlayerController : MonoBehaviour
      
     private void Awake()
     {
+        DontDestroyOnLoad(gameObject);
+        
         rb = GetComponent<Rigidbody2D>();
     }
-
+    
     public void OnAttack(InputAction.CallbackContext ctx)
     {
         if (!ctx.performed) return;
