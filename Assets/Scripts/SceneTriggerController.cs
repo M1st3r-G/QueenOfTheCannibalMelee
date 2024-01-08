@@ -1,6 +1,6 @@
 using UnityEngine;
 
-[RequireComponent(typeof(Rigidbody2D))]
+[RequireComponent(typeof(BoxCollider2D))]
 public class SceneTriggerController : MonoBehaviour
 {
     private void OnTriggerEnter2D(Collider2D other)
