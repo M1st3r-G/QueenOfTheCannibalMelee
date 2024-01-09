@@ -1,4 +1,3 @@
-using UnityEditor;
 using UnityEngine;
 using UnityEngine.InputSystem;
 
@@ -52,12 +51,12 @@ public class PlayerController : MonoBehaviour
         ChangeLine(-1);
     }
 
-    private void ChangeLine(int dir)
-    {
-        int newLine = Mathf.Clamp(LineManager.Instance.GetLine(gameObject) + dir, 0,
-            LineManager.Instance.NumberOfLines - 1);
-        LineManager.Instance.ChangeLine(gameObject, newLine);
-    }
+    private void ChangeLine(int dir) => 
+        LineManager.Instance.ChangeLine(gameObject, Mathf.Clamp(
+            LineManager.Instance.GetLine(gameObject) + dir, 
+            0, 
+            LineManager.Instance.NumberOfLines - 1));
+    
     
     private void FixedUpdate()
     {

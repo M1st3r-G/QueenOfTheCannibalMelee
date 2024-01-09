@@ -63,7 +63,7 @@ public class LineManager : MonoBehaviour
         if (currentLine == newLine) return;
         objectsInLine[currentLine].Remove(g);
         InnerSetLine(g, newLine, currentLine);
-        print($"Changed the line of {g.name} to Line {newLine}");
+        print($"Changed the line of {g.name} from {currentLine} to Line {newLine}");
 
     }
 
@@ -90,8 +90,6 @@ public class LineManager : MonoBehaviour
             lineHeights[l], 
             l);
         // Changes the Z Value, so Objects in Higher Lines appear Behind
-        print($"From {prev} to {l} (displacement of {dis})");
-
     }
     
     /// <summary>

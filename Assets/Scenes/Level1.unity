@@ -353,30 +353,6 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 0}
     m_Modifications:
-    - target: {fileID: 4321711819564825640, guid: 747d20d5575105a479190d31441fed37, type: 3}
-      propertyPath: numberOfLines
-      value: 5
-      objectReference: {fileID: 0}
-    - target: {fileID: 4321711819564825640, guid: 747d20d5575105a479190d31441fed37, type: 3}
-      propertyPath: lineHeights.Array.size
-      value: 5
-      objectReference: {fileID: 0}
-    - target: {fileID: 4321711819564825640, guid: 747d20d5575105a479190d31441fed37, type: 3}
-      propertyPath: displacementBetweenLines
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 4321711819564825640, guid: 747d20d5575105a479190d31441fed37, type: 3}
-      propertyPath: lineHeights.Array.data[2]
-      value: -2
-      objectReference: {fileID: 0}
-    - target: {fileID: 4321711819564825640, guid: 747d20d5575105a479190d31441fed37, type: 3}
-      propertyPath: lineHeights.Array.data[3]
-      value: -1
-      objectReference: {fileID: 0}
-    - target: {fileID: 4321711819564825640, guid: 747d20d5575105a479190d31441fed37, type: 3}
-      propertyPath: lineHeights.Array.data[4]
-      value: 0
-      objectReference: {fileID: 0}
     - target: {fileID: 5666446566486608536, guid: 747d20d5575105a479190d31441fed37, type: 3}
       propertyPath: m_Name
       value: ManagerSystem
