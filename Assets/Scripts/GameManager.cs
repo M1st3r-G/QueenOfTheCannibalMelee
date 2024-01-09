@@ -11,21 +11,6 @@ public class GameManager : MonoBehaviour
     //Publics
     private static GameManager _instance;
     public static GameManager Instance => _instance;
-
-    private void OnEnable()
-    {
-        SceneManager.sceneLoaded += AwakeInScene;
-    }
-
-    private void OnDisable()
-    {
-        SceneManager.sceneLoaded -= AwakeInScene;
-    }
-
-    private void AwakeInScene(Scene s, LoadSceneMode m)
-    {
-        player.transform.position = Vector3.zero;
-    }
     
     private void Awake()
     {
@@ -37,7 +22,7 @@ public class GameManager : MonoBehaviour
         _instance = this;
         DontDestroyOnLoad(this);
 
-        player = Instantiate(playerPrefab, Vector3.zero, Quaternion.identity);
+        player = Instantiate(playerPrefab, new Vector3(LineManager.Instance.LineHeights[0], -3, 0f), Quaternion.identity);
     }
     
     private void OnDestroy()

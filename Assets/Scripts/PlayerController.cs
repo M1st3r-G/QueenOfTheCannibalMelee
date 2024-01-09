@@ -1,3 +1,4 @@
+using UnityEditor;
 using UnityEngine;
 using UnityEngine.InputSystem;
 
@@ -17,12 +18,14 @@ public class PlayerController : MonoBehaviour
         DontDestroyOnLoad(gameObject);
         
         rb = GetComponent<Rigidbody2D>();
+        
+        LineManager.Instance.SetToLine(gameObject, 0);
     }
     
     public void OnAttack(InputAction.CallbackContext ctx)
     {
         if (!ctx.performed) return;
-        print("Attack");
+        print("Received AttackInput");
     }
     
     public void OnMove(InputAction.CallbackContext ctx)
@@ -35,6 +38,27 @@ public class PlayerController : MonoBehaviour
         direction = ctx.ReadValue<float>();
     }
 
+    public void OnChangeLineUp(InputAction.CallbackContext ctx)
+    {
+        if (!ctx.performed) return;
+        print("Received ChangeLineUp Input");
+        ChangeLine(1);
+    }
+    
+    public void OnChangeLineDown(InputAction.CallbackContext ctx)
+    {
+        if (!ctx.performed) return;
+        print("Received ChangeLineDown Input");
+        ChangeLine(-1);
+    }
+
+    private void ChangeLine(int dir)
+    {
+        int newLine = Mathf.Clamp(LineManager.Instance.GetLine(gameObject) + dir, 0,
+            LineManager.Instance.NumberOfLines - 1);
+        LineManager.Instance.ChangeLine(gameObject, newLine);
+    }
+    
     private void FixedUpdate()
     {
         rb.velocity = Vector2.right * (direction * speed);
