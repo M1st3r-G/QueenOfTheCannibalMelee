@@ -39,4 +39,9 @@ public class PlayerController : MonoBehaviour
     {
         rb.velocity = Vector2.right * (direction * speed);
     }
+    
+    private void OnTriggerEnter2D(Collider2D other)
+    { 
+        if(other.gameObject.CompareTag("Transition")) GameManager.LoadNextScene();
+    }
 }
