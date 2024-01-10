@@ -26,6 +26,5 @@ public class CameraController : MonoBehaviour
         if (nextPos.x < leftBound) nextPos.x = leftBound;
         if (nextPos.x > rightBound) nextPos.x = rightBound;
         transform.position = nextPos; 
-        print(velocity);
     }
 }
