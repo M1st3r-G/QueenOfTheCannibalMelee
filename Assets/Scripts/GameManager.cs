@@ -33,6 +33,21 @@ public class GameManager : MonoBehaviour
         Instantiate(playerPrefab, new Vector3(LineManager.Instance.LineHeights[0], -3, 0f), Quaternion.identity);
     }
 
+    private void OnEnable()
+    {
+        SceneManager.sceneLoaded += RefreshReference;
+    }
+
+    private void OnDisable()
+    {
+        SceneManager.sceneLoaded -= RefreshReference;
+    }
+
+    private void RefreshReference(Scene s, LoadSceneMode m)
+    {
+        cam = GameObject.FindGameObjectWithTag("MainCamera").transform;
+    }
+    
     private void Update()
     {
         if (counter > spawnTime)

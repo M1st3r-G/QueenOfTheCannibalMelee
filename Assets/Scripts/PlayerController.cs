@@ -1,3 +1,4 @@
+using System.Collections;
 using UnityEngine;
 using UnityEngine.InputSystem;
 using UnityEngine.SceneManagement;
@@ -8,11 +9,13 @@ public class PlayerController : MonoBehaviour
     //ComponentReferences
     private Rigidbody2D rb;
     private Animator anim;
+    private CapsuleCollider2D fist;
     //Param 
+    [SerializeField] private float attackCooldown;
     [SerializeField] private float speed;
     //Temps
     private float direction;
-
+    private bool canAttack;
     private static readonly int Hit = Animator.StringToHash("Hit");
     //Publics
      
@@ -22,8 +25,12 @@ public class PlayerController : MonoBehaviour
         
         rb = GetComponent<Rigidbody2D>();
         anim = GetComponent<Animator>();
+        fist = transform.GetChild(0).GetComponent<CapsuleCollider2D>();
+        fist.enabled = false;
         
         LineManager.Instance.SetToLine(gameObject, 0);
+
+        canAttack = true; 
     }
     
     private void OnEnable()
@@ -47,7 +54,16 @@ public class PlayerController : MonoBehaviour
     {
         if (!ctx.performed) return;
         print("Received AttackInput");
+        if (!canAttack)
+        {
+            print("Still in Cooldown");
+            return;
+        }
         anim.SetTrigger(Hit);
+        canAttack = false;
+        fist.enabled = true;
+        
+        StartCoroutine(SetAttack());
     }
     
     public void OnMove(InputAction.CallbackContext ctx)
@@ -89,5 +105,18 @@ public class PlayerController : MonoBehaviour
     private void OnTriggerEnter2D(Collider2D other)
     { 
         if(other.gameObject.CompareTag("Transition")) GameManager.LoadNextScene();
+    }
+
+    private IEnumerator SetAttack()
+    {
+        float counter = 0;
+        while (counter < attackCooldown)
+        {
+            counter += Time.deltaTime;
+            yield return null;
+        }
+
+        fist.enabled = false;
+        canAttack = true; 
     }
 }
