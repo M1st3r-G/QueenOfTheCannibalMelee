@@ -1,15 +1,19 @@
 using UnityEngine;
 using UnityEngine.InputSystem;
+using UnityEngine.SceneManagement;
 
 [RequireComponent(typeof(Rigidbody2D))]
 public class PlayerController : MonoBehaviour
 {
     //ComponentReferences
     private Rigidbody2D rb;
-    //Params
+    private Animator anim;
+    //Param 
     [SerializeField] private float speed;
     //Temps
     private float direction;
+
+    private static readonly int Hit = Animator.StringToHash("Hit");
     //Publics
      
     private void Awake()
@@ -17,14 +21,33 @@ public class PlayerController : MonoBehaviour
         DontDestroyOnLoad(gameObject);
         
         rb = GetComponent<Rigidbody2D>();
+        anim = GetComponent<Animator>();
         
         LineManager.Instance.SetToLine(gameObject, 0);
+    }
+    
+    private void OnEnable()
+    {
+        SceneManager.sceneLoaded += ResetPosition;
+    }
+
+    private void OnDisable()
+    {
+        SceneManager.sceneLoaded -= ResetPosition;
+    }
+
+    private void ResetPosition(Scene s, LoadSceneMode m)
+    {
+        Vector3 newPos = new Vector3(-3, transform.position.y, transform.position.z);
+        transform.position = newPos;
+        print($"Reset Position to {newPos}");
     }
     
     public void OnAttack(InputAction.CallbackContext ctx)
     {
         if (!ctx.performed) return;
         print("Received AttackInput");
+        anim.SetTrigger(Hit);
     }
     
     public void OnMove(InputAction.CallbackContext ctx)
