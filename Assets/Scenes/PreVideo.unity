@@ -327,7 +327,7 @@ MonoBehaviour:
       m_Action: Skip
       m_Flags: 0
     m_Flags: 0
-  video: {fileID: 32900000, guid: 9e93a6c8ab414ca44ae2fe98f311f8a5, type: 3}
+  video: {fileID: 32900000, guid: a679beff9b279ca48a0ef89023187d24, type: 3}
 --- !u!1 &1888933950
 GameObject:
   m_ObjectHideFlags: 0
@@ -445,7 +445,7 @@ VideoPlayer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 2030746877}
   m_Enabled: 1
-  m_VideoClip: {fileID: 32900000, guid: 9e93a6c8ab414ca44ae2fe98f311f8a5, type: 3}
+  m_VideoClip: {fileID: 32900000, guid: a679beff9b279ca48a0ef89023187d24, type: 3}
   m_TargetCameraAlpha: 1
   m_TargetCamera3DLayout: 0
   m_TargetCamera: {fileID: 0}
