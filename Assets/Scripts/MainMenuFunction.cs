@@ -16,14 +16,14 @@ public class MainMenuFunction : MonoBehaviour
     public void OnSettingsClick()
     {
         effects.PlayOneShot(clips[1]);
-        StartCoroutine(DelaySceneLoad(clips[1].length, 3));
+        StartCoroutine(DelaySceneLoad(clips[1].length, 2));
     }
 
     // Spiel Starten
     public void OnPlayClick()
     {
         effects.PlayOneShot(clips[1]);
-        StartCoroutine(DelaySceneLoad(clips[1].length, 4));
+        StartCoroutine(DelaySceneLoad(clips[1].length, 3));
     }
     
     // Spiel Beenden
