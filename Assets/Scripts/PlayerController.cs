@@ -19,6 +19,10 @@ public class PlayerController : MonoBehaviour
     private float direction;
     private bool canAttack;
     private static readonly int Hit = Animator.StringToHash("Hit");
+
+    private static readonly int Change = Animator.StringToHash("Change");
+
+    private static readonly int Direction = Animator.StringToHash("Direction");
     //Publics
      
     private void Awake()
@@ -47,8 +51,12 @@ public class PlayerController : MonoBehaviour
         {
             switch (clip.name)
             {
-                case "Punch":
+                case "PlayerPunch":
                     attackCooldown = clip.length;
+                    break;
+                case "PlayerWalk":
+                    break;
+                case "PlayerChangeLine":
                     break;
                 default:
                     throw new IndexOutOfRangeException();
@@ -121,6 +129,7 @@ public class PlayerController : MonoBehaviour
         if (!canAttack) return;
         if (!ctx.performed) return;
         print("Received ChangeLineDown Input");
+        anim.SetTrigger(Change);
         ChangeLine(-1);
     }
 
@@ -138,6 +147,7 @@ public class PlayerController : MonoBehaviour
     private void FixedUpdate()
     {
         direction = canAttack ? moveAction.ReadValue<float>() : 0; // GetInput
+        anim.SetFloat(Direction, direction);
         rb.velocity = Vector2.right * (direction * speed);
     }
     
