@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using UnityEngine;
 using UnityEngine.InputSystem;
@@ -25,6 +26,7 @@ public class PlayerController : MonoBehaviour
         
         rb = GetComponent<Rigidbody2D>();
         anim = GetComponent<Animator>();
+        UpdateCooldownTime();
         fist = transform.GetChild(0).GetComponent<CapsuleCollider2D>();
         fist.enabled = false;
         
@@ -32,7 +34,23 @@ public class PlayerController : MonoBehaviour
 
         canAttack = true; 
     }
-    
+
+    private void UpdateCooldownTime()
+    {
+        
+        foreach (AnimationClip clip in anim.runtimeAnimatorController.animationClips)
+        {
+            switch (clip.name)
+            {
+                case "Punch":
+                    attackCooldown = clip.length;
+                    break;
+                default:
+                    throw new IndexOutOfRangeException();
+            }
+        }
+    }
+
     private void OnEnable()
     {
         SceneManager.sceneLoaded += ResetPosition;
@@ -56,7 +74,7 @@ public class PlayerController : MonoBehaviour
         print("Received AttackInput");
         if (!canAttack)
         {
-            print("Still in Cooldown");
+            print("Still Attacking");
             return;
         }
         anim.SetTrigger(Hit);
@@ -68,6 +86,7 @@ public class PlayerController : MonoBehaviour
     
     public void OnMove(InputAction.CallbackContext ctx)
     {
+        if (!canAttack) return;
         if (ctx.canceled)
         {
             direction = 0f;
@@ -78,6 +97,7 @@ public class PlayerController : MonoBehaviour
 
     public void OnChangeLineUp(InputAction.CallbackContext ctx)
     {
+        if (!canAttack) return;
         if (!ctx.performed) return;
         print("Received ChangeLineUp Input");
         ChangeLine(1);
@@ -85,6 +105,7 @@ public class PlayerController : MonoBehaviour
     
     public void OnChangeLineDown(InputAction.CallbackContext ctx)
     {
+        if (!canAttack) return;
         if (!ctx.performed) return;
         print("Received ChangeLineDown Input");
         ChangeLine(-1);
