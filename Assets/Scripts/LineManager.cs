@@ -14,7 +14,6 @@ public class LineManager : MonoBehaviour
     [SerializeField] private float displacementBetweenLines;
 
     //Temps
-    private List<GameObject>[] objectsInLine;
     //Publics
     public static LineManager Instance => _instance;
     private static LineManager _instance;
@@ -29,12 +28,6 @@ public class LineManager : MonoBehaviour
         _instance = this;
         DontDestroyOnLoad(this);
         
-        objectsInLine = new List<GameObject>[numberOfLines];
-        for (int i = 0; i < numberOfLines; i++)
-        {
-            objectsInLine[i] = new List<GameObject>();
-        }
-
         LineHeights = new float[numberOfLines];
         for (int i = 0; i < numberOfLines; i++)
         {
@@ -59,7 +52,6 @@ public class LineManager : MonoBehaviour
         int currentLine = GetLine(g);
         if (currentLine == -1) throw new Exception("Object not in Array");
         if (currentLine == newLine) return;
-        objectsInLine[currentLine].Remove(g);
         InnerSetLine(g, newLine, currentLine);
         print($"Changed the line of {g.name} from {currentLine} to Line {newLine}");
 
@@ -78,39 +70,27 @@ public class LineManager : MonoBehaviour
         print($"Set Line of {g.name} to {startLine}");
     }
 
+    /// <summary>
+    /// Not for Use Outside this Class, Sets the Gameobject g to Line l and adjusts the Position. A previous line of -1 Will be interpretet as the Object not being in a Line before
+    /// </summary>
+    /// <param name="g">The GameObjetc to set</param>
+    /// <param name="l">The LineIndex to set to</param>
+    /// <param name="prev">The Line the Object was first in (-1 if left empty)</param>
     private void InnerSetLine(GameObject g, int l, int prev = -1)
     {
-        objectsInLine[l].Add(g);
         float dis = prev == -1 ? 0 : displacementBetweenLines * (l - prev);
-        Vector3 currentPos = g.transform.position;
         g.transform.position = new Vector3(
             g.transform.position.x + dis, // Add Displacement to Add depth (Except its first)
             LineHeights[l], 
-            l);
+            l); // Changes the Z Value, so Objects in Higher Lines appear Behind
         g.layer = LayerMask.NameToLayer($"Line{l + 1}");
-        // Changes the Z Value, so Objects in Higher Lines appear Behind
     }
     
     /// <summary>
-    /// Returns the LineIndex of a given GameObject. Returns -1 if the GameObject is not found.
+    /// Returns the LineIndex of a given GameObject.
     /// </summary>
     /// <param name="g">The GameObject to Search for</param>
     /// <returns>The Index of the Line the GameObjet is in</returns>
-    public int GetLine(GameObject g)
-    {
-        int i = 0;
-        foreach (List<GameObject> line in objectsInLine)
-        {
-            if (line.Contains(g)) return i;
-            i++;
-        }
-
-        return -1;
-    }
-    
-    public List<GameObject> GetObjectsInLine(int n)
-    {
-        if (0 > n || n >= numberOfLines) return null;
-        return objectsInLine[n];
-    }
+    /// <exception cref="IndexOutOfRangeException">Raised if Object not in a Right Layer</exception>
+    public static int GetLine(GameObject g) => LayerMask.LayerToName(g.layer)[^1] - '0';
 }

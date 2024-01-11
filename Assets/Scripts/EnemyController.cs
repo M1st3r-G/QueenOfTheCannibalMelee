@@ -18,6 +18,7 @@ public class EnemyController : MonoBehaviour
         rb.velocity = Vector2.left * movementSpeed;
     }
 
+    
     private void OnTriggerEnter2D(Collider2D other)
     {
         if (!other.gameObject.CompareTag("Damage")) return;

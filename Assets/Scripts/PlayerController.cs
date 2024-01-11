@@ -36,6 +36,10 @@ public class PlayerController : MonoBehaviour
         canAttack = true; 
     }
 
+    /// <summary>
+    /// Used to Update the Cooldown times (the length of the Animations)
+    /// </summary>
+    /// <exception cref="IndexOutOfRangeException">Raised, when the Name of a animation is not found</exception>
     private void UpdateCooldownTime()
     {
         
@@ -62,22 +66,33 @@ public class PlayerController : MonoBehaviour
         SceneManager.sceneLoaded -= ResetPosition;
     }
 
+    /// <summary>
+    /// Resets the Player X position to -4 when a new Scene is Loaded  
+    /// </summary>
+    /// <param name="s">irrelevant</param>
+    /// <param name="m">irrelevant</param>
     private void ResetPosition(Scene s, LoadSceneMode m)
     {
-        Vector3 newPos = new Vector3(-3, transform.position.y, transform.position.z);
+        Vector3 newPos = new Vector3(-4, transform.position.y, transform.position.z);
         transform.position = newPos;
         print($"Reset Position to {newPos}");
     }
     
+    /// <summary>
+    /// Is Called by the PlayerInput Component when the Attack Input is given, to Attack
+    /// </summary>
+    /// <param name="ctx">The Context of the Triggered Action</param>
     public void OnAttack(InputAction.CallbackContext ctx)
     {
         if (!ctx.performed) return;
         print("Received AttackInput");
-        if (!canAttack)
+        
+        if (!canAttack) // Forbids Multiple Attacks at once
         {
             print("Still Attacking");
             return;
         }
+        
         anim.SetTrigger(Hit);
         canAttack = false;
         fist.enabled = true;
@@ -85,6 +100,10 @@ public class PlayerController : MonoBehaviour
         StartCoroutine(SetAttack());
     }
 
+    /// <summary>
+    /// Is Called by the PlayerInput Component when the LineChangeUp Input is given, to Change the Line
+    /// </summary>
+    /// <param name="ctx">The Context of the Triggered Action</param>
     public void OnChangeLineUp(InputAction.CallbackContext ctx)
     {
         if (!canAttack) return;
@@ -93,6 +112,10 @@ public class PlayerController : MonoBehaviour
         ChangeLine(1);
     }
     
+    /// <summary>
+    /// Is Called by the PlayerInput Component when the LineChangeUp Input is given, to Change the Line
+    /// </summary>
+    /// <param name="ctx">The Context of the Triggered Action</param>
     public void OnChangeLineDown(InputAction.CallbackContext ctx)
     {
         if (!canAttack) return;
@@ -101,16 +124,20 @@ public class PlayerController : MonoBehaviour
         ChangeLine(-1);
     }
 
+    /// <summary>
+    /// Used internally to Chang the Line
+    /// </summary>
+    /// <param name="dir">Either 1 or -1 to go up or down</param>
     private void ChangeLine(int dir) => 
         LineManager.Instance.ChangeLine(gameObject, Mathf.Clamp(
-            LineManager.Instance.GetLine(gameObject) + dir, 
+            LineManager.GetLine(gameObject) + dir, 
             0, 
             LineManager.Instance.NumberOfLines - 1));
     
     
     private void FixedUpdate()
     {
-        direction = canAttack ? moveAction.ReadValue<float>() : 0;
+        direction = canAttack ? moveAction.ReadValue<float>() : 0; // GetInput
         rb.velocity = Vector2.right * (direction * speed);
     }
     
@@ -119,6 +146,10 @@ public class PlayerController : MonoBehaviour
         if(other.gameObject.CompareTag("Transition")) GameManager.LoadNextScene();
     }
 
+    /// <summary>
+    /// A Coroutine used to disable Attack Settings after the Attack Cooldown is expired
+    /// </summary>
+    /// <returns>irrelevant, as this is used as a Coroutine</returns>
     private IEnumerator SetAttack()
     {
         float counter = 0;

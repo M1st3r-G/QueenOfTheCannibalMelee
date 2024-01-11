@@ -11,28 +11,28 @@ public class GameManager : MonoBehaviour
     //Params
     [SerializeField] private float spawnTime;
     //Temps
+    private bool isInLoading;
     private float counter;
     //Publics
-    public static GameManager Instance => _instance;
-    private static GameManager _instance;
+    public static GameManager Instance { get; private set; }
 
-    private int nextLevel;
+    public int NextLevelIndex { get; private set; }
 
-    public int NextLevelIndex => nextLevel;
     private void Awake()
     {
-        if (_instance is not null)
+        if (Instance is not null)
         {
             Destroy(gameObject);
             return;
         }
-        _instance = this;
+        Instance = this;
         DontDestroyOnLoad(this);
 
         cam = GameObject.FindGameObjectWithTag("MainCamera").transform;
+        isInLoading = false;
         
         Instantiate(playerPrefab, new Vector3(LineManager.Instance.LineHeights[0], -3, 0f), Quaternion.identity);
-        nextLevel = SceneManager.GetActiveScene().buildIndex;
+        NextLevelIndex = SceneManager.GetActiveScene().buildIndex;
     }
 
     private void OnEnable()
@@ -45,14 +45,21 @@ public class GameManager : MonoBehaviour
         SceneManager.sceneLoaded -= RefreshReference;
     }
 
+    /// <summary>
+    /// This Method is Triggered when Loading into a new Scene, it resets Refrences and counts up the Levels
+    /// </summary>
+    /// <param name="s">irrelevant</param>
+    /// <param name="m">irrelevant</param>
     private void RefreshReference(Scene s, LoadSceneMode m)
     {
         cam = GameObject.FindGameObjectWithTag("MainCamera").transform;
-        nextLevel++;
+        NextLevelIndex++;
+        isInLoading = !isInLoading; 
     }
     
     private void Update()
     {
+        if (isInLoading) return;
         if (counter > spawnTime)
         {
             counter = 0;
@@ -64,9 +71,12 @@ public class GameManager : MonoBehaviour
 
     private void OnDestroy()
     {
-        _instance = null;
+        Instance = null;
     }
     
+    /// <summary>
+    /// Spawns an Enemy on the right side of the Camera in a Random Line
+    /// </summary>
     private void SpawnEnemy()
     {
         Vector3 pos = cam.position + Vector3.right * 5;
@@ -74,6 +84,9 @@ public class GameManager : MonoBehaviour
         LineManager.Instance.SetToLine(enemy, Random.Range(0, LineManager.Instance.NumberOfLines));
     }
     
+    /// <summary>
+    /// Loads the Next Scene in BuildSettings, if the Current Scene was the Last Scene, it Resets to Index 0
+    /// </summary>
     public static void LoadNextScene()
     {   
         int nextSceneIndex = SceneManager.GetActiveScene().buildIndex + 1;

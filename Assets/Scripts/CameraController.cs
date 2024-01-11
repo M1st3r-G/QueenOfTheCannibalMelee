@@ -1,4 +1,3 @@
-using System;
 using UnityEngine;
 
 public class CameraController : MonoBehaviour
@@ -19,6 +18,9 @@ public class CameraController : MonoBehaviour
         target = GameObject.FindGameObjectWithTag("Player");
     }
 
+    /// <summary>
+    /// Follows the Player but keeps X Coordinate in the Bounds
+    /// </summary>
     private void Update()
     {
         float velocity = Mathf.Max(target.transform.position.x - (xTarget + transform.position.x), 0);

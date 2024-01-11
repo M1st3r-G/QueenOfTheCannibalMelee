@@ -20,6 +20,10 @@ public class LoadingScreenController : MonoBehaviour
         StartCoroutine(AfterVideoEnds());
     }
 
+    /// <summary>
+    /// Loads the Next Scene when the WaitTime (Length of the Video + 0.1) is over. The Next Scene is decided by the GameManager NextLevelIndex Property
+    /// </summary>
+    /// <returns>irrelevant, as this is a Coroutine</returns>
     private IEnumerator AfterVideoEnds()
     {
         float counter = 0;

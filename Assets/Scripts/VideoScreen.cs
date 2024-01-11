@@ -9,6 +9,7 @@ public class VideoScreen : MonoBehaviour
     [SerializeField] private InputAction skip;
     [SerializeField] private VideoClip video;
     private float waitTime;
+    
     private void OnEnable()
     {
         skip.Enable();
@@ -27,6 +28,10 @@ public class VideoScreen : MonoBehaviour
         StartCoroutine(AfterVideoEnds());
     }
 
+    /// <summary>
+    /// Loads the Next Scene after the video ends
+    /// </summary>
+    /// <returns></returns>
     private IEnumerator AfterVideoEnds()
     {
         float counter = 0;
@@ -38,6 +43,10 @@ public class VideoScreen : MonoBehaviour
         Skip(new InputAction.CallbackContext());
     }
     
+    /// <summary>
+    /// Triggered by the Skip Action or as a result of the <see cref="AfterVideoEnds"/> Coroutine has ended, to load the next Scene.
+    /// </summary>
+    /// <param name="ctx">irrelevant in this Context</param>
     private void Skip(InputAction.CallbackContext ctx)
     {
         SceneManager.LoadScene(1);
