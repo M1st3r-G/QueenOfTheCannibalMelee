@@ -56,10 +56,10 @@ public class PlayerController : MonoBehaviour
                     break;
                 case "PlayerWalk":
                     break;
-                case "PlayerChangeLine":
+                case "PlayerLineChange":
                     break;
                 default:
-                    throw new IndexOutOfRangeException();
+                    throw new IndexOutOfRangeException($"{clip.name}");
             }
         }
     }

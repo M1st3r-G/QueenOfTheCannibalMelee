@@ -62,10 +62,8 @@ public class LineManager : MonoBehaviour
     /// </summary>
     /// <param name="g">The Object to set</param>
     /// <param name="startLine">The LineIndex to set into</param>
-    /// <exception cref="Exception">Raised if the Object is present</exception>
     public void SetToLine(GameObject g, int startLine)
     {
-        if (GetLine(g) != -1) throw new Exception("Object already in Lines");
         InnerSetLine(g, startLine);
         print($"Set Line of {g.name} to {startLine}");
     }
