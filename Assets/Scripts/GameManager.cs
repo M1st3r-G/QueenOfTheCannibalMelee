@@ -15,7 +15,10 @@ public class GameManager : MonoBehaviour
     //Publics
     public static GameManager Instance => _instance;
     private static GameManager _instance;
-    
+
+    private int nextLevel;
+
+    public int NextLevelIndex => nextLevel;
     private void Awake()
     {
         if (_instance is not null)
@@ -29,6 +32,7 @@ public class GameManager : MonoBehaviour
         cam = GameObject.FindGameObjectWithTag("MainCamera").transform;
         
         Instantiate(playerPrefab, new Vector3(LineManager.Instance.LineHeights[0], -3, 0f), Quaternion.identity);
+        nextLevel = SceneManager.GetActiveScene().buildIndex;
     }
 
     private void OnEnable()
@@ -44,6 +48,7 @@ public class GameManager : MonoBehaviour
     private void RefreshReference(Scene s, LoadSceneMode m)
     {
         cam = GameObject.FindGameObjectWithTag("MainCamera").transform;
+        nextLevel++;
     }
     
     private void Update()
