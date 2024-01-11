@@ -11,9 +11,10 @@ public class PlayerController : MonoBehaviour
     private Rigidbody2D rb;
     private Animator anim;
     private CapsuleCollider2D fist;
+    private InputAction moveAction;
     //Param 
-    [SerializeField] private float attackCooldown;
     [SerializeField] private float speed;
+    private float attackCooldown;
     //Temps
     private float direction;
     private bool canAttack;
@@ -31,7 +32,7 @@ public class PlayerController : MonoBehaviour
         fist.enabled = false;
         
         LineManager.Instance.SetToLine(gameObject, 0);
-
+        moveAction = GetComponent<PlayerInput>().actions.FindAction("Move");
         canAttack = true; 
     }
 
@@ -83,17 +84,6 @@ public class PlayerController : MonoBehaviour
         
         StartCoroutine(SetAttack());
     }
-    
-    public void OnMove(InputAction.CallbackContext ctx)
-    {
-        if (!canAttack) return;
-        if (ctx.canceled)
-        {
-            direction = 0f;
-            return;
-        }
-        direction = ctx.ReadValue<float>();
-    }
 
     public void OnChangeLineUp(InputAction.CallbackContext ctx)
     {
@@ -120,6 +110,7 @@ public class PlayerController : MonoBehaviour
     
     private void FixedUpdate()
     {
+        direction = canAttack ? moveAction.ReadValue<float>() : 0;
         rb.velocity = Vector2.right * (direction * speed);
     }
     

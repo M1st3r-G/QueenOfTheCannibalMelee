@@ -6,19 +6,18 @@ public class LineManager : MonoBehaviour
 {
     //ComponentReferences
     //Params
-    [SerializeField] private int numberOfLines;
     public int NumberOfLines => numberOfLines;
+    [SerializeField] [Range(1, 5)] private int numberOfLines;
+    public float[] LineHeights { get; private set; }
     [SerializeField] private float heightOfLine;
     [SerializeField] private float firstLine;
-    private float[] lineHeights;
     [SerializeField] private float displacementBetweenLines;
-    public float[] LineHeights => lineHeights;
 
     //Temps
     private List<GameObject>[] objectsInLine;
     //Publics
-    private static LineManager _instance;
     public static LineManager Instance => _instance;
+    private static LineManager _instance;
     
     private void Awake()
     {
@@ -29,17 +28,17 @@ public class LineManager : MonoBehaviour
         }
         _instance = this;
         DontDestroyOnLoad(this);
-
+        
         objectsInLine = new List<GameObject>[numberOfLines];
         for (int i = 0; i < numberOfLines; i++)
         {
             objectsInLine[i] = new List<GameObject>();
         }
 
-        lineHeights = new float[numberOfLines];
+        LineHeights = new float[numberOfLines];
         for (int i = 0; i < numberOfLines; i++)
         {
-            lineHeights[i] = firstLine + i * heightOfLine;
+            LineHeights[i] = firstLine + i * heightOfLine;
         }
     }
     
@@ -86,8 +85,9 @@ public class LineManager : MonoBehaviour
         Vector3 currentPos = g.transform.position;
         g.transform.position = new Vector3(
             g.transform.position.x + dis, // Add Displacement to Add depth (Except its first)
-            lineHeights[l], 
+            LineHeights[l], 
             l);
+        g.layer = LayerMask.NameToLayer($"Line{l + 1}");
         // Changes the Z Value, so Objects in Higher Lines appear Behind
     }
     
