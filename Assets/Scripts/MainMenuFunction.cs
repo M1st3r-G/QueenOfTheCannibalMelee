@@ -11,18 +11,22 @@ public class MainMenuFunction : MonoBehaviour
     //Temps
     //Publics
 
-    public void OnSettingsClick()
-    {
-        effects.PlayOneShot(clips[1]);
-        StartCoroutine(DelaySceneLoad(clips[1].length, 2));
-    }
 
-    public void OnPlayClick()
+    // Einstellungen
+    public void OnSettingsClick()
     {
         effects.PlayOneShot(clips[1]);
         StartCoroutine(DelaySceneLoad(clips[1].length, 3));
     }
+
+    // Spiel Starten
+    public void OnPlayClick()
+    {
+        effects.PlayOneShot(clips[1]);
+        StartCoroutine(DelaySceneLoad(clips[1].length, 4));
+    }
     
+    // Spiel Beenden
     public void OnQuitClick()
     {
         effects.PlayOneShot(clips[1]);
