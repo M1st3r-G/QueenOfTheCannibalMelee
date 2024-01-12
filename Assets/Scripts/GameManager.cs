@@ -30,8 +30,8 @@ public class GameManager : MonoBehaviour
 
         cam = GameObject.FindGameObjectWithTag("MainCamera").transform;
         isInLoading = false;
-        
-        Instantiate(playerPrefab, new Vector3(LineManager.Instance.LineHeights[0], -3, 0f), Quaternion.identity);
+
+        Instantiate(playerPrefab, Vector3.zero, Quaternion.identity);
         NextLevelIndex = SceneManager.GetActiveScene().buildIndex;
     }
 
