@@ -8,7 +8,7 @@ public class PlayerController : MonoBehaviour
     //ComponentReferences
     private Rigidbody2D rb;
     private InputAction moveAction;
-    [SerializeField] private CapsuleCollider2D fist;
+    private CapsuleCollider2D fist;
     //Params
     [SerializeField] private float speed;
     [SerializeField] private float attackCooldown;
@@ -22,6 +22,7 @@ public class PlayerController : MonoBehaviour
     {
         DontDestroyOnLoad(gameObject);
         rb = GetComponent<Rigidbody2D>();
+        fist = transform.GetChild(0).GetComponent<CapsuleCollider2D>();
         fist.enabled = false;
 
         transform.position =  LineManager.Instance.SetToLine(gameObject, 0);

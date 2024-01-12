@@ -168,7 +168,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f92cbdc2ed6a1b44a8901ed32f683d48, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  fist: {fileID: 2727263294656047502}
   speed: 5
   attackCooldown: 1
   lineCooldown: 1

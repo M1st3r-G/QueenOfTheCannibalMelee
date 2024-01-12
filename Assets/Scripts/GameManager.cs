@@ -29,7 +29,7 @@ public class GameManager : MonoBehaviour
         DontDestroyOnLoad(this);
 
         cam = GameObject.FindGameObjectWithTag("MainCamera").transform;
-        isInLoading = false;
+        isInLoading = true;
 
         Instantiate(playerPrefab, Vector3.zero, Quaternion.identity);
         NextLevelIndex = SceneManager.GetActiveScene().buildIndex;
@@ -79,8 +79,8 @@ public class GameManager : MonoBehaviour
     /// </summary>
     private void SpawnEnemy()
     {
-        Vector3 pos = cam.position + Vector3.right * 5;
-        GameObject enemy = Instantiate(enemyPrefab, pos, Quaternion.identity);
+        print("Spawned Enemy");
+        GameObject enemy = Instantiate(enemyPrefab, Vector3.right * (cam.position.x + 5), Quaternion.identity);
         enemy.transform.position = LineManager.Instance.SetToLine(enemy, Random.Range(0, LineManager.Instance.NumberOfLines));
     }
     

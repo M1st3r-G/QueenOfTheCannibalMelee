@@ -8,11 +8,12 @@ public class EnemyController : MonoBehaviour
     //ComponentReferences
     private Rigidbody2D rb;
     private PlayerController target;
-    [SerializeField] private CapsuleCollider2D fist;
+    private CapsuleCollider2D fist;
     //Params
+    [SerializeField] private float movementSpeed;
+    
     [SerializeField] private float attackDistance;
     [SerializeField] private float changeDistance;
-    [SerializeField] private float movementSpeed;
     [SerializeField] private float attackCooldown;
     [SerializeField] private float lineCooldown;
     //Temps
@@ -23,6 +24,10 @@ public class EnemyController : MonoBehaviour
     private void Awake()
     {
         rb = GetComponent<Rigidbody2D>();
+
+        target = GameObject.FindGameObjectWithTag("Player").GetComponent<PlayerController>();
+        
+        fist = transform.GetChild(0).GetComponent<CapsuleCollider2D>();
         fist.enabled = false;
         
         direction = -1;
@@ -39,16 +44,16 @@ public class EnemyController : MonoBehaviour
         int playerLine = LayerMask.LayerToName(target.gameObject.layer)[^1] - '0' -1;
         int enemyLine = LayerMask.LayerToName(gameObject.layer)[^1] - '0' - 1;
         
-        if (Mathf.Abs(target.transform.position.x - transform.position.x) > changeDistance && playerLine != enemyLine)
+        /*if (Mathf.Abs(target.transform.position.x - transform.position.x) > changeDistance && playerLine != enemyLine)
         {
             StartCoroutine(LineChangeRoutine((int)Mathf.Sign(playerLine - enemyLine)));
         }
         else if (Mathf.Abs(target.transform.position.x - transform.position.x) > attackDistance)
         {
             StartCoroutine(AttackRoutine());
-        }
+        }*/
 
-        direction = actionActive ? Mathf.Sign(transform.position.x - target.transform.position.x) : 0;
+        direction = !actionActive ? Mathf.Sign(target.transform.position.x - transform.position.x) : 0;
     }
 
     private void FixedUpdate()
