@@ -5,28 +5,60 @@ using UnityEngine.SceneManagement;
 
 public class PlayerController : MonoBehaviour
 {
+    private static readonly int AnimatorDirection = Animator.StringToHash("Direction");
+    private static readonly int AnimatorChangeTrigger = Animator.StringToHash("Change");
+    private static readonly int AnimatorAttackTrigger = Animator.StringToHash("Hit");
+    
     //ComponentReferences
     private Rigidbody2D rb;
+    private Animator anim;
     private InputAction moveAction;
     private CapsuleCollider2D fist;
     //Params
     [SerializeField] private float speed;
-    [SerializeField] private float attackCooldown;
-    [SerializeField] private float lineCooldown;
+    
+    private float attackCooldown;
+    private float lineCooldown;
     //Temps
     private float direction;
     private bool actionActive;
+
+
     // Publics
 
     private void Awake()
     {
         DontDestroyOnLoad(gameObject);
+        
         rb = GetComponent<Rigidbody2D>();
+        anim = GetComponent<Animator>();
+        
         fist = transform.GetChild(0).GetComponent<CapsuleCollider2D>();
         fist.enabled = false;
 
+        UpdateCooldowns();
+        
         transform.position =  LineManager.Instance.SetToLine(gameObject, 0);
         moveAction = GetComponent<PlayerInput>().actions.FindAction("Move");
+    }
+
+    private void UpdateCooldowns()
+    {
+        foreach (AnimationClip clip in anim.runtimeAnimatorController.animationClips)
+        {
+            switch (clip.name)
+            {
+                case "PlayerPunch":
+                    attackCooldown = clip.length;
+                    break;
+                case "PlayerLineChange":
+                    lineCooldown = clip.length;
+                    break;
+                default:
+                    print($"Did not find {clip.name}");
+                    break;
+            }
+        }
     }
     
     private void OnEnable()
@@ -90,12 +122,14 @@ public class PlayerController : MonoBehaviour
     private void FixedUpdate()
     {
         direction = !actionActive ? moveAction.ReadValue<float>() : 0;
+        anim.SetFloat(AnimatorDirection, direction);
         rb.velocity = Vector2.right * (direction * speed);
     }
     
     private IEnumerator LineChangeRoutine(int dir)
     {
         actionActive = true;
+        anim.SetTrigger(AnimatorChangeTrigger);
         int newLine = Mathf.Clamp(
             LayerMask.LayerToName(gameObject.layer)[^1] - '0' + dir - 1,
             0,
@@ -118,6 +152,7 @@ public class PlayerController : MonoBehaviour
     private IEnumerator AttackRoutine()
     {
         actionActive = true;
+        anim.SetTrigger(AnimatorAttackTrigger);
         fist.enabled = true;
         
         float counter = 0;

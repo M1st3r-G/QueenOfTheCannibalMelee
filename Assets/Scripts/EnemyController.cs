@@ -15,8 +15,8 @@ public class EnemyController : MonoBehaviour
     [SerializeField] private float attackDistance;
     [SerializeField] private float changeDistance;
     
-    [SerializeField] private float attackCooldown;
-    [SerializeField] private float lineCooldown;
+    private float attackCooldown;
+    private float lineCooldown;
     //Temps
     private float direction;
     private bool actionActive;
@@ -30,10 +30,31 @@ public class EnemyController : MonoBehaviour
         
         fist = transform.GetChild(0).GetComponent<CapsuleCollider2D>();
         fist.enabled = actionActive = false;
+        
+        //UpdateCooldowns();
 
         direction = -1;
     }
 
+    /*private void UpdateCooldowns()
+    {
+        foreach (AnimationClip clip in anim.runtimeAnimatorController.animationClips)
+        {
+            switch (clip.name)
+            {
+                case "PlayerPunch":
+                    attackCooldown = clip.length;
+                    break;
+                case "PlayerLineChange":
+                    lineCooldown = clip.length;
+                    break;
+                default:
+                    print($"Did not find {clip.name}");
+                    break;
+            }
+        }
+    }*/
+    
     /// <summary>
     /// Controls the AI of the Enemy
     /// </summary>
