@@ -229,8 +229,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 946990fdf1d5fd6409a34f07ece94c45, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  attackDistance: 0
-  changeDistance: 0
   movementSpeed: 3
-  attackCooldown: 0
-  lineCooldown: 0
+  attackDistance: 2
+  changeDistance: 6
+  attackCooldown: 1
+  lineCooldown: 1

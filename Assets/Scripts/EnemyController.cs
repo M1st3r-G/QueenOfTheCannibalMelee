@@ -14,6 +14,7 @@ public class EnemyController : MonoBehaviour
     
     [SerializeField] private float attackDistance;
     [SerializeField] private float changeDistance;
+    
     [SerializeField] private float attackCooldown;
     [SerializeField] private float lineCooldown;
     //Temps
@@ -28,8 +29,8 @@ public class EnemyController : MonoBehaviour
         target = GameObject.FindGameObjectWithTag("Player").GetComponent<PlayerController>();
         
         fist = transform.GetChild(0).GetComponent<CapsuleCollider2D>();
-        fist.enabled = false;
-        
+        fist.enabled = actionActive = false;
+
         direction = -1;
     }
 
@@ -39,21 +40,21 @@ public class EnemyController : MonoBehaviour
     /// <exception cref="NotImplementedException"></exception>
     private void Update()
     {
+        direction = !actionActive ? Mathf.Sign(target.transform.position.x - transform.position.x) : 0;
         if (actionActive) return;
 
-        int playerLine = LayerMask.LayerToName(target.gameObject.layer)[^1] - '0' -1;
+        int playerLine = LayerMask.LayerToName(target.gameObject.layer)[^1] - '0' - 1;
         int enemyLine = LayerMask.LayerToName(gameObject.layer)[^1] - '0' - 1;
         
-        /*if (Mathf.Abs(target.transform.position.x - transform.position.x) > changeDistance && playerLine != enemyLine)
+        if (Mathf.Abs(target.transform.position.x - transform.position.x) < changeDistance && playerLine != enemyLine)
         {
-            StartCoroutine(LineChangeRoutine((int)Mathf.Sign(playerLine - enemyLine)));
+            StartCoroutine(LineChangeRoutine((int) Mathf.Sign(playerLine - enemyLine)));
         }
-        else if (Mathf.Abs(target.transform.position.x - transform.position.x) > attackDistance)
+        else if (Mathf.Abs(target.transform.position.x - transform.position.x) < attackDistance)
         {
             StartCoroutine(AttackRoutine());
-        }*/
+        }
 
-        direction = !actionActive ? Mathf.Sign(target.transform.position.x - transform.position.x) : 0;
     }
 
     private void FixedUpdate()
@@ -68,9 +69,10 @@ public class EnemyController : MonoBehaviour
             LayerMask.LayerToName(gameObject.layer)[^1] - '0' + dir - 1,
             0,
             LineManager.Instance.NumberOfLines - 1);
-        print($"Enemy currently in line{LayerMask.LayerToName(gameObject.layer)}({LayerMask.LayerToName(gameObject.layer)[^1] - '0' - 1}) with dir={dir} so new line is {newLine}");
+        
         Vector3 newPos = LineManager.Instance.ChangeLine(gameObject, newLine);
         Vector3 oldPos = transform.position;
+        
         // Set Position Smoothly
         float counter = 0;
         if (newPos == oldPos) counter = lineCooldown + 1; // break if no change
