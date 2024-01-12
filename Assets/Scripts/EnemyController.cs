@@ -1,5 +1,6 @@
 using System;
 using System.Collections;
+using UnityEditor;
 using UnityEngine;
 
 [RequireComponent(typeof(Rigidbody2D))]
@@ -10,9 +11,14 @@ public class EnemyController : MonoBehaviour
     private PlayerController target;
     private CapsuleCollider2D fist;
     //Params
-    [SerializeField] private float movementSpeed;
+    public int Damage => baseDamage;
+    [SerializeField] private int baseDamage;
+
+    [SerializeField] private int maxHealth;
     
+    [SerializeField] private float movementSpeed;
     [SerializeField] private float attackDistance;
+    
     [SerializeField] private float changeDistance;
     
     private float attackCooldown = 1;
@@ -20,6 +26,8 @@ public class EnemyController : MonoBehaviour
     //Temps
     private float direction;
     private bool actionActive;
+
+    private int currentHealth;
     //Publics
 
     private void Awake()
@@ -126,5 +134,19 @@ public class EnemyController : MonoBehaviour
 
         fist.enabled = false;
         actionActive = false;
+    }
+    
+    private void TakeDamage(int amount)
+    {
+        currentHealth -= amount;
+        if (currentHealth > 0) return;
+        
+        Destroy(gameObject);
+    }
+    
+    private void OnTriggerEnter2D(Collider2D other)
+    { 
+        if(other.gameObject.CompareTag("Transition")) GameManager.LoadNextScene();
+        else if (other.gameObject.CompareTag("Enemy")) TakeDamage(other.gameObject.GetComponent<EnemyController>().Damage); 
     }
 }

@@ -16,12 +16,14 @@ public class PlayerController : MonoBehaviour
     private CapsuleCollider2D fist;
     //Params
     [SerializeField] private float speed;
+    [SerializeField] private int maxHealth;
     
     private float attackCooldown;
     private float lineCooldown;
     //Temps
     private float direction;
     private bool actionActive;
+    private int currentHealth;
 
 
     // Publics
@@ -36,6 +38,8 @@ public class PlayerController : MonoBehaviour
         fist = transform.GetChild(0).GetComponent<CapsuleCollider2D>();
         fist.enabled = false;
 
+        currentHealth = maxHealth;
+        
         UpdateCooldowns();
         
         transform.position =  LineManager.Instance.SetToLine(gameObject, 0);
@@ -165,9 +169,19 @@ public class PlayerController : MonoBehaviour
         fist.enabled = false;
         actionActive = false;
     }
+
+    private void TakeDamage(int amount)
+    {
+        currentHealth -= amount;
+        if (currentHealth > 0) return;
+        
+        Time.timeScale = 0;
+        print("GameOver");
+    }
     
     private void OnTriggerEnter2D(Collider2D other)
     { 
         if(other.gameObject.CompareTag("Transition")) GameManager.LoadNextScene();
+        else if (other.gameObject.CompareTag("Enemy")) TakeDamage(other.gameObject.GetComponent<EnemyController>().Damage); 
     }
 }
