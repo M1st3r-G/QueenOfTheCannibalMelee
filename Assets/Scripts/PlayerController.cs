@@ -133,5 +133,7 @@ public class PlayerController : MonoBehaviour
     private void OnTriggerEnter2D(Collider2D other)
     { 
         if(other.gameObject.CompareTag("Transition")) GameManager.LoadNextScene();
+        if (!other.gameObject.CompareTag("Damage")) return;
+        print($"{name} got Hit!");
     }
 }

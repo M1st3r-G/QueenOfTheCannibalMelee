@@ -81,7 +81,7 @@ public class GameManager : MonoBehaviour
     {
         Vector3 pos = cam.position + Vector3.right * 5;
         GameObject enemy = Instantiate(enemyPrefab, pos, Quaternion.identity);
-        LineManager.Instance.SetToLine(enemy, Random.Range(0, LineManager.Instance.NumberOfLines));
+        enemy.transform.position = LineManager.Instance.SetToLine(enemy, Random.Range(0, LineManager.Instance.NumberOfLines));
     }
     
     /// <summary>
