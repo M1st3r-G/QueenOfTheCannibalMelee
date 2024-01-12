@@ -3,7 +3,7 @@ using UnityEngine;
 public class HealthController : MonoBehaviour
 {
     //ComponentReferences
-    [SerializeField] private int maxHealth = 100;
+    [SerializeField] private int maxHealth;
     //Params
     //Temps
     private int currentHealth;
@@ -28,7 +28,7 @@ public class HealthController : MonoBehaviour
         // Reduce health by the specified damage amount
         currentHealth -= damage;
         
-        print("enemy took " + damage + " damage. Remaining HP: " + currentHealth);
+        print($"{gameObject.name} took {damage} damage. Remaining HP: {currentHealth}");
 
         if (currentHealth <= 0)
             Destroy(gameObject);

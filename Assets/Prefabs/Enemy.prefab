@@ -61,7 +61,7 @@ CapsuleCollider2D:
   m_CallbackLayers:
     serializedVersion: 2
     m_Bits: 4294967295
-  m_IsTrigger: 0
+  m_IsTrigger: 1
   m_UsedByEffector: 0
   m_UsedByComposite: 0
   m_Offset: {x: -1.14, y: 1.81}
@@ -232,7 +232,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   movementSpeed: 3
   attackDistance: 2
-  changeDistance: 6
+  changeDistance: 7
 --- !u!114 &2509609801887693604
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -245,4 +245,4 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ef3d383c664046645992fbba05e6c6ee, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  maxHealth: 25
+  maxHealth: 50

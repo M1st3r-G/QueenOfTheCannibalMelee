@@ -15,8 +15,8 @@ public class EnemyController : MonoBehaviour
     [SerializeField] private float attackDistance;
     [SerializeField] private float changeDistance;
     
-    private float attackCooldown;
-    private float lineCooldown;
+    private float attackCooldown = 1;
+    private float lineCooldown = 1;
     //Temps
     private float direction;
     private bool actionActive;
@@ -58,7 +58,6 @@ public class EnemyController : MonoBehaviour
     /// <summary>
     /// Controls the AI of the Enemy
     /// </summary>
-    /// <exception cref="NotImplementedException"></exception>
     private void Update()
     {
         direction = !actionActive ? Mathf.Sign(target.transform.position.x - transform.position.x) : 0;
@@ -75,7 +74,6 @@ public class EnemyController : MonoBehaviour
         {
             StartCoroutine(AttackRoutine());
         }
-
     }
 
     private void FixedUpdate()
@@ -86,6 +84,9 @@ public class EnemyController : MonoBehaviour
     private IEnumerator LineChangeRoutine(int dir)
     {
         actionActive = true;
+
+        print("Change Line");
+
         int newLine = Mathf.Clamp(
             LayerMask.LayerToName(gameObject.layer)[^1] - '0' + dir - 1,
             0,
@@ -96,10 +97,13 @@ public class EnemyController : MonoBehaviour
         
         // Set Position Smoothly
         float counter = 0;
+        print("Hi");
         if (newPos == oldPos) counter = lineCooldown + 1; // break if no change
+        print("Setting Positino");
         while (counter < lineCooldown)
         {
             counter += Time.deltaTime;
+            print($"{oldPos}|{newPos}");
             transform.position = Vector3.Lerp(oldPos, newPos, counter / lineCooldown);
             yield return null;
         }
@@ -110,7 +114,9 @@ public class EnemyController : MonoBehaviour
     {
         actionActive = true;
         fist.enabled = true;
-        
+
+        print("Attack!");
+
         float counter = 0;
         while (counter < attackCooldown)
         {
