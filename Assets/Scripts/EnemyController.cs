@@ -121,11 +121,4 @@ public class EnemyController : MonoBehaviour
         fist.enabled = false;
         actionActive = false;
     }
-    
-    private void OnTriggerEnter2D(Collider2D other)
-    {
-        if (!other.gameObject.CompareTag("Damage")) return;
-        print($"{name} got Hit!");
-        Destroy(gameObject);
-    }
 }
