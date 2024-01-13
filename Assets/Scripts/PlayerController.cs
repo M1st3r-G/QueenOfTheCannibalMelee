@@ -1,69 +1,22 @@
-using System.Collections;
 using UnityEngine;
 using UnityEngine.InputSystem;
 using UnityEngine.SceneManagement;
 
-public class PlayerController : MonoBehaviour
+public class PlayerController : Character
 {
-    private static readonly int AnimatorDirection = Animator.StringToHash("Direction");
-    private static readonly int AnimatorChangeTrigger = Animator.StringToHash("Change");
-    private static readonly int AnimatorAttackTrigger = Animator.StringToHash("Hit");
-    
     //ComponentReferences
-    private Rigidbody2D rb;
-    private Animator anim;
     private InputAction moveAction;
-    [SerializeField] private GameObject fistReference;
     //Params
-    public int Damage => baseDamage;
-    [SerializeField] private int baseDamage;
-    
-    [SerializeField] private int maxHealth;
-    [SerializeField] private float speed;
-    
-    
-    private float attackCooldown;
-    private float lineCooldown;
     //Temps
-    private float direction;
-    private bool actionActive;
-    private int currentHealth;
-
-
     // Publics
 
-    private void Awake()
+    private new void Awake()
     {
-        DontDestroyOnLoad(gameObject);
-        
-        rb = GetComponent<Rigidbody2D>();
-        anim = GetComponent<Animator>();
-
-        currentHealth = maxHealth;
-        
-        UpdateCooldowns();
+        base.Awake();
         
         transform.position =  LineManager.Instance.SetToLine(gameObject, 0);
         moveAction = GetComponent<PlayerInput>().actions.FindAction("Move");
-    }
-
-    private void UpdateCooldowns()
-    {
-        foreach (AnimationClip clip in anim.runtimeAnimatorController.animationClips)
-        {
-            switch (clip.name)
-            {
-                case "PlayerPunch":
-                    attackCooldown = clip.length;
-                    break;
-                case "PlayerLineChange":
-                    lineCooldown = clip.length;
-                    break;
-                default:
-                    print($"Did not find {clip.name}");
-                    break;
-            }
-        }
+        DontDestroyOnLoad(gameObject);
     }
     
     private void OnEnable()
@@ -83,7 +36,8 @@ public class PlayerController : MonoBehaviour
     /// <param name="m">irrelevant</param>
     private void ResetPosition(Scene s, LoadSceneMode m)
     {
-        Vector3 newPos = new Vector3(-4, transform.position.y, transform.position.z);
+        Vector3 newPos = transform.position;
+        newPos.x = -4;
         transform.position = newPos;
         print($"Reset x-Position to {newPos}");
     }
@@ -97,7 +51,7 @@ public class PlayerController : MonoBehaviour
         if (!ctx.performed) return;
         print("Received AttackInput");
 
-        if (!actionActive) StartCoroutine(AttackRoutine());
+        if (!ActionActive) StartCoroutine(AttackRoutine());
     }
     
     /// <summary>
@@ -109,7 +63,7 @@ public class PlayerController : MonoBehaviour
         if (!ctx.performed) return;
         print("Received ChangeLineUp Input");
 
-        if (!actionActive) StartCoroutine(LineChangeRoutine(1));
+        if (!ActionActive) StartCoroutine(LineChangeRoutine(1));
     }
     
     /// <summary>
@@ -121,78 +75,23 @@ public class PlayerController : MonoBehaviour
         if (!ctx.performed) return;
         print("Received ChangeLineDown Input");
 
-        if (!actionActive) StartCoroutine(LineChangeRoutine(-1));
+        if (!ActionActive) StartCoroutine(LineChangeRoutine(-1));
     }
 
-    private void FixedUpdate()
+    private new void FixedUpdate()
     {
-        direction = !actionActive ? moveAction.ReadValue<float>() : 0;
-        anim.SetFloat(AnimatorDirection, direction);
-        rb.velocity = Vector2.right * (direction * speed);
-    }
-    
-    private IEnumerator LineChangeRoutine(int dir)
-    {
-        actionActive = true;
-        anim.SetTrigger(AnimatorChangeTrigger);
-        int newLine = Mathf.Clamp(
-            LayerMask.LayerToName(gameObject.layer)[^1] - '0' + dir - 1,
-            0,
-            LineManager.Instance.NumberOfLines - 1);
-        Vector3 newPos = LineManager.Instance.ChangeLine(gameObject, newLine);
-        Vector3 oldPos = transform.position;
-        // Set Position Smoothly
-        float counter = 0;
-        if (newPos == oldPos) counter = lineCooldown + 1; // break if no change
-        while (counter < lineCooldown)
-        {
-            counter += Time.deltaTime;
-            transform.position = Vector3.Lerp(oldPos, newPos, counter / lineCooldown);
-            yield return null;
-        }
-        actionActive = false;
-    }
-    
-    private IEnumerator AttackRoutine()
-    {
-        actionActive = true;
-        anim.SetTrigger(AnimatorAttackTrigger);
-        
-        float counter = 0;
-        while (counter < attackCooldown)
-        {
-            counter += Time.deltaTime;
-            yield return null;
-        }
-        
-        actionActive = false;
+        Direction = !ActionActive ? moveAction.ReadValue<float>() : 0;
+        base.FixedUpdate();
     }
 
-    private void TakeDamage(int amount)
+    protected override void TakeDamage(int amount)
     {
-        currentHealth -= amount;
-        print($"Player Took Damage and is now at {currentHealth} health");
-        if (currentHealth > 0) return;
+        CurrentHealth -= amount;
+        print($"Player Took Damage and is now at {CurrentHealth} health");
+        if (CurrentHealth > 0) return;
         
         print("GameOver");
         Time.timeScale = 0;
-    }
-    
-    private void Attack()
-    {
-        print($"Noticed An Attack by {gameObject.name}");
-
-        var fistPosition = fistReference.transform.localPosition + transform.position;
-        var coll = fistReference.GetComponent<CapsuleCollider2D>();
-
-        Collider2D[] targets =
-            Physics2D.OverlapCapsuleAll(fistPosition, coll.size, coll.direction, fistReference.transform.rotation.z);
-
-        foreach (Collider2D target in targets)
-        {
-            if (target.gameObject == gameObject) continue;
-            print($"---{target.gameObject.name}");
-        }
     }
     
     private void OnTriggerEnter2D(Collider2D other)

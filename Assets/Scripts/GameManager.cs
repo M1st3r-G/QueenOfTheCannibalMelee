@@ -80,8 +80,7 @@ public class GameManager : MonoBehaviour
     private void SpawnEnemy()
     {
         print("Spawned Enemy");
-        GameObject enemy = Instantiate(enemyPrefab, Vector3.right * (cam.position.x + 5), Quaternion.identity);
-        enemy.transform.position = LineManager.Instance.SetToLine(enemy, Random.Range(0, LineManager.Instance.NumberOfLines));
+        Instantiate(enemyPrefab, Vector3.right * (cam.position.x + 5), Quaternion.identity);
     }
     
     /// <summary>

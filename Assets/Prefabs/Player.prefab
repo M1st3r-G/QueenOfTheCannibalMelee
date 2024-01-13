@@ -337,4 +337,4 @@ MonoBehaviour:
   fistReference: {fileID: 661644869271904063}
   baseDamage: 25
   maxHealth: 100
-  speed: 5
+  movementSpeed: 5
