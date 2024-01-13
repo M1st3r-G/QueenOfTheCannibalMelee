@@ -1,6 +1,6 @@
 %YAML 1.1
 %TAG !u! tag:unity3d.com,2011:
---- !u!1 &4357522275625136158
+--- !u!1 &661644869271904063
 GameObject:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -8,38 +8,38 @@ GameObject:
   m_PrefabAsset: {fileID: 0}
   serializedVersion: 6
   m_Component:
-  - component: {fileID: 3366368464595936471}
-  - component: {fileID: 5532253428159174151}
+  - component: {fileID: 4273564210250647439}
+  - component: {fileID: 2835924342236973224}
   m_Layer: 0
-  m_Name: Fist
-  m_TagString: Damage
+  m_Name: FistReference
+  m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
---- !u!4 &3366368464595936471
+  m_IsActive: 0
+--- !u!4 &4273564210250647439
 Transform:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 4357522275625136158}
+  m_GameObject: {fileID: 661644869271904063}
   serializedVersion: 2
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 1.14, y: 2.75, z: 0}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 1.02, y: 2.79, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 3696478488003558700}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!70 &5532253428159174151
+--- !u!70 &2835924342236973224
 CapsuleCollider2D:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 4357522275625136158}
-  m_Enabled: 0
+  m_GameObject: {fileID: 661644869271904063}
+  m_Enabled: 1
   m_Density: 1
   m_Material: {fileID: 0}
   m_IncludeLayers:
@@ -61,11 +61,11 @@ CapsuleCollider2D:
   m_CallbackLayers:
     serializedVersion: 2
     m_Bits: 4294967295
-  m_IsTrigger: 1
+  m_IsTrigger: 0
   m_UsedByEffector: 0
   m_UsedByComposite: 0
-  m_Offset: {x: -0.26871446, y: 0.020670122}
-  m_Size: {x: 1.4625784, y: 0.35866088}
+  m_Offset: {x: 0, y: 0}
+  m_Size: {x: 1.5, y: 0.35}
   m_Direction: 1
 --- !u!1 &5033552880383383475
 GameObject:
@@ -102,7 +102,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
-  - {fileID: 3366368464595936471}
+  - {fileID: 4273564210250647439}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!212 &1024415559758144060
@@ -334,6 +334,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f92cbdc2ed6a1b44a8901ed32f683d48, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  fistReference: {fileID: 661644869271904063}
   baseDamage: 25
   maxHealth: 100
   speed: 5

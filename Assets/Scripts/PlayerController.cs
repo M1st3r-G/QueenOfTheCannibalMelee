@@ -13,13 +13,14 @@ public class PlayerController : MonoBehaviour
     private Rigidbody2D rb;
     private Animator anim;
     private InputAction moveAction;
-    private CapsuleCollider2D fist;
+    [SerializeField] private GameObject fistReference;
     //Params
     public int Damage => baseDamage;
     [SerializeField] private int baseDamage;
     
     [SerializeField] private int maxHealth;
     [SerializeField] private float speed;
+    
     
     private float attackCooldown;
     private float lineCooldown;
@@ -37,8 +38,6 @@ public class PlayerController : MonoBehaviour
         
         rb = GetComponent<Rigidbody2D>();
         anim = GetComponent<Animator>();
-        
-        fist = transform.GetChild(0).GetComponent<CapsuleCollider2D>();
 
         currentHealth = maxHealth;
         
@@ -158,18 +157,15 @@ public class PlayerController : MonoBehaviour
     {
         actionActive = true;
         anim.SetTrigger(AnimatorAttackTrigger);
+        
         float counter = 0;
         while (counter < attackCooldown)
         {
             counter += Time.deltaTime;
             yield return null;
         }
+        
         actionActive = false;
-    }
-    
-    private void EnableFist(int active)
-    {
-        fist.enabled = active == 1;
     }
 
     private void TakeDamage(int amount)
@@ -182,9 +178,25 @@ public class PlayerController : MonoBehaviour
         Time.timeScale = 0;
     }
     
+    private void Attack()
+    {
+        print($"Noticed An Attack by {gameObject.name}");
+
+        var fistPosition = fistReference.transform.localPosition + transform.position;
+        var coll = fistReference.GetComponent<CapsuleCollider2D>();
+
+        Collider2D[] targets =
+            Physics2D.OverlapCapsuleAll(fistPosition, coll.size, coll.direction, fistReference.transform.rotation.z);
+
+        foreach (Collider2D target in targets)
+        {
+            if (target.gameObject == gameObject) continue;
+            print($"---{target.gameObject.name}");
+        }
+    }
+    
     private void OnTriggerEnter2D(Collider2D other)
     { 
         if(other.gameObject.CompareTag("Transition")) GameManager.LoadNextScene();
-        else if (other.gameObject.CompareTag("Enemy")) TakeDamage(other.gameObject.GetComponent<EnemyController>().Damage); 
     }
 }
