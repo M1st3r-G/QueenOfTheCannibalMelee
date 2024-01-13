@@ -15,8 +15,11 @@ public class PlayerController : MonoBehaviour
     private InputAction moveAction;
     private CapsuleCollider2D fist;
     //Params
-    [SerializeField] private float speed;
+    public int Damage => baseDamage;
+    [SerializeField] private int baseDamage;
+    
     [SerializeField] private int maxHealth;
+    [SerializeField] private float speed;
     
     private float attackCooldown;
     private float lineCooldown;
@@ -36,7 +39,6 @@ public class PlayerController : MonoBehaviour
         anim = GetComponent<Animator>();
         
         fist = transform.GetChild(0).GetComponent<CapsuleCollider2D>();
-        fist.enabled = false;
 
         currentHealth = maxHealth;
         
@@ -138,7 +140,6 @@ public class PlayerController : MonoBehaviour
             LayerMask.LayerToName(gameObject.layer)[^1] - '0' + dir - 1,
             0,
             LineManager.Instance.NumberOfLines - 1);
-        print($"currently in line{LayerMask.LayerToName(gameObject.layer)}({LayerMask.LayerToName(gameObject.layer)[^1] - '0' - 1}) with dir={dir} so new line is {newLine}");
         Vector3 newPos = LineManager.Instance.ChangeLine(gameObject, newLine);
         Vector3 oldPos = transform.position;
         // Set Position Smoothly
@@ -157,26 +158,28 @@ public class PlayerController : MonoBehaviour
     {
         actionActive = true;
         anim.SetTrigger(AnimatorAttackTrigger);
-        fist.enabled = true;
-        
         float counter = 0;
         while (counter < attackCooldown)
         {
             counter += Time.deltaTime;
             yield return null;
         }
-
-        fist.enabled = false;
         actionActive = false;
+    }
+    
+    private void EnableFist(int active)
+    {
+        fist.enabled = active == 1;
     }
 
     private void TakeDamage(int amount)
     {
         currentHealth -= amount;
+        print($"Player Took Damage and is now at {currentHealth} health");
         if (currentHealth > 0) return;
         
-        Time.timeScale = 0;
         print("GameOver");
+        Time.timeScale = 0;
     }
     
     private void OnTriggerEnter2D(Collider2D other)

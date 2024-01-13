@@ -39,7 +39,7 @@ CapsuleCollider2D:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 6004477804354193143}
-  m_Enabled: 1
+  m_Enabled: 0
   m_Density: 1
   m_Material: {fileID: 0}
   m_IncludeLayers:
@@ -64,7 +64,7 @@ CapsuleCollider2D:
   m_IsTrigger: 1
   m_UsedByEffector: 0
   m_UsedByComposite: 0
-  m_Offset: {x: -1.14, y: 1.81}
+  m_Offset: {x: -1.11, y: 2.2}
   m_Size: {x: 1.22, y: 0.41}
   m_Direction: 1
 --- !u!1 &6616631424286610652
@@ -251,8 +251,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 946990fdf1d5fd6409a34f07ece94c45, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  baseDamage: 0
-  maxHealth: 0
+  baseDamage: 25
+  maxHealth: 50
   movementSpeed: 3
   attackDistance: 2
   changeDistance: 7

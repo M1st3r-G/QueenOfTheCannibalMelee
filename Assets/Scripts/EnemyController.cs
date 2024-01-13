@@ -1,59 +1,63 @@
-using System;
 using System.Collections;
-using UnityEditor;
 using UnityEngine;
 
 [RequireComponent(typeof(Rigidbody2D))]
+[RequireComponent(typeof(Animator))]
 public class EnemyController : MonoBehaviour
 {
+    private static readonly int AnimatorDirection = Animator.StringToHash("Direction");
+    private static readonly int AnimatorChangeTrigger = Animator.StringToHash("Change");
+    private static readonly int AnimatorAttackTrigger = Animator.StringToHash("Hit");
+    
     //ComponentReferences
     private Rigidbody2D rb;
-    private PlayerController target;
+    private Animator anim;
     private CapsuleCollider2D fist;
+    private PlayerController target;
     //Params
     public int Damage => baseDamage;
     [SerializeField] private int baseDamage;
-
     [SerializeField] private int maxHealth;
-    
     [SerializeField] private float movementSpeed;
-    [SerializeField] private float attackDistance;
     
+    [SerializeField] private float attackDistance;
     [SerializeField] private float changeDistance;
     
-    private float attackCooldown = 1;
-    private float lineCooldown = 1;
+    private float attackCooldown;
+    private float lineCooldown;
     //Temps
     private float direction;
     private bool actionActive;
 
     private int currentHealth;
     //Publics
-
+    
+    
     private void Awake()
     {
         rb = GetComponent<Rigidbody2D>();
 
         target = GameObject.FindGameObjectWithTag("Player").GetComponent<PlayerController>();
-        
+        anim = GetComponent<Animator>();
         fist = transform.GetChild(0).GetComponent<CapsuleCollider2D>();
-        fist.enabled = actionActive = false;
+
+        currentHealth = maxHealth;
         
-        //UpdateCooldowns();
+        UpdateCooldowns();
 
         direction = -1;
     }
 
-    /*private void UpdateCooldowns()
+    private void UpdateCooldowns()
     {
         foreach (AnimationClip clip in anim.runtimeAnimatorController.animationClips)
         {
             switch (clip.name)
             {
-                case "PlayerPunch":
+                case "EnemyPunch":
                     attackCooldown = clip.length;
                     break;
-                case "PlayerLineChange":
+                case "EnemyLineChange":
                     lineCooldown = clip.length;
                     break;
                 default:
@@ -61,7 +65,7 @@ public class EnemyController : MonoBehaviour
                     break;
             }
         }
-    }*/
+    }
     
     /// <summary>
     /// Controls the AI of the Enemy
@@ -69,6 +73,7 @@ public class EnemyController : MonoBehaviour
     private void Update()
     {
         direction = !actionActive ? Mathf.Sign(target.transform.position.x - transform.position.x) : 0;
+        anim.SetFloat(AnimatorDirection, direction);
         if (actionActive) return;
 
         int playerLine = LayerMask.LayerToName(target.gameObject.layer)[^1] - '0' - 1;
@@ -92,7 +97,7 @@ public class EnemyController : MonoBehaviour
     private IEnumerator LineChangeRoutine(int dir)
     {
         actionActive = true;
-
+        anim.SetTrigger(AnimatorChangeTrigger);
         print("Change Line");
 
         int newLine = Mathf.Clamp(
@@ -105,13 +110,10 @@ public class EnemyController : MonoBehaviour
         
         // Set Position Smoothly
         float counter = 0;
-        print("Hi");
         if (newPos == oldPos) counter = lineCooldown + 1; // break if no change
-        print("Setting Positino");
         while (counter < lineCooldown)
         {
             counter += Time.deltaTime;
-            print($"{oldPos}|{newPos}");
             transform.position = Vector3.Lerp(oldPos, newPos, counter / lineCooldown);
             yield return null;
         }
@@ -121,10 +123,8 @@ public class EnemyController : MonoBehaviour
     private IEnumerator AttackRoutine()
     {
         actionActive = true;
-        fist.enabled = true;
-
-        print("Attack!");
-
+        anim.SetTrigger(AnimatorAttackTrigger);
+        
         float counter = 0;
         while (counter < attackCooldown)
         {
@@ -132,13 +132,18 @@ public class EnemyController : MonoBehaviour
             yield return null;
         }
 
-        fist.enabled = false;
         actionActive = false;
+    }
+
+    public void EnableFist(int active)
+    {
+        fist.enabled = active == 1;
     }
     
     private void TakeDamage(int amount)
     {
         currentHealth -= amount;
+        print($"{gameObject.name} Took Damage and is now at {currentHealth} health");
         if (currentHealth > 0) return;
         
         Destroy(gameObject);
@@ -147,6 +152,6 @@ public class EnemyController : MonoBehaviour
     private void OnTriggerEnter2D(Collider2D other)
     { 
         if(other.gameObject.CompareTag("Transition")) GameManager.LoadNextScene();
-        else if (other.gameObject.CompareTag("Enemy")) TakeDamage(other.gameObject.GetComponent<EnemyController>().Damage); 
+        else if (other.gameObject.CompareTag("Player")) TakeDamage(other.gameObject.GetComponent<PlayerController>().Damage); 
     }
 }
