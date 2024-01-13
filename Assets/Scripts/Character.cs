@@ -11,7 +11,7 @@ public abstract class Character : MonoBehaviour
 
     //ComponentReferences
     private Rigidbody2D rb;
-    private Animator anim;
+    protected Animator anim;
     [SerializeField] private GameObject fistReference;
     //Params
     public int Damage => baseDamage;
@@ -119,7 +119,7 @@ public abstract class Character : MonoBehaviour
         foreach (Collider2D target in targets)
         {
             if (target.gameObject == gameObject) continue;
-            print($"---{target.gameObject.name}");
+            target.GetComponent<Character>().TakeDamage(Damage);
         }
     }
 

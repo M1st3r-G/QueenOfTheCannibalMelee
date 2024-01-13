@@ -49,8 +49,13 @@ public class EnemyController : Character
     {
         CurrentHealth -= amount;
         print($"{gameObject.name} Took Damage and is now at {CurrentHealth} health");
-        if (CurrentHealth > 0) return;
         
+        //Cancel Attack
+        StopAllCoroutines();
+        ActionActive = false;
+        anim.Play("EmptyIdle"); // Hit
+        
+        if (CurrentHealth > 0) return;
         Destroy(gameObject);
     }
 }
