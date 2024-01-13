@@ -1,32 +1,28 @@
 using UnityEngine;
 
+[RequireComponent(typeof(Rigidbody2D))]
 public class CameraController : MonoBehaviour
 {
     //ComponentReferences
     private GameObject target;
+    private Rigidbody2D rb;
     //Param 
-    [SerializeField] private float leftBound;
-    [SerializeField] private float rightBound;
     [SerializeField] private float speedFactor;
-
     [SerializeField] private float xTarget;
     //Temps
     //Publics
 
     private void Start()
     {
+        rb = GetComponent<Rigidbody2D>();
         target = GameObject.FindGameObjectWithTag("Player");
     }
 
     /// <summary>
     /// Follows the Player but keeps X Coordinate in the Bounds
     /// </summary>
-    private void Update()
+    private void FixedUpdate()
     {
-        float velocity = Mathf.Max(target.transform.position.x - (xTarget + transform.position.x), 0);
-        Vector3 nextPos = transform.position + velocity *velocity * speedFactor * Time.deltaTime * Vector3.right;
-        if (nextPos.x < leftBound) nextPos.x = leftBound;
-        if (nextPos.x > rightBound) nextPos.x = rightBound;
-        transform.position = nextPos; 
+        rb.velocity = new Vector2(Mathf.Pow(Mathf.Max(target.transform.position.x - (xTarget + transform.position.x), 0), 2),0) * speedFactor;
     }
 }
