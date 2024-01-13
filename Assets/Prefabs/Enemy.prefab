@@ -79,8 +79,8 @@ GameObject:
   - component: {fileID: 6734923845253136971}
   - component: {fileID: 7006300216106538669}
   - component: {fileID: 2317472632843837728}
+  - component: {fileID: 4532605975128545957}
   - component: {fileID: 1077334039391615572}
-  - component: {fileID: 2509609801887693604}
   m_Layer: 0
   m_Name: Enemy
   m_TagString: Enemy
@@ -145,7 +145,7 @@ SpriteRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
-  m_Sprite: {fileID: 639017754, guid: 8d4c7bb90a997e441b05542c164bf153, type: 3}
+  m_Sprite: {fileID: -1903243241, guid: 2ace101351ff29a44b2a70b1168c2816, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
@@ -218,6 +218,27 @@ CapsuleCollider2D:
   m_Offset: {x: 0, y: 1.55}
   m_Size: {x: 1, y: 3.1}
   m_Direction: 0
+--- !u!95 &4532605975128545957
+Animator:
+  serializedVersion: 5
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6616631424286610652}
+  m_Enabled: 1
+  m_Avatar: {fileID: 0}
+  m_Controller: {fileID: 9100000, guid: 5b5000fb8db5c5c4f900db02d4a50843, type: 2}
+  m_CullingMode: 0
+  m_UpdateMode: 0
+  m_ApplyRootMotion: 0
+  m_LinearVelocityBlending: 0
+  m_StabilizeFeet: 0
+  m_WarningMessage: 
+  m_HasTransformHierarchy: 1
+  m_AllowConstantClipSamplingOptimization: 1
+  m_KeepAnimatorStateOnDisable: 0
+  m_WriteDefaultValuesOnDisable: 0
 --- !u!114 &1077334039391615572
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -230,19 +251,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 946990fdf1d5fd6409a34f07ece94c45, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  baseDamage: 0
+  maxHealth: 0
   movementSpeed: 3
   attackDistance: 2
   changeDistance: 7
---- !u!114 &2509609801887693604
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 6616631424286610652}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: ef3d383c664046645992fbba05e6c6ee, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  maxHealth: 50
