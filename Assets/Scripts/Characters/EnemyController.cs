@@ -6,6 +6,7 @@ public class EnemyController : Character
     
     //ComponentReferences
     private PlayerController target;
+    private EnemyHealthbar healthbar;
     //Params
     [SerializeField] private float changeDistance;
     private float attackDistance;
@@ -24,6 +25,8 @@ public class EnemyController : Character
         
         target = GameObject.FindGameObjectWithTag("Player").GetComponent<PlayerController>();
         transform.position = LineManager.Instance.SetToLine(gameObject, Random.Range(0, LineManager.Instance.NumberOfLines));
+        healthbar = GetComponent<EnemyHealthbar>();
+        healthbar.SetMaxAndMin(maxHealth, 0);
     }
     
     
@@ -57,6 +60,7 @@ public class EnemyController : Character
     protected override void TakeDamage(int amount)
     {
         CurrentHealth -= amount;
+        healthbar.SetValue(CurrentHealth);
         print($"{gameObject.name} Took Damage and is now at {CurrentHealth} health");
         
         //Cancel Attack

@@ -45,7 +45,6 @@ public abstract class Character : MonoBehaviour
             if (clip.name.EndsWith("Punch"))attackCooldown = clip.length;
             else if (clip.name.EndsWith("LineChange")) lineCooldown = clip.length;
             else if (clip.name.EndsWith("Hit")) HitCooldown = clip.length;
-            else print($"Did not find {clip.name}");
         }
     }
     
