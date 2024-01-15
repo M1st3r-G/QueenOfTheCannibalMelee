@@ -1,5 +1,4 @@
-﻿using System;
-using UnityEngine;
+﻿using UnityEngine;
 
 public class ParallaxLayerController : MonoBehaviour
 {
@@ -29,7 +28,6 @@ public class ParallaxLayerController : MonoBehaviour
         transform.localPosition -= Vector3.right * (delta * parallaxFactor);
         currentMove -= delta*(1-parallaxFactor);
         
-        print($"{gameObject.name}: {currentMove}| > |{loopDistance}");
         if (currentMove < loopDistance) return;
         print($"{gameObject.name} Looped!");
         currentMove -= loopDistance;

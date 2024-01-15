@@ -14,13 +14,14 @@ public abstract class Character : MonoBehaviour
     protected Animator anim;
     [SerializeField] private GameObject fistReference;
     //Params
-    public int Damage => baseDamage;
+    private int Damage => baseDamage;
     [SerializeField] protected int baseDamage;
     [SerializeField] protected int maxHealth;
     [SerializeField] protected float movementSpeed;
     //Params
     private float attackCooldown;
     private float lineCooldown;
+    protected float HitCooldown;
     //Temps
     protected float Direction;
     protected bool ActionActive;
@@ -43,6 +44,7 @@ public abstract class Character : MonoBehaviour
         {
             if (clip.name.EndsWith("Punch"))attackCooldown = clip.length;
             else if (clip.name.EndsWith("LineChange")) lineCooldown = clip.length;
+            else if (clip.name.EndsWith("Hit")) HitCooldown = clip.length;
             else print($"Did not find {clip.name}");
         }
     }

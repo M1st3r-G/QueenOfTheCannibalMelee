@@ -1,3 +1,4 @@
+using System.Collections;
 using UnityEngine;
 
 public class EnemyController : Character
@@ -18,6 +19,8 @@ public class EnemyController : Character
         target = GameObject.FindGameObjectWithTag("Player").GetComponent<PlayerController>();
         transform.position = LineManager.Instance.SetToLine(gameObject, Random.Range(0, LineManager.Instance.NumberOfLines));
     }
+    
+    
 
     /// <summary>
     /// Controls the AI of the Enemy
@@ -52,10 +55,25 @@ public class EnemyController : Character
         
         //Cancel Attack
         StopAllCoroutines();
-        ActionActive = false;
-        anim.Play("EmptyIdle"); // Hit
+        StartCoroutine(Hit());
+        
         
         if (CurrentHealth > 0) return;
         Destroy(gameObject);
+    }
+
+    private IEnumerator Hit()
+    {
+        ActionActive = true;
+        anim.Play("EnemyHit");
+
+        float counter = 0;
+        while (counter < HitCooldown)
+        {
+            counter += Time.deltaTime;
+            yield return null;
+        }
+
+        ActionActive = false;
     }
 }
