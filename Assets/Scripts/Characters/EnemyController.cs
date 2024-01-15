@@ -69,6 +69,7 @@ public class EnemyController : Character
         
         
         if (CurrentHealth > 0) return;
+        AudioManager.Instance.PlayAudioEffect(AudioManager.Enemy1Death);
         Destroy(gameObject);
     }
 
@@ -86,4 +87,6 @@ public class EnemyController : Character
 
         ActionActive = false;
     }
+
+    protected override void PlayPunchSound() { }
 }

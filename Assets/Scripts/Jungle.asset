@@ -14,3 +14,4 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   levelLayout: {fileID: 1101618881755190095, guid: 8ce13561ab0b81c40a6b758e8b681316, type: 3}
   enemy: {fileID: 6840793961240405268, guid: 4138ec0252a54b84e8edadca63160b53, type: 3}
+  levelMusic: {fileID: 8300000, guid: ff464ab6d0e0bd74f96dbf7c21fc4967, type: 3}

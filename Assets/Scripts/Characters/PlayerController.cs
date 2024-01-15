@@ -96,12 +96,14 @@ public class PlayerController : Character
     {
         CurrentHealth -= amount;
         SetHealthbar(CurrentHealth);
+        AudioManager.Instance.PlayAudioEffect(AudioManager.PlayerHit);
         print($"Player Took Damage and is now at {CurrentHealth} health");
         
         StopAllCoroutines();
         StartCoroutine(Hit());
         
         if (CurrentHealth > 0) return;
+        AudioManager.Instance.PlayAudioEffect(AudioManager.PlayerDeath);
         Time.timeScale = 0;
         OnGameOver?.Invoke();
     }
@@ -133,5 +135,10 @@ public class PlayerController : Character
         newScale.x = (float) amount / maxHealth;
         healthbar.transform.localScale = newScale;
         healthbar.GetComponent<Image>().color = healthGradient.Evaluate(newScale.x);
+    }
+
+    protected override void PlayPunchSound()
+    {
+        AudioManager.Instance.PlayAudioEffect(AudioManager.PlayerPunch);
     }
 }

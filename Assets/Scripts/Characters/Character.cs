@@ -85,6 +85,8 @@ public abstract class Character : MonoBehaviour
         ActionActive = true;
         anim.SetTrigger(AnimatorAttackTrigger);
         
+        PlayPunchSound();
+        
         float counter = 0;
         while (counter < attackCooldown)
         {
@@ -129,4 +131,6 @@ public abstract class Character : MonoBehaviour
     /// </summary>
     /// <param name="amount">The amount of Damage</param>
     protected abstract void TakeDamage(int amount);
+
+    protected abstract void PlayPunchSound();
 }

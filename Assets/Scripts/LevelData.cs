@@ -8,4 +8,7 @@ public class LevelData : ScriptableObject
     
     public GameObject EnemyInLevel => enemy;
     [SerializeField] private GameObject enemy;
+
+    public AudioClip Music => levelMusic;
+    [SerializeField] private AudioClip levelMusic;
 }
