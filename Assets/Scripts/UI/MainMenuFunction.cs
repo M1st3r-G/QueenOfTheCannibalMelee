@@ -2,15 +2,27 @@ using System.Collections;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
+[RequireComponent(typeof(AudioSource))]
 public class MainMenuFunction : MonoBehaviour
 {
     //ComponentReferences
-    [SerializeField] private AudioSource effects;
+    private AudioSource effects;
     [SerializeField] private AudioClip[] clips;
     //Params
     //Temps
     //Publics
 
+    private void Awake()
+    {
+        effects = GetComponent<AudioSource>();
+        
+        float effectVolume = PlayerPrefs.GetFloat(SettingsMenu.EffectVolumeKey, 0.75f);
+        float generalVolume = PlayerPrefs.GetFloat(SettingsMenu.GeneralVolumeKey, 0.75f);
+        float musicVolume = PlayerPrefs.GetFloat(SettingsMenu.MusicVolumeKey, 0.75f);
+
+        effects.volume = effectVolume * generalVolume;
+        GameObject.FindGameObjectWithTag("MainCamera").GetComponent<AudioSource>().volume = musicVolume * generalVolume;
+    }
 
     /// <summary>
     /// Used by Buttons to Load the Settings

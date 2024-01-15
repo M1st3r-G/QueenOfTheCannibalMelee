@@ -9,8 +9,9 @@ public class AudioManager : MonoBehaviour
     private AudioSource effectAudioSource;
     private AudioSource musicAudioSource;
     //Params
-    private float musicVolume = 1;
-    private float effectVolume = 1;
+    private float musicVolume;
+    private float effectVolume;
+    private float generalVolume;
     //Temps
     //Publics
     public const int PlayerPunch = 0;
@@ -30,8 +31,12 @@ public class AudioManager : MonoBehaviour
         Instance = this;
         DontDestroyOnLoad(gameObject);
 
+        musicVolume = PlayerPrefs.GetFloat(SettingsMenu.MusicVolumeKey, 0.75f);
+        effectVolume = PlayerPrefs.GetFloat(SettingsMenu.EffectVolumeKey, 0.75f);
+        generalVolume = PlayerPrefs.GetFloat(SettingsMenu.GeneralVolumeKey, 0.75f);
+        
         effectAudioSource = GetComponent<AudioSource>();
-        effectAudioSource.volume = effectVolume;
+        effectAudioSource.volume = effectVolume * generalVolume;
     }
 
     private void OnDestroy()
@@ -53,7 +58,7 @@ public class AudioManager : MonoBehaviour
     {
         musicAudioSource = GameObject.FindGameObjectWithTag("MainCamera").GetComponent<AudioSource>();
         musicAudioSource.clip = GameManager.Instance.LevelMusic;
-        musicAudioSource.volume = musicVolume;
+        musicAudioSource.volume = musicVolume * generalVolume;
         musicAudioSource.Play();
     }
     
