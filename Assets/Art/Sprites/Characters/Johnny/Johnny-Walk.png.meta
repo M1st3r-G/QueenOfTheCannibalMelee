@@ -34,7 +34,7 @@ TextureImporter:
   maxTextureSize: 2048
   textureSettings:
     serializedVersion: 2
-    filterMode: 1
+    filterMode: 0
     aniso: 1
     mipBias: 0
     wrapU: 1
@@ -43,7 +43,7 @@ TextureImporter:
   nPOTScale: 0
   lightmap: 0
   compressionQuality: 50
-  spriteMode: 1
+  spriteMode: 2
   spriteExtrude: 1
   spriteMeshType: 1
   alignment: 0
@@ -108,7 +108,301 @@ TextureImporter:
     forceMaximumCompressionQuality_BC6H_BC7: 0
   spriteSheet:
     serializedVersion: 2
-    sprites: []
+    sprites:
+    - serializedVersion: 2
+      name: Johnny-Walk_0
+      rect:
+        serializedVersion: 2
+        x: 25
+        y: 832
+        width: 21
+        height: 57
+      alignment: 7
+      pivot: {x: 0.5, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 6e2561be966a58c43995f7dc6f71eed9
+      internalID: 1894234782
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Johnny-Walk_1
+      rect:
+        serializedVersion: 2
+        x: 25
+        y: 768
+        width: 21
+        height: 57
+      alignment: 7
+      pivot: {x: 0.5, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 83c11cca1a1c0c14a82166b3c1c18513
+      internalID: 2104812799
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Johnny-Walk_2
+      rect:
+        serializedVersion: 2
+        x: 25
+        y: 704
+        width: 21
+        height: 56
+      alignment: 7
+      pivot: {x: 0.5, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 22b5d836d2bf1d04b9efab18007f872f
+      internalID: 1458887664
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Johnny-Walk_3
+      rect:
+        serializedVersion: 2
+        x: 25
+        y: 640
+        width: 21
+        height: 55
+      alignment: 7
+      pivot: {x: 0.5, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 2919844966d8e404ca6fd448da6e5ce4
+      internalID: 1648380637
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Johnny-Walk_4
+      rect:
+        serializedVersion: 2
+        x: 22
+        y: 576
+        width: 24
+        height: 57
+      alignment: 7
+      pivot: {x: 0.5, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: f20a04a3b26719147ac9999abd7bff23
+      internalID: -1139488232
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Johnny-Walk_5
+      rect:
+        serializedVersion: 2
+        x: 21
+        y: 512
+        width: 25
+        height: 56
+      alignment: 7
+      pivot: {x: 0.5, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: f3e7a63e1305907489fdc33463a8c227
+      internalID: 1102592044
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Johnny-Walk_6
+      rect:
+        serializedVersion: 2
+        x: 22
+        y: 448
+        width: 24
+        height: 56
+      alignment: 7
+      pivot: {x: 0.5, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 71f1dfa51f1ba7a40ba391ced600f56e
+      internalID: 1384997079
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Johnny-Walk_7
+      rect:
+        serializedVersion: 2
+        x: 25
+        y: 384
+        width: 21
+        height: 57
+      alignment: 7
+      pivot: {x: 0.5, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 51ce5a47834b1da4e8e13a070c601494
+      internalID: -752269665
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Johnny-Walk_8
+      rect:
+        serializedVersion: 2
+        x: 25
+        y: 320
+        width: 21
+        height: 56
+      alignment: 7
+      pivot: {x: 0.5, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 8490d4bcabfc0a140882704f8857662e
+      internalID: -1987449878
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Johnny-Walk_9
+      rect:
+        serializedVersion: 2
+        x: 25
+        y: 256
+        width: 21
+        height: 57
+      alignment: 7
+      pivot: {x: 0.5, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 9297bcac627485b49bcd439047b62980
+      internalID: 73739298
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Johnny-Walk_10
+      rect:
+        serializedVersion: 2
+        x: 25
+        y: 193
+        width: 21
+        height: 56
+      alignment: 7
+      pivot: {x: 0.5, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 2dad794392ed5b94aa9aa53c51f0acd0
+      internalID: -2137382724
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Johnny-Walk_11
+      rect:
+        serializedVersion: 2
+        x: 25
+        y: 129
+        width: 21
+        height: 54
+      alignment: 7
+      pivot: {x: 0.5, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 3d31f4b42fe9f3a4e8852c7735c6be6d
+      internalID: -1519525872
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Johnny-Walk_12
+      rect:
+        serializedVersion: 2
+        x: 25
+        y: 65
+        width: 21
+        height: 56
+      alignment: 7
+      pivot: {x: 0.5, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 9e74dc62a0632ec408a73fe3c357f8ac
+      internalID: -1554516213
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Johnny-Walk_13
+      rect:
+        serializedVersion: 2
+        x: 25
+        y: 1
+        width: 21
+        height: 56
+      alignment: 7
+      pivot: {x: 0.5, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 79c98783c4ac82e438a99024487cb4a7
+      internalID: -1395657636
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
     outline: []
     physicsShape: []
     bones: []
@@ -119,7 +413,21 @@ TextureImporter:
     edges: []
     weights: []
     secondaryTextures: []
-    nameFileIdTable: {}
+    nameFileIdTable:
+      Johnny-Walk_0: 1894234782
+      Johnny-Walk_1: 2104812799
+      Johnny-Walk_10: -2137382724
+      Johnny-Walk_11: -1519525872
+      Johnny-Walk_12: -1554516213
+      Johnny-Walk_13: -1395657636
+      Johnny-Walk_2: 1458887664
+      Johnny-Walk_3: 1648380637
+      Johnny-Walk_4: -1139488232
+      Johnny-Walk_5: 1102592044
+      Johnny-Walk_6: 1384997079
+      Johnny-Walk_7: -752269665
+      Johnny-Walk_8: -1987449878
+      Johnny-Walk_9: 73739298
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 
