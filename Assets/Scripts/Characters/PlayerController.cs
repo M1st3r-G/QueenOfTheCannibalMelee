@@ -10,7 +10,9 @@ public class PlayerController : Character
     //Params
     //Temps
     // Publics
-
+    public delegate void GameOverDelegate();
+    public static GameOverDelegate OnGameOver;
+    
     private new void Awake()
     {
         base.Awake();
@@ -94,9 +96,8 @@ public class PlayerController : Character
         StartCoroutine(Hit());
         
         if (CurrentHealth > 0) return;
-        
-        print("GameOver");
         Time.timeScale = 0;
+        OnGameOver?.Invoke();
     }
 
     private IEnumerator Hit()
