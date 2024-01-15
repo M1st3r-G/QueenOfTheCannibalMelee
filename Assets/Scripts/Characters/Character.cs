@@ -12,7 +12,7 @@ public abstract class Character : MonoBehaviour
     //ComponentReferences
     private Rigidbody2D rb;
     protected Animator anim;
-    [SerializeField] private GameObject fistReference;
+    [SerializeField] protected GameObject fistReference;
     //Params
     private int Damage => baseDamage;
     [SerializeField] protected int baseDamage;
@@ -115,13 +115,13 @@ public abstract class Character : MonoBehaviour
         var fistPosition = fistReference.transform.localPosition + transform.position;
         var coll = fistReference.GetComponent<CapsuleCollider2D>();
         
-        Collider2D[] targets =
+        Collider2D[] attackTargets =
             Physics2D.OverlapCapsuleAll(fistPosition, coll.size, coll.direction, fistReference.transform.rotation.z); 
         
-        foreach (Collider2D target in targets)
+        foreach (Collider2D attackTarget in attackTargets)
         {
-            if (target.gameObject == gameObject) continue;
-            target.GetComponent<Character>().TakeDamage(Damage);
+            if (attackTarget.gameObject == gameObject) continue;
+            attackTarget.GetComponent<Character>().TakeDamage(Damage);
         }
     }
 

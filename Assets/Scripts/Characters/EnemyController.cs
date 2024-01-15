@@ -7,8 +7,8 @@ public class EnemyController : Character
     //ComponentReferences
     private PlayerController target;
     //Params
-    [SerializeField] private float attackDistance;
     [SerializeField] private float changeDistance;
+    private float attackDistance;
     //Temps
     //Publics
     
@@ -16,6 +16,12 @@ public class EnemyController : Character
     {
         base.Awake();
 
+        CapsuleCollider2D c = fistReference.GetComponent<CapsuleCollider2D>();
+
+        attackDistance = Mathf.Abs(fistReference.transform.localPosition.x) +
+                         (c.direction == CapsuleDirection2D.Vertical ? c.size.y : c.size.x) / 2 *
+                         Mathf.Sin(fistReference.transform.rotation.z) * 1.1f;
+        
         target = GameObject.FindGameObjectWithTag("Player").GetComponent<PlayerController>();
         transform.position = LineManager.Instance.SetToLine(gameObject, Random.Range(0, LineManager.Instance.NumberOfLines));
     }
