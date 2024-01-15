@@ -11,7 +11,6 @@ public class ParallaxLayerController : MonoBehaviour
     {
         Sprite s = transform.GetChild(0).GetComponent<SpriteRenderer>().sprite;
         loopDistance = 2 * s.rect.width / s.pixelsPerUnit;
-        print($"{gameObject.name} loops with {loopDistance} units");
         currentMove = -2 *  transform.localPosition.x;
     }
 

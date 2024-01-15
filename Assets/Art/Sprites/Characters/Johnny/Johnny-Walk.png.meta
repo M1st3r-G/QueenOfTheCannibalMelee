@@ -48,7 +48,7 @@ TextureImporter:
   spriteMeshType: 1
   alignment: 0
   spritePivot: {x: 0.5, y: 0.5}
-  spritePixelsToUnits: 100
+  spritePixelsToUnits: 20
   spriteBorder: {x: 0, y: 0, z: 0, w: 0}
   spriteGenerateFallbackPhysicsShape: 1
   alphaUsage: 1
@@ -72,7 +72,7 @@ TextureImporter:
     maxTextureSize: 2048
     resizeAlgorithm: 0
     textureFormat: -1
-    textureCompression: 1
+    textureCompression: 0
     compressionQuality: 50
     crunchedCompression: 0
     allowsAlphaSplitting: 0
@@ -113,10 +113,10 @@ TextureImporter:
       name: Johnny-Walk_0
       rect:
         serializedVersion: 2
-        x: 25
+        x: 0
         y: 832
-        width: 21
-        height: 57
+        width: 64
+        height: 64
       alignment: 7
       pivot: {x: 0.5, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -134,10 +134,10 @@ TextureImporter:
       name: Johnny-Walk_1
       rect:
         serializedVersion: 2
-        x: 25
+        x: 0
         y: 768
-        width: 21
-        height: 57
+        width: 64
+        height: 64
       alignment: 7
       pivot: {x: 0.5, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -155,10 +155,10 @@ TextureImporter:
       name: Johnny-Walk_2
       rect:
         serializedVersion: 2
-        x: 25
+        x: 0
         y: 704
-        width: 21
-        height: 56
+        width: 64
+        height: 64
       alignment: 7
       pivot: {x: 0.5, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -176,10 +176,10 @@ TextureImporter:
       name: Johnny-Walk_3
       rect:
         serializedVersion: 2
-        x: 25
+        x: 0
         y: 640
-        width: 21
-        height: 55
+        width: 64
+        height: 64
       alignment: 7
       pivot: {x: 0.5, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -197,10 +197,10 @@ TextureImporter:
       name: Johnny-Walk_4
       rect:
         serializedVersion: 2
-        x: 22
+        x: 0
         y: 576
-        width: 24
-        height: 57
+        width: 64
+        height: 64
       alignment: 7
       pivot: {x: 0.5, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -218,10 +218,10 @@ TextureImporter:
       name: Johnny-Walk_5
       rect:
         serializedVersion: 2
-        x: 21
+        x: 0
         y: 512
-        width: 25
-        height: 56
+        width: 64
+        height: 64
       alignment: 7
       pivot: {x: 0.5, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -239,10 +239,10 @@ TextureImporter:
       name: Johnny-Walk_6
       rect:
         serializedVersion: 2
-        x: 22
+        x: 0
         y: 448
-        width: 24
-        height: 56
+        width: 64
+        height: 64
       alignment: 7
       pivot: {x: 0.5, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -260,10 +260,10 @@ TextureImporter:
       name: Johnny-Walk_7
       rect:
         serializedVersion: 2
-        x: 25
+        x: 0
         y: 384
-        width: 21
-        height: 57
+        width: 64
+        height: 64
       alignment: 7
       pivot: {x: 0.5, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -281,10 +281,10 @@ TextureImporter:
       name: Johnny-Walk_8
       rect:
         serializedVersion: 2
-        x: 25
+        x: 0
         y: 320
-        width: 21
-        height: 56
+        width: 64
+        height: 64
       alignment: 7
       pivot: {x: 0.5, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -302,10 +302,10 @@ TextureImporter:
       name: Johnny-Walk_9
       rect:
         serializedVersion: 2
-        x: 25
+        x: 0
         y: 256
-        width: 21
-        height: 57
+        width: 64
+        height: 64
       alignment: 7
       pivot: {x: 0.5, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -323,10 +323,10 @@ TextureImporter:
       name: Johnny-Walk_10
       rect:
         serializedVersion: 2
-        x: 25
-        y: 193
-        width: 21
-        height: 56
+        x: 0
+        y: 192
+        width: 64
+        height: 64
       alignment: 7
       pivot: {x: 0.5, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -344,10 +344,10 @@ TextureImporter:
       name: Johnny-Walk_11
       rect:
         serializedVersion: 2
-        x: 25
-        y: 129
-        width: 21
-        height: 54
+        x: 0
+        y: 128
+        width: 64
+        height: 64
       alignment: 7
       pivot: {x: 0.5, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -365,10 +365,10 @@ TextureImporter:
       name: Johnny-Walk_12
       rect:
         serializedVersion: 2
-        x: 25
-        y: 65
-        width: 21
-        height: 56
+        x: 0
+        y: 64
+        width: 64
+        height: 64
       alignment: 7
       pivot: {x: 0.5, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -386,10 +386,10 @@ TextureImporter:
       name: Johnny-Walk_13
       rect:
         serializedVersion: 2
-        x: 25
-        y: 1
-        width: 21
-        height: 56
+        x: 0
+        y: 0
+        width: 64
+        height: 64
       alignment: 7
       pivot: {x: 0.5, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}

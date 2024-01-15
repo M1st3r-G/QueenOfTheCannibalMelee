@@ -1,3 +1,4 @@
+using System.Collections;
 using UnityEngine;
 using UnityEngine.InputSystem;
 using UnityEngine.SceneManagement;
@@ -88,11 +89,31 @@ public class PlayerController : Character
     {
         CurrentHealth -= amount;
         print($"Player Took Damage and is now at {CurrentHealth} health");
+        
+        StopAllCoroutines();
+        StartCoroutine(Hit());
+        
         if (CurrentHealth > 0) return;
         
         print("GameOver");
         Time.timeScale = 0;
     }
+
+    private IEnumerator Hit()
+    {
+        ActionActive = true;
+        anim.Play("PlayerHit");
+
+        float counter = 0;
+        while (counter < HitCooldown)
+        {
+            counter += Time.deltaTime;
+            yield return null;
+        }
+
+        ActionActive = false;
+    }
+    
     
     private void OnTriggerEnter2D(Collider2D other)
     { 
