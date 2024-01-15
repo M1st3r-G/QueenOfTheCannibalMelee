@@ -6,7 +6,8 @@ public class GameManager : MonoBehaviour
 {
     //ComponentReferences
     [SerializeField] private GameObject playerPrefab;
-    [SerializeField] private GameObject enemyPrefab;
+    [SerializeField] private LevelData level;
+    private GameObject enemyPrefab;
     private Transform cam;
     //Params
     [SerializeField] private float spawnTime;
@@ -30,9 +31,12 @@ public class GameManager : MonoBehaviour
 
         cam = GameObject.FindGameObjectWithTag("MainCamera").transform;
         isInLoading = true;
-
+        
         Instantiate(playerPrefab, Vector3.zero, Quaternion.identity);
         NextLevelIndex = SceneManager.GetActiveScene().buildIndex;
+
+        enemyPrefab = level.EnemyInLevel;
+        Instantiate(level.LevelObject, Vector3.zero, Quaternion.identity);
     }
 
     private void OnEnable()
