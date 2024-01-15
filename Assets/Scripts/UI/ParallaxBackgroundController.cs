@@ -20,7 +20,8 @@ public class ParallaxBackgroundController : MonoBehaviour
         for (int i = 0; i < transform.childCount; i++)
         {
             ParallaxLayerController layer = transform.GetChild(i).GetComponent<ParallaxLayerController>();
-            transform.GetChild(i).GetComponent<SpriteRenderer>().sortingOrder = -5 + i;
+            
+            layer.FixOrder(-5 + i);
             parallaxLayers.Add(layer);
         }
     }
