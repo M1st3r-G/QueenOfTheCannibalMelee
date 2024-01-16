@@ -354,6 +354,8 @@ MonoBehaviour:
   baseDamage: 20
   maxHealth: 100
   movementSpeed: 5
+  knockBackSpeed: 15
+  knockBackDistance: 1.5
   healthGradient:
     serializedVersion: 2
     key0: {r: 0.745283, g: 0, b: 0, a: 1}

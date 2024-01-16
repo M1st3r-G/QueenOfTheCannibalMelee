@@ -1,4 +1,3 @@
-using System.Collections;
 using UnityEngine;
 
 public class EnemyController : Character
@@ -9,11 +8,8 @@ public class EnemyController : Character
     private EnemyHealthbar healthbar;
     //Params
     [SerializeField] private float changeDistance;
-    [SerializeField] private float knockBackSpeed;
-    [SerializeField] private float knockBackDistance;
     private float attackDistance;
     //Temps
-    private bool knockedBack;
     //Publics
     
     private new void Awake()
@@ -59,7 +55,7 @@ public class EnemyController : Character
     {
         Direction = !ActionActive ? Mathf.Sign(target.transform.position.x - transform.position.x) : 0;
         Anim.SetFloat(AnimatorDirection, Direction);
-        Rb.velocity = Vector2.right * (!knockedBack ? Direction * movementSpeed : knockBackSpeed);
+        Rb.velocity = Vector2.right * (!KnockedBack ? Direction * movementSpeed : knockBackSpeed);
     }
     
     protected override void TakeDamage(int amount)
@@ -78,18 +74,7 @@ public class EnemyController : Character
         Destroy(gameObject);
     }
 
-    private IEnumerator KnockBack()
-    {
-        float counter = 0;
-        knockedBack = true;
-        while (counter < knockBackDistance / knockBackSpeed)
-        {
-            counter += Time.deltaTime;
-            yield return null;
-        }
-
-        knockedBack = false;
-    }
+    
     
     protected override void PlayPunchSound() { }
 }

@@ -107,7 +107,7 @@ public class PlayerController : Character
     {
         Direction = !ActionActive ? moveAction.ReadValue<float>() : 0;
         Anim.SetFloat(AnimatorDirection, Direction);
-        Rb.velocity = Vector2.right * (Direction * movementSpeed);
+        Rb.velocity = Vector2.right * (!KnockedBack ? Direction * movementSpeed : -knockBackSpeed);
     }
     
     protected override void TakeDamage(int amount)
@@ -122,6 +122,7 @@ public class PlayerController : Character
         {
             StopAllCoroutines();
             StartCoroutine(HitRoutine());
+            StartCoroutine(KnockBack());
         }
         
         if (CurrentHealth > 0) return;

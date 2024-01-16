@@ -14,11 +14,15 @@ public abstract class Character : MonoBehaviour
     //Params
     private int Damage => baseDamage;
     [SerializeField] protected int baseDamage;
+   
     [SerializeField] protected int maxHealth;
     [SerializeField] protected float movementSpeed;
     
     protected string AnimationPath;
     //Params
+    [SerializeField] protected float knockBackSpeed;
+    [SerializeField] protected float knockBackDistance;
+    
     protected float AttackCooldown;
     protected float LineCooldown;
     protected float HitCooldown;
@@ -27,6 +31,7 @@ public abstract class Character : MonoBehaviour
     protected float Direction;
     protected bool ActionActive;
     protected int CurrentHealth;
+    protected bool KnockedBack;
 
     protected void Awake()
     {
@@ -132,6 +137,19 @@ public abstract class Character : MonoBehaviour
         }
 
         ActionActive = false;
+    }
+    
+    protected IEnumerator KnockBack()
+    {
+        float counter = 0;
+        KnockedBack = true;
+        while (counter < knockBackDistance / knockBackSpeed)
+        {
+            counter += Time.deltaTime;
+            yield return null;
+        }
+
+        KnockedBack = false;
     }
 
     /// <summary>
