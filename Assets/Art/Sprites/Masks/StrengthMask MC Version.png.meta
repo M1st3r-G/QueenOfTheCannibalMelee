@@ -1,5 +1,5 @@
 fileFormatVersion: 2
-guid: d448ddbeea56e654fb3042a46c8cc321
+guid: fb2c4542d4aea414e90487d47fef3b73
 TextureImporter:
   internalIDToNameTable: []
   externalObjects: {}
@@ -48,7 +48,7 @@ TextureImporter:
   spriteMeshType: 1
   alignment: 0
   spritePivot: {x: 0.5, y: 0.5}
-  spritePixelsToUnits: 293
+  spritePixelsToUnits: 256
   spriteBorder: {x: 0, y: 0, z: 0, w: 0}
   spriteGenerateFallbackPhysicsShape: 1
   alphaUsage: 1
@@ -73,6 +73,19 @@ TextureImporter:
     resizeAlgorithm: 0
     textureFormat: -1
     textureCompression: 0
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  - serializedVersion: 3
+    buildTarget: WebGL
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
     compressionQuality: 50
     crunchedCompression: 0
     allowsAlphaSplitting: 0
@@ -110,7 +123,28 @@ TextureImporter:
     serializedVersion: 2
     sprites:
     - serializedVersion: 2
-      name: StrengthMask_0
+      name: StrengthMask MC Version_0
+      rect:
+        serializedVersion: 2
+        x: 0
+        y: 7616
+        width: 1088
+        height: 1088
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 712e19a88660cd8498b45cc5d6627449
+      internalID: -909223557
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: StrengthMask MC Version_1
       rect:
         serializedVersion: 2
         x: 0
@@ -124,14 +158,14 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: c194bb6f2d970f645ae74ed07095477d
-      internalID: -625324896
+      spriteID: 35284b54ec4369f4785406d318d0c164
+      internalID: -23169733
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: StrengthMask_1
+      name: StrengthMask MC Version_2
       rect:
         serializedVersion: 2
         x: 0
@@ -145,14 +179,14 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 73dcd3246b72d26488c2f6d8ba2ad249
-      internalID: 1281692598
+      spriteID: aaf4f793e1bfbc546b33241c2f4a511e
+      internalID: 548254720
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: StrengthMask_2
+      name: StrengthMask MC Version_3
       rect:
         serializedVersion: 2
         x: 0
@@ -166,14 +200,14 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: c8d6b771ecac4b644a02d4e8e3a19164
-      internalID: 143525000
+      spriteID: 58b293cc121c47048ae0e0078cf28a43
+      internalID: -525997472
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: StrengthMask_3
+      name: StrengthMask MC Version_4
       rect:
         serializedVersion: 2
         x: 0
@@ -187,14 +221,14 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: a926ae9886a63d44aa018f4c197b2496
-      internalID: 717309801
+      spriteID: 6f9ad88b16c742f418ed333d0afd2b08
+      internalID: -1605876278
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: StrengthMask_4
+      name: StrengthMask MC Version_5
       rect:
         serializedVersion: 2
         x: 0
@@ -208,14 +242,14 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 939398ffd0d77bb49a89c6b2503bcb64
-      internalID: -833670424
+      spriteID: df2c493cbc7b53d4c9050d64dfdca387
+      internalID: 1134807427
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: StrengthMask_5
+      name: StrengthMask MC Version_6
       rect:
         serializedVersion: 2
         x: 0
@@ -229,14 +263,14 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 26526f4dcd4e3fd4ba2281d42d5b79df
-      internalID: -2017482029
+      spriteID: 1a179dbbd03bb894a862501c551675a6
+      internalID: 481721335
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: StrengthMask_6
+      name: StrengthMask MC Version_7
       rect:
         serializedVersion: 2
         x: 0
@@ -250,8 +284,8 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: dcbcf3ebfbe360a45902e047806c2f92
-      internalID: -27141177
+      spriteID: dc2efc8a88f13ad41bbf310d870fd1d8
+      internalID: -601061804
       vertices: []
       indices: 
       edges: []
@@ -267,13 +301,14 @@ TextureImporter:
     weights: []
     secondaryTextures: []
     nameFileIdTable:
-      StrengthMask_0: -625324896
-      StrengthMask_1: 1281692598
-      StrengthMask_2: 143525000
-      StrengthMask_3: 717309801
-      StrengthMask_4: -833670424
-      StrengthMask_5: -2017482029
-      StrengthMask_6: -27141177
+      StrengthMask MC Version_0: -909223557
+      StrengthMask MC Version_1: -23169733
+      StrengthMask MC Version_2: 548254720
+      StrengthMask MC Version_3: -525997472
+      StrengthMask MC Version_4: -1605876278
+      StrengthMask MC Version_5: 1134807427
+      StrengthMask MC Version_6: 481721335
+      StrengthMask MC Version_7: -601061804
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 
