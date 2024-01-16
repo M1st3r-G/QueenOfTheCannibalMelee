@@ -45,7 +45,6 @@ public abstract class Character : MonoBehaviour
             if (clip.name.EndsWith("Punch"))attackCooldown = clip.length;
             else if (clip.name.EndsWith("LineChange")) lineCooldown = clip.length;
             else if (clip.name.EndsWith("Hit")) HitCooldown = clip.length;
-            else print($"Did not find {clip.name}");
         }
     }
     
@@ -85,6 +84,8 @@ public abstract class Character : MonoBehaviour
     {
         ActionActive = true;
         anim.SetTrigger(AnimatorAttackTrigger);
+        
+        PlayPunchSound();
         
         float counter = 0;
         while (counter < attackCooldown)
@@ -130,4 +131,6 @@ public abstract class Character : MonoBehaviour
     /// </summary>
     /// <param name="amount">The amount of Damage</param>
     protected abstract void TakeDamage(int amount);
+
+    protected abstract void PlayPunchSound();
 }

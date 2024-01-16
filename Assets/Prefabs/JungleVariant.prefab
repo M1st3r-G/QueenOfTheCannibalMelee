@@ -14,7 +14,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 1077334039391615572, guid: 53261a82533fe3a43ac7001b243eab22, type: 3}
       propertyPath: baseDamage
-      value: 25
+      value: 15
       objectReference: {fileID: 0}
     - target: {fileID: 1077334039391615572, guid: 53261a82533fe3a43ac7001b243eab22, type: 3}
       propertyPath: movementSpeed
@@ -119,6 +119,14 @@ PrefabInstance:
     - target: {fileID: 6734923845253136971, guid: 53261a82533fe3a43ac7001b243eab22, type: 3}
       propertyPath: m_WasSpriteAssigned
       value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 7393208980598068734, guid: 53261a82533fe3a43ac7001b243eab22, type: 3}
+      propertyPath: m_AnchorMax.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7393208980598068734, guid: 53261a82533fe3a43ac7001b243eab22, type: 3}
+      propertyPath: m_AnchorMax.y
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 8902655456254429878, guid: 53261a82533fe3a43ac7001b243eab22, type: 3}
       propertyPath: m_Size.x

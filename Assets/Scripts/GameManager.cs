@@ -18,7 +18,9 @@ public class GameManager : MonoBehaviour
     public static GameManager Instance { get; private set; }
 
     public int NextLevelIndex { get; private set; }
-
+    public AudioClip LevelMusic => level.Music;
+    
+    
     private void Awake()
     {
         if (Instance is not null)

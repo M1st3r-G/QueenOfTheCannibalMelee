@@ -2,19 +2,26 @@ using System.Collections;
 using UnityEngine;
 using UnityEngine.InputSystem;
 using UnityEngine.SceneManagement;
+using UnityEngine.UI;
 
 public class PlayerController : Character
 {
     //ComponentReferences
     private InputAction moveAction;
+    private GameObject healthbar;
+    [SerializeField] private Gradient healthGradient;
     //Params
     //Temps
     // Publics
-
+    public delegate void GameOverDelegate();
+    public static GameOverDelegate OnGameOver;
+    
     private new void Awake()
     {
         base.Awake();
         
+        healthbar = GameObject.FindGameObjectWithTag("HealthUI");
+        SetHealthbar(CurrentHealth);
         transform.position =  LineManager.Instance.SetToLine(gameObject, 0);
         moveAction = GetComponent<PlayerInput>().actions.FindAction("Move");
         DontDestroyOnLoad(gameObject);
@@ -88,15 +95,17 @@ public class PlayerController : Character
     protected override void TakeDamage(int amount)
     {
         CurrentHealth -= amount;
+        SetHealthbar(CurrentHealth);
+        AudioManager.Instance.PlayAudioEffect(AudioManager.PlayerHit);
         print($"Player Took Damage and is now at {CurrentHealth} health");
         
         StopAllCoroutines();
         StartCoroutine(Hit());
         
         if (CurrentHealth > 0) return;
-        
-        print("GameOver");
+        AudioManager.Instance.PlayAudioEffect(AudioManager.PlayerDeath);
         Time.timeScale = 0;
+        OnGameOver?.Invoke();
     }
 
     private IEnumerator Hit()
@@ -118,5 +127,18 @@ public class PlayerController : Character
     private void OnTriggerEnter2D(Collider2D other)
     { 
         if(other.gameObject.CompareTag("Transition")) GameManager.LoadNextScene();
+    }
+
+    private void SetHealthbar(int amount)
+    {
+        Vector3 newScale = Vector3.one;
+        newScale.x = (float) amount / maxHealth;
+        healthbar.transform.localScale = newScale;
+        healthbar.GetComponent<Image>().color = healthGradient.Evaluate(newScale.x);
+    }
+
+    protected override void PlayPunchSound()
+    {
+        AudioManager.Instance.PlayAudioEffect(AudioManager.PlayerPunch);
     }
 }
