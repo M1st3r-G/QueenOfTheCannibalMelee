@@ -58,14 +58,14 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_Material: {fileID: 0}
-  m_Color: {r: 1, g: 1, b: 1, a: 1}
+  m_Color: {r: 1, g: 1, b: 1, a: 0}
   m_RaycastTarget: 1
   m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
   m_Maskable: 1
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: 21300000, guid: bd04fc53e5f88774fae4086e6ed2962a, type: 3}
+  m_Sprite: {fileID: 0}
   m_Type: 0
   m_PreserveAspect: 0
   m_FillCenter: 1
@@ -572,7 +572,6 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 1769314847506666128}
-  - component: {fileID: 3186033754696593906}
   m_Layer: 5
   m_Name: EquippedMask
   m_TagString: Untagged
@@ -600,18 +599,6 @@ RectTransform:
   m_AnchoredPosition: {x: -99.1, y: -73.3}
   m_SizeDelta: {x: -270.6139, y: -213.6138}
   m_Pivot: {x: 0.5, y: 0.5}
---- !u!114 &3186033754696593906
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 5207559051507502242}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: e3598a633fdc9994cb89ec33733a86da, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!1 &5248613449861065948
 GameObject:
   m_ObjectHideFlags: 0
