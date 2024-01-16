@@ -12,6 +12,7 @@ public class PlayerController : Character
     [SerializeField] private Gradient healthGradient;
     //Params
     [SerializeField] [Range(0f, 1f)] private float blockDamageModifier;
+    [SerializeField] [Range(0f, 1f)] private float relativeEarlyEscape;
     //Temps
     private bool isBlocking;
     // Publics
@@ -28,6 +29,11 @@ public class PlayerController : Character
         transform.position =  LineManager.Instance.SetToLine(gameObject, 0);
         moveAction = GetComponent<PlayerInput>().actions.FindAction("Move");
         DontDestroyOnLoad(gameObject);
+
+        LineCooldown *= relativeEarlyEscape;
+        HitCooldown *= relativeEarlyEscape;
+        AttackCooldown *= relativeEarlyEscape;
+        BlockCooldown *= relativeEarlyEscape;
     }
     
     private void OnEnable()
@@ -97,10 +103,11 @@ public class PlayerController : Character
         if (!ActionActive) StartCoroutine(BlockRoutine());
     }
 
-    private new void FixedUpdate()
+    protected override void FixedUpdate()
     {
         Direction = !ActionActive ? moveAction.ReadValue<float>() : 0;
-        base.FixedUpdate();
+        Anim.SetFloat(AnimatorDirection, Direction);
+        Rb.velocity = Vector2.right * (Direction * movementSpeed);
     }
     
     protected override void TakeDamage(int amount)
@@ -132,18 +139,18 @@ public class PlayerController : Character
     private IEnumerator BlockRoutine()
     {
         ActionActive = true;
-        anim.Play(AnimationPath + "Block");
+        Anim.Play(AnimationPath + "Block");
         isBlocking = true;
-        rb.bodyType = RigidbodyType2D.Static;
+        Rb.bodyType = RigidbodyType2D.Static;
         
         float counter = 0;
-        while (counter < blockCooldown)
+        while (counter < BlockCooldown)
         {
             counter += Time.deltaTime;
             yield return null;
         }
 
-        rb.bodyType = RigidbodyType2D.Dynamic;
+        Rb.bodyType = RigidbodyType2D.Dynamic;
         isBlocking = false;
         ActionActive = false;
     }

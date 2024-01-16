@@ -384,4 +384,5 @@ MonoBehaviour:
     m_ColorSpace: -1
     m_NumColorKeys: 4
     m_NumAlphaKeys: 2
-  blockDamageModifier: 0.333
+  blockDamageModifier: 0.2
+  relativeEarlyEscape: 0.9

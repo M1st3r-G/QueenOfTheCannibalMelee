@@ -1,3 +1,4 @@
+using System.Collections;
 using UnityEngine;
 
 public class EnemyController : Character
@@ -8,8 +9,11 @@ public class EnemyController : Character
     private EnemyHealthbar healthbar;
     //Params
     [SerializeField] private float changeDistance;
+    [SerializeField] private float knockBackSpeed;
+    [SerializeField] private float knockBackDistance;
     private float attackDistance;
     //Temps
+    private bool knockedBack;
     //Publics
     
     private new void Awake()
@@ -51,10 +55,11 @@ public class EnemyController : Character
         }
     }
 
-    private new void FixedUpdate()
+    protected override void FixedUpdate()
     {
         Direction = !ActionActive ? Mathf.Sign(target.transform.position.x - transform.position.x) : 0;
-        base.FixedUpdate();
+        Anim.SetFloat(AnimatorDirection, Direction);
+        Rb.velocity = Vector2.right * (!knockedBack ? Direction * movementSpeed : knockBackSpeed);
     }
     
     protected override void TakeDamage(int amount)
@@ -66,12 +71,25 @@ public class EnemyController : Character
         //Cancel Attack
         StopAllCoroutines();
         StartCoroutine(HitRoutine());
-        
+        StartCoroutine(KnockBack());
         
         if (CurrentHealth > 0) return;
         AudioManager.Instance.PlayAudioEffect(AudioManager.Enemy1Death);
         Destroy(gameObject);
     }
 
+    private IEnumerator KnockBack()
+    {
+        float counter = 0;
+        knockedBack = true;
+        while (counter < knockBackDistance / knockBackSpeed)
+        {
+            counter += Time.deltaTime;
+            yield return null;
+        }
+
+        knockedBack = false;
+    }
+    
     protected override void PlayPunchSound() { }
 }

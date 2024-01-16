@@ -5,11 +5,11 @@ using UnityEngine;
 [RequireComponent(typeof(Animator))]
 public abstract class Character : MonoBehaviour
 {
-    private static readonly int AnimatorDirection = Animator.StringToHash("Direction");
+    protected static readonly int AnimatorDirection = Animator.StringToHash("Direction");
     
     //ComponentReferences
-    protected Rigidbody2D rb;
-    protected Animator anim;
+    protected Rigidbody2D Rb;
+    protected Animator Anim;
     [SerializeField] protected GameObject fistReference;
     //Params
     private int Damage => baseDamage;
@@ -19,10 +19,10 @@ public abstract class Character : MonoBehaviour
     
     protected string AnimationPath;
     //Params
-    private float attackCooldown;
-    private float lineCooldown;
-    private float hitCooldown;
-    protected float blockCooldown;
+    protected float AttackCooldown;
+    protected float LineCooldown;
+    protected float HitCooldown;
+    protected float BlockCooldown;
     //Temps
     protected float Direction;
     protected bool ActionActive;
@@ -30,8 +30,8 @@ public abstract class Character : MonoBehaviour
 
     protected void Awake()
     {
-        rb = GetComponent<Rigidbody2D>();
-        anim = GetComponent<Animator>();
+        Rb = GetComponent<Rigidbody2D>();
+        Anim = GetComponent<Animator>();
         CurrentHealth = maxHealth;
         UpdateCooldown();
     }
@@ -41,12 +41,12 @@ public abstract class Character : MonoBehaviour
     /// </summary>
     private void UpdateCooldown()
     {
-        foreach (AnimationClip clip in anim.runtimeAnimatorController.animationClips)
+        foreach (AnimationClip clip in Anim.runtimeAnimatorController.animationClips)
         {
-            if (clip.name.EndsWith("Attack"))attackCooldown = clip.length;
-            else if (clip.name.EndsWith("LineChange")) lineCooldown = clip.length;
-            else if (clip.name.EndsWith("Hit")) hitCooldown = clip.length;
-            else if (clip.name.EndsWith("AldiBagIdle")) blockCooldown = clip.length;
+            if (clip.name.EndsWith("Attack"))AttackCooldown = clip.length;
+            else if (clip.name.EndsWith("LineChange")) LineCooldown = clip.length;
+            else if (clip.name.EndsWith("Hit")) HitCooldown = clip.length;
+            else if (clip.name.EndsWith("AldiBagIdle")) BlockCooldown = clip.length;
         }
     }
     
@@ -58,7 +58,7 @@ public abstract class Character : MonoBehaviour
     protected IEnumerator LineChangeRoutine(int dir)
     {
         ActionActive = true;
-        anim.Play(AnimationPath + "LineChange");
+        Anim.Play(AnimationPath + "LineChange");
         int newLine = Mathf.Clamp(
             LayerMask.LayerToName(gameObject.layer)[^1] - '0' + dir - 1,
             0,
@@ -68,11 +68,11 @@ public abstract class Character : MonoBehaviour
         
         // Set Position Smoothly
         float counter = 0;
-        if (newPos == oldPos) counter = lineCooldown + 1; // break if no change
-        while (counter < lineCooldown)
+        if (newPos == oldPos) counter = LineCooldown + 1; // break if no change
+        while (counter < LineCooldown)
         {
             counter += Time.deltaTime;
-            transform.position = Vector3.Lerp(oldPos, newPos, counter / lineCooldown);
+            transform.position = Vector3.Lerp(oldPos, newPos, counter / LineCooldown);
             yield return null;
         }
         ActionActive = false;
@@ -85,27 +85,18 @@ public abstract class Character : MonoBehaviour
     protected IEnumerator AttackRoutine()
     {
         ActionActive = true;
-        anim.Play(AnimationPath + "Attack");
+        Anim.Play(AnimationPath + "Attack");
         
         PlayPunchSound();
         
         float counter = 0;
-        while (counter < attackCooldown)
+        while (counter < AttackCooldown)
         {
             counter += Time.deltaTime;
             yield return null;
         }
         
         ActionActive = false;
-    }
-
-    /// <summary>
-    /// Sets the Speed and Animator Speed
-    /// </summary>
-    protected void FixedUpdate()
-    {
-        anim.SetFloat(AnimatorDirection, Direction);
-        rb.velocity = Vector2.right * (Direction * movementSpeed);
     }
     
     /// <summary>
@@ -131,10 +122,10 @@ public abstract class Character : MonoBehaviour
     protected IEnumerator HitRoutine()
     {
         ActionActive = true;
-        anim.Play(AnimationPath + "Hit");
+        Anim.Play(AnimationPath + "Hit");
 
         float counter = 0;
-        while (counter < hitCooldown)
+        while (counter < HitCooldown)
         {
             counter += Time.deltaTime;
             yield return null;
@@ -149,4 +140,5 @@ public abstract class Character : MonoBehaviour
     /// <param name="amount">The amount of Damage</param>
     protected abstract void TakeDamage(int amount);
     protected abstract void PlayPunchSound();
+    protected abstract void FixedUpdate();
 }
