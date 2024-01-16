@@ -6,22 +6,24 @@ using UnityEngine;
 public abstract class Character : MonoBehaviour
 {
     private static readonly int AnimatorDirection = Animator.StringToHash("Direction");
-    private static readonly int AnimatorChangeTrigger = Animator.StringToHash("Change");
-    private static readonly int AnimatorAttackTrigger = Animator.StringToHash("Hit");
-
+    
     //ComponentReferences
     private Rigidbody2D rb;
-    protected Animator anim;
+    private Animator anim;
     [SerializeField] protected GameObject fistReference;
     //Params
     private int Damage => baseDamage;
     [SerializeField] protected int baseDamage;
     [SerializeField] protected int maxHealth;
     [SerializeField] protected float movementSpeed;
+    
+    protected string AnimationPath;
     //Params
     private float attackCooldown;
     private float lineCooldown;
-    protected float HitCooldown;
+    private float hitCooldown;
+    private float blockCooldown;
+    protected bool IsBlocking;
     //Temps
     protected float Direction;
     protected bool ActionActive;
@@ -44,7 +46,8 @@ public abstract class Character : MonoBehaviour
         {
             if (clip.name.EndsWith("Punch"))attackCooldown = clip.length;
             else if (clip.name.EndsWith("LineChange")) lineCooldown = clip.length;
-            else if (clip.name.EndsWith("Hit")) HitCooldown = clip.length;
+            else if (clip.name.EndsWith("Hit")) hitCooldown = clip.length;
+            else if (clip.name.EndsWith("Block")) blockCooldown = clip.length;
         }
     }
     
@@ -56,7 +59,7 @@ public abstract class Character : MonoBehaviour
     protected IEnumerator LineChangeRoutine(int dir)
     {
         ActionActive = true;
-        anim.SetTrigger(AnimatorChangeTrigger);
+        anim.Play(AnimationPath + "LineChange");
         int newLine = Mathf.Clamp(
             LayerMask.LayerToName(gameObject.layer)[^1] - '0' + dir - 1,
             0,
@@ -83,7 +86,7 @@ public abstract class Character : MonoBehaviour
     protected IEnumerator AttackRoutine()
     {
         ActionActive = true;
-        anim.SetTrigger(AnimatorAttackTrigger);
+        anim.Play(AnimationPath + "Attack");
         
         PlayPunchSound();
         
@@ -122,8 +125,40 @@ public abstract class Character : MonoBehaviour
         foreach (Collider2D attackTarget in attackTargets)
         {
             if (attackTarget.gameObject == gameObject) continue;
-            attackTarget.GetComponent<Character>().TakeDamage(Damage);
+            attackTarget.GetComponent<Character>()?.TakeDamage(Damage);
         }
+    }
+    
+    protected IEnumerator HitRoutine()
+    {
+        ActionActive = true;
+        anim.Play(AnimationPath + "Hit");
+
+        float counter = 0;
+        while (counter < hitCooldown)
+        {
+            counter += Time.deltaTime;
+            yield return null;
+        }
+
+        ActionActive = false;
+    }
+    
+    protected IEnumerator BlockRoutine()
+    {
+        ActionActive = true;
+        anim.Play(AnimationPath + "Block");
+        IsBlocking = true;
+        
+        float counter = 0;
+        while (counter < blockCooldown)
+        {
+            counter += Time.deltaTime;
+            yield return null;
+        }
+
+        IsBlocking = false;
+        ActionActive = false;
     }
 
     /// <summary>

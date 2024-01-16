@@ -1,4 +1,3 @@
-using System.Collections;
 using UnityEngine;
 
 public class EnemyController : Character
@@ -16,7 +15,8 @@ public class EnemyController : Character
     private new void Awake()
     {
         base.Awake();
-
+        AnimationPath = "Enemy";
+        
         CapsuleCollider2D c = fistReference.GetComponent<CapsuleCollider2D>();
 
         attackDistance = Mathf.Abs(fistReference.transform.localPosition.x) +
@@ -65,27 +65,12 @@ public class EnemyController : Character
         
         //Cancel Attack
         StopAllCoroutines();
-        StartCoroutine(Hit());
+        StartCoroutine(HitRoutine());
         
         
         if (CurrentHealth > 0) return;
         AudioManager.Instance.PlayAudioEffect(AudioManager.Enemy1Death);
         Destroy(gameObject);
-    }
-
-    private IEnumerator Hit()
-    {
-        ActionActive = true;
-        anim.Play("EnemyHit");
-
-        float counter = 0;
-        while (counter < HitCooldown)
-        {
-            counter += Time.deltaTime;
-            yield return null;
-        }
-
-        ActionActive = false;
     }
 
     protected override void PlayPunchSound() { }

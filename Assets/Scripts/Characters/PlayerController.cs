@@ -1,4 +1,3 @@
-using System.Collections;
 using UnityEngine;
 using UnityEngine.InputSystem;
 using UnityEngine.SceneManagement;
@@ -11,7 +10,9 @@ public class PlayerController : Character
     private GameObject healthbar;
     [SerializeField] private Gradient healthGradient;
     //Params
+    [SerializeField] [Range(0f, 1f)] private float blockDamageModifier;
     //Temps
+    private bool isBlocking;
     // Publics
     public delegate void GameOverDelegate();
     public static GameOverDelegate OnGameOver;
@@ -19,6 +20,7 @@ public class PlayerController : Character
     private new void Awake()
     {
         base.Awake();
+        AnimationPath = "Player";
         
         healthbar = GameObject.FindGameObjectWithTag("HealthUI");
         SetHealthbar(CurrentHealth);
@@ -86,6 +88,14 @@ public class PlayerController : Character
         if (!ActionActive) StartCoroutine(LineChangeRoutine(-1));
     }
 
+    public void OnBlock(InputAction.CallbackContext ctx)
+    {
+        if (!ctx.performed) return;
+        print("Blocked");
+
+        if (!ActionActive) StartCoroutine(BlockRoutine());
+    }
+    
     private new void FixedUpdate()
     {
         Direction = !ActionActive ? moveAction.ReadValue<float>() : 0;
@@ -94,35 +104,20 @@ public class PlayerController : Character
 
     protected override void TakeDamage(int amount)
     {
+        if (isBlocking) amount = (int)(blockDamageModifier * amount);
         CurrentHealth -= amount;
         SetHealthbar(CurrentHealth);
-        AudioManager.Instance.PlayAudioEffect(AudioManager.PlayerHit);
+        AudioManager.Instance.PlayAudioEffect(!isBlocking ? AudioManager.PlayerHit : AudioManager.PlayerBlock);
         print($"Player Took Damage and is now at {CurrentHealth} health");
         
         StopAllCoroutines();
-        StartCoroutine(Hit());
+        StartCoroutine(HitRoutine());
         
         if (CurrentHealth > 0) return;
         AudioManager.Instance.PlayAudioEffect(AudioManager.PlayerDeath);
         Time.timeScale = 0;
         OnGameOver?.Invoke();
     }
-
-    private IEnumerator Hit()
-    {
-        ActionActive = true;
-        anim.Play("PlayerHit");
-
-        float counter = 0;
-        while (counter < HitCooldown)
-        {
-            counter += Time.deltaTime;
-            yield return null;
-        }
-
-        ActionActive = false;
-    }
-    
     
     private void OnTriggerEnter2D(Collider2D other)
     { 

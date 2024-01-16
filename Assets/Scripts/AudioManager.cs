@@ -1,3 +1,4 @@
+using UnityEditor;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
@@ -17,6 +18,7 @@ public class AudioManager : MonoBehaviour
     public const int PlayerPunch = 0;
     public const int PlayerDeath = 1;
     public const int PlayerHit = 2;
+    public const int PlayerBlock = 2; // TODo
     public const int Enemy1Death = 3;
 
     public static AudioManager Instance { get; private set; }
