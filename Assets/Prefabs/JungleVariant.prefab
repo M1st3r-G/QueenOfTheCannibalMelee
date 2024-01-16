@@ -28,6 +28,18 @@ PrefabInstance:
       propertyPath: changeDistance
       value: 7
       objectReference: {fileID: 0}
+    - target: {fileID: 1077334039391615572, guid: 53261a82533fe3a43ac7001b243eab22, type: 3}
+      propertyPath: knockBackForce
+      value: 100
+      objectReference: {fileID: 0}
+    - target: {fileID: 1077334039391615572, guid: 53261a82533fe3a43ac7001b243eab22, type: 3}
+      propertyPath: knockBackSpeed
+      value: 15
+      objectReference: {fileID: 0}
+    - target: {fileID: 1077334039391615572, guid: 53261a82533fe3a43ac7001b243eab22, type: 3}
+      propertyPath: knockBackDistance
+      value: 1.5
+      objectReference: {fileID: 0}
     - target: {fileID: 1106203264282123320, guid: 53261a82533fe3a43ac7001b243eab22, type: 3}
       propertyPath: m_LocalPosition.x
       value: -1.155
