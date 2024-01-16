@@ -134,7 +134,8 @@ public class PlayerController : Character
         ActionActive = true;
         anim.Play(AnimationPath + "Block");
         isBlocking = true;
-        print("+++" + blockCooldown);
+        rb.bodyType = RigidbodyType2D.Static;
+        
         float counter = 0;
         while (counter < blockCooldown)
         {
@@ -142,6 +143,7 @@ public class PlayerController : Character
             yield return null;
         }
 
+        rb.bodyType = RigidbodyType2D.Dynamic;
         isBlocking = false;
         ActionActive = false;
     }

@@ -8,7 +8,7 @@ public abstract class Character : MonoBehaviour
     private static readonly int AnimatorDirection = Animator.StringToHash("Direction");
     
     //ComponentReferences
-    private Rigidbody2D rb;
+    protected Rigidbody2D rb;
     protected Animator anim;
     [SerializeField] protected GameObject fistReference;
     //Params
