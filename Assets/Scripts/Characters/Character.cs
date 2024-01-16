@@ -9,7 +9,7 @@ public abstract class Character : MonoBehaviour
     
     //ComponentReferences
     private Rigidbody2D rb;
-    private Animator anim;
+    protected Animator anim;
     [SerializeField] protected GameObject fistReference;
     //Params
     private int Damage => baseDamage;
@@ -22,8 +22,7 @@ public abstract class Character : MonoBehaviour
     private float attackCooldown;
     private float lineCooldown;
     private float hitCooldown;
-    private float blockCooldown;
-    protected bool IsBlocking;
+    protected float blockCooldown;
     //Temps
     protected float Direction;
     protected bool ActionActive;
@@ -44,10 +43,10 @@ public abstract class Character : MonoBehaviour
     {
         foreach (AnimationClip clip in anim.runtimeAnimatorController.animationClips)
         {
-            if (clip.name.EndsWith("Punch"))attackCooldown = clip.length;
+            if (clip.name.EndsWith("Attack"))attackCooldown = clip.length;
             else if (clip.name.EndsWith("LineChange")) lineCooldown = clip.length;
             else if (clip.name.EndsWith("Hit")) hitCooldown = clip.length;
-            else if (clip.name.EndsWith("Block")) blockCooldown = clip.length;
+            else if (clip.name.EndsWith("AldiBagIdle")) blockCooldown = clip.length;
         }
     }
     
@@ -143,29 +142,11 @@ public abstract class Character : MonoBehaviour
 
         ActionActive = false;
     }
-    
-    protected IEnumerator BlockRoutine()
-    {
-        ActionActive = true;
-        anim.Play(AnimationPath + "Block");
-        IsBlocking = true;
-        
-        float counter = 0;
-        while (counter < blockCooldown)
-        {
-            counter += Time.deltaTime;
-            yield return null;
-        }
-
-        IsBlocking = false;
-        ActionActive = false;
-    }
 
     /// <summary>
     /// Used By the Characters to TakeDamage
     /// </summary>
     /// <param name="amount">The amount of Damage</param>
     protected abstract void TakeDamage(int amount);
-
     protected abstract void PlayPunchSound();
 }

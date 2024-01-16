@@ -384,4 +384,4 @@ MonoBehaviour:
     m_ColorSpace: -1
     m_NumColorKeys: 4
     m_NumAlphaKeys: 2
-  hitCooldownFactor: 0.005
+  blockDamageModifier: 0.333

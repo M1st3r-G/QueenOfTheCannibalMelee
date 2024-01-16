@@ -1,3 +1,4 @@
+using System.Collections;
 using UnityEngine;
 using UnityEngine.InputSystem;
 using UnityEngine.SceneManagement;
@@ -95,13 +96,13 @@ public class PlayerController : Character
 
         if (!ActionActive) StartCoroutine(BlockRoutine());
     }
-    
+
     private new void FixedUpdate()
     {
         Direction = !ActionActive ? moveAction.ReadValue<float>() : 0;
         base.FixedUpdate();
     }
-
+    
     protected override void TakeDamage(int amount)
     {
         if (isBlocking) amount = (int)(blockDamageModifier * amount);
@@ -109,9 +110,12 @@ public class PlayerController : Character
         SetHealthbar(CurrentHealth);
         AudioManager.Instance.PlayAudioEffect(!isBlocking ? AudioManager.PlayerHit : AudioManager.PlayerBlock);
         print($"Player Took Damage and is now at {CurrentHealth} health");
-        
-        StopAllCoroutines();
-        StartCoroutine(HitRoutine());
+
+        if (!isBlocking)
+        {
+            StopAllCoroutines();
+            StartCoroutine(HitRoutine());
+        }
         
         if (CurrentHealth > 0) return;
         AudioManager.Instance.PlayAudioEffect(AudioManager.PlayerDeath);
@@ -124,6 +128,24 @@ public class PlayerController : Character
         if(other.gameObject.CompareTag("Transition")) GameManager.LoadNextScene();
     }
 
+
+    private IEnumerator BlockRoutine()
+    {
+        ActionActive = true;
+        anim.Play(AnimationPath + "Block");
+        isBlocking = true;
+        print("+++" + blockCooldown);
+        float counter = 0;
+        while (counter < blockCooldown)
+        {
+            counter += Time.deltaTime;
+            yield return null;
+        }
+
+        isBlocking = false;
+        ActionActive = false;
+    }
+    
     private void SetHealthbar(int amount)
     {
         Vector3 newScale = Vector3.one;
