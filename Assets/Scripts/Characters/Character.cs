@@ -51,7 +51,7 @@ public abstract class Character : MonoBehaviour
             if (clip.name.EndsWith("Attack"))AttackCooldown = clip.length;
             else if (clip.name.EndsWith("LineChange")) LineCooldown = clip.length;
             else if (clip.name.EndsWith("Hit")) HitCooldown = clip.length;
-            else if (clip.name.EndsWith("AldiBagIdle")) BlockCooldown = clip.length;
+            else if (clip.name.EndsWith("Block")) BlockCooldown = clip.length;
         }
     }
     
