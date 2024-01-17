@@ -152,7 +152,6 @@ public abstract class Character : MonoBehaviour
         ActionActive = true;
         Anim.Play(AnimationPath + "Block");
         blocking = true;
-        Rb.bodyType = RigidbodyType2D.Static;
     }
     
     protected void BreakBlock()
@@ -160,7 +159,6 @@ public abstract class Character : MonoBehaviour
         if (!blocking) return;
         Anim.Play("EmptyIdle");
         StopAllCoroutines();
-        Rb.bodyType = RigidbodyType2D.Dynamic;
         blocking = false;
         ActionActive = false;
     }
