@@ -1,8 +1,11 @@
 using System.Collections;
+using Unity.VisualScripting.Antlr3.Runtime.Misc;
+using Unity.VisualScripting.FullSerializer.Internal;
 using UnityEngine;
 
 [RequireComponent(typeof(Rigidbody2D))]
 [RequireComponent(typeof(Animator))]
+[RequireComponent(typeof(StatsController))]
 public abstract class Character : MonoBehaviour
 {
     protected static readonly int AnimatorDirection = Animator.StringToHash("Direction");
@@ -12,22 +15,15 @@ public abstract class Character : MonoBehaviour
     protected Animator Anim;
     [SerializeField] protected GameObject fistReference;
     //Params
-    private int Damage => baseDamage;
-    [SerializeField] protected int baseDamage;
-   
-    [SerializeField] protected int maxHealth;
-    [SerializeField] protected float movementSpeed;
+    protected StatsController stats;
     
     protected string AnimationPath;
-    //Params
-    [SerializeField] protected float knockBackSpeed;
-    [SerializeField] protected float knockBackDistance;
-    
     protected float AttackCooldown;
     protected float LineCooldown;
     protected float HitCooldown;
     protected float BlockCooldown;
     //Temps
+    protected float CurrentKnockBackSpeed;
     protected float Direction;
     protected bool ActionActive;
     protected int CurrentHealth;
@@ -37,7 +33,8 @@ public abstract class Character : MonoBehaviour
     {
         Rb = GetComponent<Rigidbody2D>();
         Anim = GetComponent<Animator>();
-        CurrentHealth = maxHealth;
+        stats = GetComponent<StatsController>();
+        CurrentHealth = stats.MaxHealth;
         UpdateCooldown();
     }
     
@@ -120,7 +117,7 @@ public abstract class Character : MonoBehaviour
         foreach (Collider2D attackTarget in attackTargets)
         {
             if (attackTarget.gameObject == gameObject) continue;
-            attackTarget.GetComponent<Character>()?.TakeDamage(Damage);
+            attackTarget.GetComponent<Character>()?.TakeDamage(stats.Damage, stats.KnockBackSpeed, stats.KnockBackDistance);
         }
     }
     
@@ -139,11 +136,12 @@ public abstract class Character : MonoBehaviour
         ActionActive = false;
     }
     
-    protected IEnumerator KnockBack()
+    protected IEnumerator KnockBack(float speed, float distance)
     {
         float counter = 0;
         KnockedBack = true;
-        while (counter < knockBackDistance / knockBackSpeed)
+        CurrentKnockBackSpeed = speed;
+        while (counter < distance / speed)
         {
             counter += Time.deltaTime;
             yield return null;
@@ -156,7 +154,9 @@ public abstract class Character : MonoBehaviour
     /// Used By the Characters to TakeDamage
     /// </summary>
     /// <param name="amount">The amount of Damage</param>
-    protected abstract void TakeDamage(int amount);
+    /// <param name="kSpeed">The Knockback Speed</param>
+    /// <param name="kDistance">The Knockback Distance</param>
+    protected abstract void TakeDamage(int amount, float kSpeed, float kDistance);
     protected abstract void PlayPunchSound();
     protected abstract void FixedUpdate();
 }

@@ -107,10 +107,10 @@ public class PlayerController : Character
     {
         Direction = !ActionActive ? moveAction.ReadValue<float>() : 0;
         Anim.SetFloat(AnimatorDirection, Direction);
-        Rb.velocity = Vector2.right * (!KnockedBack ? Direction * movementSpeed : -knockBackSpeed);
+        Rb.velocity = Vector2.right * (!KnockedBack ? Direction * stats.MovementSpeed : -CurrentKnockBackSpeed);
     }
     
-    protected override void TakeDamage(int amount)
+    protected override void TakeDamage(int amount, float speed, float distance)
     {
         if (isBlocking) amount = (int)(blockDamageModifier * amount);
         CurrentHealth -= amount;
@@ -122,7 +122,7 @@ public class PlayerController : Character
         {
             StopAllCoroutines();
             StartCoroutine(HitRoutine());
-            StartCoroutine(KnockBack());
+            StartCoroutine(KnockBack(speed, distance));
         }
         
         if (CurrentHealth > 0) return;
@@ -159,11 +159,13 @@ public class PlayerController : Character
     private void SetHealthbar(int amount)
     {
         Vector3 newScale = Vector3.one;
-        newScale.x = (float) amount / maxHealth;
+        newScale.x = (float) amount / stats.MaxHealth;
         healthbar.transform.localScale = newScale;
         healthbar.GetComponent<Image>().color = healthGradient.Evaluate(newScale.x);
     }
 
+    //TODO ChangeMask
+    
     protected override void PlayPunchSound()
     {
         AudioManager.Instance.PlayAudioEffect(AudioManager.PlayerPunch);

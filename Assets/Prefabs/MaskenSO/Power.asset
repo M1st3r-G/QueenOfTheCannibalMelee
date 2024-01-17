@@ -12,9 +12,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e30dc474b32c51848acdc3741c52eef8, type: 3}
   m_Name: Power
   m_EditorClassIdentifier: 
-  maskImage: {fileID: 0}
-  movementSpeedModifier: 0
-  animationSpeedModifier: 0
-  healthModifier: 0
-  damageModifier: 0
-  knockBackModifier: 0
+  maskImage: {fileID: -909223557, guid: fb2c4542d4aea414e90487d47fef3b73, type: 3}
+  movementSpeedModifier: 1
+  animationSpeedModifier: 1
+  healthModifier: 0.75
+  damageModifier: 1.5
+  knockBackModifier: 1.5

@@ -26,7 +26,7 @@ public class EnemyController : Character
         target = GameObject.FindGameObjectWithTag("Player").GetComponent<PlayerController>();
         transform.position = LineManager.Instance.SetToLine(gameObject, Random.Range(0, LineManager.Instance.NumberOfLines));
         healthbar = GetComponent<EnemyHealthbar>();
-        healthbar.SetMaxAndMin(maxHealth, 0);
+        healthbar.SetMaxAndMin(stats.MaxHealth, 0);
     }
     
     
@@ -55,10 +55,10 @@ public class EnemyController : Character
     {
         Direction = !ActionActive ? Mathf.Sign(target.transform.position.x - transform.position.x) : 0;
         Anim.SetFloat(AnimatorDirection, Direction);
-        Rb.velocity = Vector2.right * (!KnockedBack ? Direction * movementSpeed : knockBackSpeed);
+        Rb.velocity = Vector2.right * (!KnockedBack ? Direction * stats.MovementSpeed : CurrentKnockBackSpeed);
     }
     
-    protected override void TakeDamage(int amount)
+    protected override void TakeDamage(int amount, float kSpeed, float kDistance)
     {
         CurrentHealth -= amount;
         healthbar.SetValue(CurrentHealth);
@@ -67,7 +67,7 @@ public class EnemyController : Character
         //Cancel Attack
         StopAllCoroutines();
         StartCoroutine(HitRoutine());
-        StartCoroutine(KnockBack());
+        StartCoroutine(KnockBack(kSpeed, kDistance));
         
         if (CurrentHealth > 0) return;
         AudioManager.Instance.PlayAudioEffect(AudioManager.Enemy1Death);

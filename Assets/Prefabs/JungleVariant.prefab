@@ -140,6 +140,26 @@ PrefabInstance:
       propertyPath: m_AnchorMax.y
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 8505009499923591163, guid: 53261a82533fe3a43ac7001b243eab22, type: 3}
+      propertyPath: baseDamage
+      value: 15
+      objectReference: {fileID: 0}
+    - target: {fileID: 8505009499923591163, guid: 53261a82533fe3a43ac7001b243eab22, type: 3}
+      propertyPath: baseMaxHealth
+      value: 100
+      objectReference: {fileID: 0}
+    - target: {fileID: 8505009499923591163, guid: 53261a82533fe3a43ac7001b243eab22, type: 3}
+      propertyPath: baseMovementSpeed
+      value: 10
+      objectReference: {fileID: 0}
+    - target: {fileID: 8505009499923591163, guid: 53261a82533fe3a43ac7001b243eab22, type: 3}
+      propertyPath: baseKnockBackSpeed
+      value: 15
+      objectReference: {fileID: 0}
+    - target: {fileID: 8505009499923591163, guid: 53261a82533fe3a43ac7001b243eab22, type: 3}
+      propertyPath: baseKnockBackDistance
+      value: 1.5
+      objectReference: {fileID: 0}
     - target: {fileID: 8902655456254429878, guid: 53261a82533fe3a43ac7001b243eab22, type: 3}
       propertyPath: m_Size.x
       value: 0.25

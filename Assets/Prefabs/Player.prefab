@@ -82,6 +82,7 @@ GameObject:
   - component: {fileID: 2727263294656047502}
   - component: {fileID: 4898624976382867127}
   - component: {fileID: 8242529955882049647}
+  - component: {fileID: 5126546162175589929}
   m_Layer: 0
   m_Name: Player
   m_TagString: Player
@@ -351,11 +352,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   fistReference: {fileID: 661644869271904063}
-  baseDamage: 20
-  maxHealth: 100
-  movementSpeed: 5
-  knockBackSpeed: 15
-  knockBackDistance: 1.5
   healthGradient:
     serializedVersion: 2
     key0: {r: 0.745283, g: 0, b: 0, a: 1}
@@ -388,3 +384,25 @@ MonoBehaviour:
     m_NumAlphaKeys: 2
   blockDamageModifier: 0.2
   relativeEarlyEscape: 0.75
+--- !u!114 &5126546162175589929
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5033552880383383475}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ba08be6dcc8e1c44c97b6a8f30c89672, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  currentMask: {fileID: 0}
+  allMasks:
+  - {fileID: 11400000, guid: 33064eb1cc371e14d9369420b7ca88b0, type: 2}
+  - {fileID: 11400000, guid: d1b33e6ec53aa594da25349e7e9ec83d, type: 2}
+  - {fileID: 11400000, guid: 0ddb9c79215dddd4d8b766961c23b542, type: 2}
+  baseDamage: 25
+  baseMovementSpeed: 10
+  baseKnockBackSpeed: 3
+  baseKnockBackDistance: 1.5
+  baseMaxHealth: 100
