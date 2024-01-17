@@ -22,7 +22,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 1077334039391615572, guid: 53261a82533fe3a43ac7001b243eab22, type: 3}
       propertyPath: blockCooldown
-      value: 1.5
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 1077334039391615572, guid: 53261a82533fe3a43ac7001b243eab22, type: 3}
       propertyPath: movementSpeed
@@ -46,7 +46,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 1077334039391615572, guid: 53261a82533fe3a43ac7001b243eab22, type: 3}
       propertyPath: baseBlockChance
-      value: 0.15
+      value: 0.1
       objectReference: {fileID: 0}
     - target: {fileID: 1077334039391615572, guid: 53261a82533fe3a43ac7001b243eab22, type: 3}
       propertyPath: knockBackDistance
@@ -54,7 +54,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 1077334039391615572, guid: 53261a82533fe3a43ac7001b243eab22, type: 3}
       propertyPath: blockChanceIncrease
-      value: 5
+      value: 2
       objectReference: {fileID: 0}
     - target: {fileID: 1106203264282123320, guid: 53261a82533fe3a43ac7001b243eab22, type: 3}
       propertyPath: m_LocalPosition.x

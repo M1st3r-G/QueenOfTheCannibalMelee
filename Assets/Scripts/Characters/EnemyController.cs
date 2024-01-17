@@ -56,7 +56,7 @@ public class EnemyController : Character
 
     private void OnPlayerAttack()
     {
-        if (Random.Range(0f, 1f) > blockChance)
+        if (Random.Range(0f, 1f) < blockChance)
         {
             wantsToBlock = true;
             print("Enemy wants To Block after this Attack");
