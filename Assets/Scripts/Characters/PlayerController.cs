@@ -8,10 +8,9 @@ public class PlayerController : Character
 {
     //ComponentReferences
     private InputAction moveAction;
-    private GameObject healthbar;
+    private GameObject healthBar;
     [SerializeField] private Gradient healthGradient;
     //Params
-    [SerializeField] [Range(0f, 1f)] private float blockDamageModifier;
     [SerializeField] [Range(0f, 1f)] private float relativeEarlyEscape;
     //Temps
     private bool isBlocking;
@@ -24,8 +23,8 @@ public class PlayerController : Character
         base.Awake();
         AnimationPath = "Player";
         
-        healthbar = GameObject.FindGameObjectWithTag("HealthUI");
-        SetHealthbar(CurrentHealth);
+        healthBar = GameObject.FindGameObjectWithTag("HealthUI");
+        SetHealthBar(CurrentHealth);
         transform.position =  LineManager.Instance.SetToLine(gameObject, 0);
         moveAction = GetComponent<PlayerInput>().actions.FindAction("Move");
         DontDestroyOnLoad(gameObject);
@@ -39,12 +38,31 @@ public class PlayerController : Character
     private void OnEnable()
     {
         SceneManager.sceneLoaded += ResetPosition;
+        StatsController.OnHealthChange += OnHealthChange;
+        StatsController.OnAnimSpeedChange += OnAnimSpeedChange;
     }
 
     private void OnDisable()
     {
         SceneManager.sceneLoaded -= ResetPosition;
+        StatsController.OnHealthChange -= OnHealthChange;
+        StatsController.OnAnimSpeedChange -= OnAnimSpeedChange;
     }
+    
+    private void OnAnimSpeedChange()
+    {
+        Anim.speed = stats.AnimSpeed;
+    }
+
+    private void OnHealthChange(int oldMax, bool higher)
+    {
+        if (!higher)
+            SetHealthBar(CurrentHealth);
+        else
+            SetHealthBar(CurrentHealth + (stats.MaxHealth - oldMax));
+    }
+
+    
 
     /// <summary>
     /// Resets the Player X position to -4 when a new Scene is Loaded  
@@ -112,9 +130,9 @@ public class PlayerController : Character
     
     protected override void TakeDamage(int amount, float speed, float distance)
     {
-        if (isBlocking) amount = (int)(blockDamageModifier * amount);
+        if (isBlocking) amount = (int)(stats.DamageBlock * amount);
         CurrentHealth -= amount;
-        SetHealthbar(CurrentHealth);
+        SetHealthBar(CurrentHealth);
         AudioManager.Instance.PlayAudioEffect(!isBlocking ? AudioManager.PlayerHit : AudioManager.PlayerBlock);
         print($"Player Took Damage and is now at {CurrentHealth} health");
 
@@ -156,12 +174,12 @@ public class PlayerController : Character
         ActionActive = false;
     }
     
-    private void SetHealthbar(int amount)
+    private void SetHealthBar(int amount)
     {
         Vector3 newScale = Vector3.one;
-        newScale.x = (float) amount / stats.MaxHealth;
-        healthbar.transform.localScale = newScale;
-        healthbar.GetComponent<Image>().color = healthGradient.Evaluate(newScale.x);
+        newScale.x = Mathf.Clamp((float) amount / stats.MaxHealth, 0f, 1f);
+        healthBar.transform.localScale = newScale;
+        healthBar.GetComponent<Image>().color = healthGradient.Evaluate(newScale.x);
     }
 
     //TODO ChangeMask
