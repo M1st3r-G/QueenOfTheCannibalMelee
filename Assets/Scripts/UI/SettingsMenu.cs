@@ -16,7 +16,9 @@ public class SettingsMenu : MonoBehaviour
 
     private AudioSource effectTest;
     //Params
+    [SerializeField] private float soundCooldown;
     //Temps
+    private float counter;
     private float musicVolume;
     private float effectVolume;
     private float generalVolume;
@@ -25,6 +27,8 @@ public class SettingsMenu : MonoBehaviour
     private void Awake()
     {
         effectTest = GetComponent<AudioSource>();
+
+        counter = 0;
         
         musicVolume = PlayerPrefs.GetFloat(MusicVolumeKey, 0.75f);
         effectVolume = PlayerPrefs.GetFloat(EffectVolumeKey, 0.75f);
@@ -62,7 +66,14 @@ public class SettingsMenu : MonoBehaviour
     {
         effectVolume = effectVolumeSlider.value;
         effectTest.volume = effectVolume * generalVolume;
+        if (counter > 0) return;
         effectTest.Play();
+        counter = soundCooldown;
+    }
+
+    private void Update()
+    {
+        if(counter > 0) counter -= Time.deltaTime;
     }
 
     public void WipeSaveData()

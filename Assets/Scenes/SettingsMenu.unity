@@ -1240,6 +1240,7 @@ MonoBehaviour:
   generalVolumeSlider: {fileID: 363235400}
   musicVolumeSlider: {fileID: 1881889493}
   effectVolumeSlider: {fileID: 732321710}
+  soundCooldown: 0.5
 --- !u!82 &932232890
 AudioSource:
   m_ObjectHideFlags: 0
