@@ -1,3 +1,4 @@
+using Unity.VisualScripting;
 using UnityEngine;
 using Random = UnityEngine.Random;
 
@@ -80,6 +81,7 @@ public class EnemyController : Character
         {
             print("Enemy Blocks");
             StartCoroutine(BlockRoutine());
+            wantsToBlock = false;
         }
         else if (Mathf.Abs(target.transform.position.x - transform.position.x) < changeDistance && playerLine != enemyLine)
         {
