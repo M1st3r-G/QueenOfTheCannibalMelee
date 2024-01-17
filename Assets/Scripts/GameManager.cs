@@ -9,13 +9,14 @@ public class GameManager : MonoBehaviour
     private GameObject enemyPrefab;
     private Transform cam;
     //Params
+    [SerializeField] private int spawnCap;
     [SerializeField] private float spawnTime;
     //Temps
     private bool isInLoading;
+    private int numberOfEnemies;
     private float counter;
     //Publics
     public static GameManager Instance { get; private set; }
-
     public int NextLevelIndex { get; private set; }
     public AudioClip LevelMusic => level.Music;
     
@@ -29,29 +30,31 @@ public class GameManager : MonoBehaviour
         }
         Instance = this;
         DontDestroyOnLoad(this);
-
-        cam = GameObject.FindGameObjectWithTag("MainCamera").transform;
-        isInLoading = true;
         
-        Instantiate(playerPrefab, Vector3.zero, Quaternion.identity);
+        isInLoading = true;
         NextLevelIndex = SceneManager.GetActiveScene().buildIndex;
-
+        
         enemyPrefab = level.EnemyInLevel;
+        
+        Instantiate(level.Transition);
+        Instantiate(playerPrefab, Vector3.zero, Quaternion.identity);
         Instantiate(level.LevelObject, Vector3.zero, Quaternion.identity);
-
-        GameObject.FindGameObjectWithTag("Transition").GetComponent<SpriteRenderer>().sprite = level.Transition;
     }
 
     private void OnEnable()
     {
         SceneManager.sceneLoaded += RefreshReference;
+        EnemyController.OnEnemyDeath += OnEnemyDeath;
     }
 
     private void OnDisable()
     {
         SceneManager.sceneLoaded -= RefreshReference;
+        EnemyController.OnEnemyDeath -= OnEnemyDeath;
     }
 
+    private void OnEnemyDeath() => numberOfEnemies--;
+    
     /// <summary>
     /// This Method is Triggered when Loading into a new Scene, it resets Refrences and counts up the Levels
     /// </summary>
@@ -67,10 +70,12 @@ public class GameManager : MonoBehaviour
     private void Update()
     {
         if (isInLoading) return;
+        if (numberOfEnemies >= spawnCap) return;
         if (counter > spawnTime)
         {
             counter = 0;
             SpawnEnemy();
+            numberOfEnemies++;
         }
 
         counter += Time.deltaTime;
@@ -82,7 +87,7 @@ public class GameManager : MonoBehaviour
     }
     
     /// <summary>
-    /// Spawns an Enemy on the right side of the Camera in a Random Line
+    /// Spawns an Enemy on the right side of the Camera
     /// </summary>
     private void SpawnEnemy()
     {

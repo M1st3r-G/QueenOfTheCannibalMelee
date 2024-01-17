@@ -49,6 +49,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   playerPrefab: {fileID: 5033552880383383475, guid: e3fd0542dae51804f87bb1307bf64f84, type: 3}
   level: {fileID: 11400000, guid: 9f9b3caa33badc045982313a0c15df64, type: 2}
+  spawnCap: 3
   spawnTime: 5
 --- !u!114 &4321711819564825640
 MonoBehaviour:

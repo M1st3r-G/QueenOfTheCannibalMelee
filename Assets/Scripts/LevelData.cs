@@ -6,8 +6,8 @@ public class LevelData : ScriptableObject
     public GameObject LevelObject => levelLayout;
     [SerializeField] private GameObject levelLayout;
 
-    public Sprite Transition => transitionSprite;
-    [SerializeField] private Sprite transitionSprite;
+    public GameObject Transition => transition;
+    [SerializeField] private GameObject transition;
     
     public GameObject EnemyInLevel => enemy;
     [SerializeField] private GameObject enemy;

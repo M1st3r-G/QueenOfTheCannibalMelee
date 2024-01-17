@@ -19,6 +19,9 @@ public class EnemyController : Character
     private bool wantsToBlock;
     private Coroutine resetTime;
     //Publics
+    public delegate void EnemyDeath();
+    public static EnemyDeath OnEnemyDeath;
+    
     
     private new void Awake()
     {
@@ -116,6 +119,7 @@ public class EnemyController : Character
     protected override void OnNoHealth()
     {
         AudioManager.Instance.PlayAudioEffect(AudioManager.Enemy1Death);
+        OnEnemyDeath?.Invoke();
         Destroy(gameObject);
     }
 
