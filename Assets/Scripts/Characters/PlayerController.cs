@@ -1,4 +1,3 @@
-using System.Collections;
 using UnityEngine;
 using UnityEngine.InputSystem;
 using UnityEngine.SceneManagement;
@@ -13,10 +12,12 @@ public class PlayerController : Character
     //Params
     [SerializeField] [Range(0f, 1f)] private float relativeEarlyEscape;
     //Temps
-    private bool isBlocking;
     // Publics
     public delegate void GameOverDelegate();
     public static GameOverDelegate OnGameOver;
+
+    public delegate void AttackingDelegate();
+    public static AttackingDelegate OnPlayerAttack;
     
     private new void Awake()
     {
@@ -51,7 +52,7 @@ public class PlayerController : Character
     
     private void OnAnimSpeedChange()
     {
-        Anim.speed = stats.AnimSpeed;
+        Anim.speed = Stats.AnimSpeed;
     }
 
     private void OnHealthChange(int oldMax, bool higher)
@@ -59,7 +60,7 @@ public class PlayerController : Character
         if (!higher)
             SetHealthBar(CurrentHealth);
         else
-            SetHealthBar(CurrentHealth + (stats.MaxHealth - oldMax));
+            SetHealthBar(CurrentHealth + (Stats.MaxHealth - oldMax));
     }
 
     
@@ -86,7 +87,9 @@ public class PlayerController : Character
         if (!ctx.performed) return;
         print("Received AttackInput");
 
-        if (!ActionActive) StartCoroutine(AttackRoutine());
+        if (ActionActive) return;
+        StartCoroutine(AttackRoutine());
+        OnPlayerAttack?.Invoke();
     }
     
     /// <summary>
@@ -137,18 +140,18 @@ public class PlayerController : Character
     {
         Direction = !ActionActive ? moveAction.ReadValue<float>() : 0;
         Anim.SetFloat(AnimatorDirection, Direction);
-        Rb.velocity = Vector2.right * (!KnockedBack ? Direction * stats.MovementSpeed : -CurrentKnockBackSpeed);
+        Rb.velocity = Vector2.right * (!KnockedBack ? Direction * Stats.MovementSpeed : -CurrentKnockBackSpeed);
     }
     
     protected override void TakeDamage(int amount, float speed, float distance)
     {
-        if (isBlocking) amount = (int)(stats.DamageBlock * amount);
+        if (Blocking) amount = (int)(Stats.DamageBlock * amount);
         CurrentHealth -= amount;
         SetHealthBar(CurrentHealth);
-        AudioManager.Instance.PlayAudioEffect(!isBlocking ? AudioManager.PlayerHit : AudioManager.PlayerBlock);
+        AudioManager.Instance.PlayAudioEffect(!Blocking ? AudioManager.PlayerHit : AudioManager.PlayerBlock);
         print($"Player Took Damage and is now at {CurrentHealth} health");
 
-        if (!isBlocking)
+        if (!Blocking)
         {
             StopAllCoroutines();
             StartCoroutine(HitRoutine());
@@ -165,31 +168,11 @@ public class PlayerController : Character
     { 
         if(other.gameObject.CompareTag("Transition")) GameManager.LoadNextScene();
     }
-
-
-    private IEnumerator BlockRoutine()
-    {
-        ActionActive = true;
-        Anim.Play(AnimationPath + "Block");
-        isBlocking = true;
-        Rb.bodyType = RigidbodyType2D.Static;
-        
-        float counter = 0;
-        while (counter < BlockCooldown)
-        {
-            counter += Time.deltaTime;
-            yield return null;
-        }
-
-        Rb.bodyType = RigidbodyType2D.Dynamic;
-        isBlocking = false;
-        ActionActive = false;
-    }
     
     private void SetHealthBar(int amount)
     {
         Vector3 newScale = Vector3.one;
-        newScale.x = Mathf.Clamp((float) amount / stats.MaxHealth, 0f, 1f);
+        newScale.x = Mathf.Clamp((float) amount / Stats.MaxHealth, 0f, 1f);
         healthBar.transform.localScale = newScale;
         healthBar.GetComponent<Image>().color = healthGradient.Evaluate(newScale.x);
     }

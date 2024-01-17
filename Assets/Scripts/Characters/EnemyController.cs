@@ -1,15 +1,22 @@
 using UnityEngine;
+using Random = UnityEngine.Random;
 
 public class EnemyController : Character
 {
     
     //ComponentReferences
     private PlayerController target;
-    private EnemyHealthbar healthbar;
+    private EnemyHealthbar healthBar;
     //Params
     [SerializeField] private float changeDistance;
+    [SerializeField] [Range(0f,1f)] private float baseBlockChance;
+    [SerializeField] private float blockChanceIncrease;
+    [SerializeField] private float spamCooldown;
     private float attackDistance;
     //Temps
+    private float blockChance;
+    private bool wantsToBlock;
+    private float lastAttackCounter;
     //Publics
     
     private new void Awake()
@@ -25,23 +32,56 @@ public class EnemyController : Character
         
         target = GameObject.FindGameObjectWithTag("Player").GetComponent<PlayerController>();
         transform.position = LineManager.Instance.SetToLine(gameObject, Random.Range(0, LineManager.Instance.NumberOfLines));
-        healthbar = GetComponent<EnemyHealthbar>();
-        healthbar.SetMaxAndMin(stats.MaxHealth, 0);
+        
+        healthBar = GetComponent<EnemyHealthbar>();
+        healthBar.SetMaxAndMin(Stats.MaxHealth, 0);
+
+        blockChance = baseBlockChance;
     }
-    
-    
+
+    private void OnEnable()
+    {
+        PlayerController.OnPlayerAttack += OnPlayerAttack;
+    }
+
+    private void OnDisable()
+    {
+        PlayerController.OnPlayerAttack -= OnPlayerAttack;
+    }
+
+    private void OnPlayerAttack()
+    {
+        print("Enemy is Warned");
+        if (Random.Range(0f, 1f) > blockChance)wantsToBlock = true;
+        else blockChance += blockChanceIncrease;
+
+        lastAttackCounter = 0;
+    }
+
 
     /// <summary>
     /// Controls the AI of the Enemy
     /// </summary>
     private void Update()
     {
+        if (lastAttackCounter > spamCooldown)
+        {
+            blockChance = baseBlockChance;
+            print("Reset BlockChance");
+        }
+        else if (lastAttackCounter <= spamCooldown) lastAttackCounter += Time.deltaTime;
+        
         if (ActionActive) return;
 
         int playerLine = LayerMask.LayerToName(target.gameObject.layer)[^1] - '0' - 1;
         int enemyLine = LayerMask.LayerToName(gameObject.layer)[^1] - '0' - 1;
-        
-        if (Mathf.Abs(target.transform.position.x - transform.position.x) < changeDistance && playerLine != enemyLine)
+
+        if (wantsToBlock)
+        {
+            print("Enemy Blocks");
+            StartCoroutine(BlockRoutine());
+        }
+        else if (Mathf.Abs(target.transform.position.x - transform.position.x) < changeDistance && playerLine != enemyLine)
         {
             StartCoroutine(LineChangeRoutine((int) Mathf.Sign(playerLine - enemyLine)));
         }
@@ -55,13 +95,13 @@ public class EnemyController : Character
     {
         Direction = !ActionActive ? Mathf.Sign(target.transform.position.x - transform.position.x) : 0;
         Anim.SetFloat(AnimatorDirection, Direction);
-        Rb.velocity = Vector2.right * (!KnockedBack ? Direction * stats.MovementSpeed : CurrentKnockBackSpeed);
+        Rb.velocity = Vector2.right * (!KnockedBack ? Direction * Stats.MovementSpeed : CurrentKnockBackSpeed);
     }
     
     protected override void TakeDamage(int amount, float kSpeed, float kDistance)
     {
         CurrentHealth -= amount;
-        healthbar.SetValue(CurrentHealth);
+        healthBar.SetValue(CurrentHealth);
         print($"{gameObject.name} Took Damage and is now at {CurrentHealth} health");
         
         //Cancel Attack

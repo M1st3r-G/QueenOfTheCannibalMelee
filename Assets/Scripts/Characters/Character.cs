@@ -1,6 +1,4 @@
 using System.Collections;
-using Unity.VisualScripting.Antlr3.Runtime.Misc;
-using Unity.VisualScripting.FullSerializer.Internal;
 using UnityEngine;
 
 [RequireComponent(typeof(Rigidbody2D))]
@@ -15,7 +13,7 @@ public abstract class Character : MonoBehaviour
     protected Animator Anim;
     [SerializeField] protected GameObject fistReference;
     //Params
-    protected StatsController stats;
+    protected StatsController Stats;
     
     protected string AnimationPath;
     protected float AttackCooldown;
@@ -25,16 +23,17 @@ public abstract class Character : MonoBehaviour
     //Temps
     protected float CurrentKnockBackSpeed;
     protected float Direction;
-    protected bool ActionActive;
     protected int CurrentHealth;
+    protected bool Blocking;
+    protected bool ActionActive;
     protected bool KnockedBack;
 
     protected void Awake()
     {
         Rb = GetComponent<Rigidbody2D>();
         Anim = GetComponent<Animator>();
-        stats = GetComponent<StatsController>();
-        CurrentHealth = stats.MaxHealth;
+        Stats = GetComponent<StatsController>();
+        CurrentHealth = Stats.MaxHealth;
         UpdateCooldown();
     }
     
@@ -102,7 +101,7 @@ public abstract class Character : MonoBehaviour
     }
     
     /// <summary>
-    /// Used By an Animation to Determin which Player gets hit
+    /// Used By an Animation to Determine which Player gets hit
     /// </summary>
     protected void Attack()
     {
@@ -117,7 +116,7 @@ public abstract class Character : MonoBehaviour
         foreach (Collider2D attackTarget in attackTargets)
         {
             if (attackTarget.gameObject == gameObject) continue;
-            attackTarget.GetComponent<Character>()?.TakeDamage(stats.Damage, stats.KnockBackSpeed, stats.KnockBackDistance);
+            attackTarget.GetComponent<Character>()?.TakeDamage(Stats.Damage, Stats.KnockBackSpeed, Stats.KnockBackDistance);
         }
     }
     
@@ -150,12 +149,32 @@ public abstract class Character : MonoBehaviour
         KnockedBack = false;
     }
 
+    protected IEnumerator BlockRoutine()
+    {
+        ActionActive = true;
+        Anim.Play(AnimationPath + "Block");
+        Blocking = true;
+        Rb.bodyType = RigidbodyType2D.Static;
+        
+        float counter = 0;
+        while (counter < BlockCooldown)
+        {
+            counter += Time.deltaTime;
+            yield return null;
+        }
+
+        Rb.bodyType = RigidbodyType2D.Dynamic;
+        Blocking = false;
+        ActionActive = false;
+    }
+
+    
     /// <summary>
     /// Used By the Characters to TakeDamage
     /// </summary>
     /// <param name="amount">The amount of Damage</param>
-    /// <param name="kSpeed">The Knockback Speed</param>
-    /// <param name="kDistance">The Knockback Distance</param>
+    /// <param name="kSpeed">The KnockBack Speed</param>
+    /// <param name="kDistance">The KnockBack Distance</param>
     protected abstract void TakeDamage(int amount, float kSpeed, float kDistance);
     protected abstract void PlayPunchSound();
     protected abstract void FixedUpdate();

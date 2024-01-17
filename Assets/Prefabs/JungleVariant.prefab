@@ -17,6 +17,10 @@ PrefabInstance:
       value: 15
       objectReference: {fileID: 0}
     - target: {fileID: 1077334039391615572, guid: 53261a82533fe3a43ac7001b243eab22, type: 3}
+      propertyPath: spamCooldown
+      value: 3
+      objectReference: {fileID: 0}
+    - target: {fileID: 1077334039391615572, guid: 53261a82533fe3a43ac7001b243eab22, type: 3}
       propertyPath: movementSpeed
       value: 3
       objectReference: {fileID: 0}
@@ -37,8 +41,16 @@ PrefabInstance:
       value: 15
       objectReference: {fileID: 0}
     - target: {fileID: 1077334039391615572, guid: 53261a82533fe3a43ac7001b243eab22, type: 3}
+      propertyPath: baseBlockChance
+      value: 0.4
+      objectReference: {fileID: 0}
+    - target: {fileID: 1077334039391615572, guid: 53261a82533fe3a43ac7001b243eab22, type: 3}
       propertyPath: knockBackDistance
       value: 1.5
+      objectReference: {fileID: 0}
+    - target: {fileID: 1077334039391615572, guid: 53261a82533fe3a43ac7001b243eab22, type: 3}
+      propertyPath: blockChanceIncrease
+      value: 5
       objectReference: {fileID: 0}
     - target: {fileID: 1106203264282123320, guid: 53261a82533fe3a43ac7001b243eab22, type: 3}
       propertyPath: m_LocalPosition.x
@@ -127,7 +139,7 @@ PrefabInstance:
     - target: {fileID: 6734923845253136971, guid: 53261a82533fe3a43ac7001b243eab22, type: 3}
       propertyPath: m_Sprite
       value: 
-      objectReference: {fileID: 1612765980, guid: 65876fcd996ae8d4d8e6a2aa9e4ae9da, type: 3}
+      objectReference: {fileID: -1945935101, guid: 4b2d065137132a6488d104dce39b6137, type: 3}
     - target: {fileID: 6734923845253136971, guid: 53261a82533fe3a43ac7001b243eab22, type: 3}
       propertyPath: m_WasSpriteAssigned
       value: 1
