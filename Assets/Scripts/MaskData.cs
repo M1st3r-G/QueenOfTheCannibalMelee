@@ -8,8 +8,7 @@ public class MaskData : ScriptableObject
     [SerializeField] private Sprite maskImage;
 
     public float BlockMod => blockModifier;
-    [SerializeField] private float blockModifier;
-    
+    [SerializeField] private float blockModifier; 
     public float MovementMod => movementSpeedModifier;
     [SerializeField] private float movementSpeedModifier;
     public float AnimationMod => animationSpeedModifier;

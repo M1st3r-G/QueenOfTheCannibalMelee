@@ -146,7 +146,7 @@ public class PlayerController : Character
     
     protected override void TakeDamage(int amount, float speed, float distance)
     {
-        if (Blocking) amount = (int)(Stats.DamageBlock * amount);
+        if (Blocking) amount = (int)((1 - Stats.DamageBlock) * amount);
         CurrentHealth -= amount;
         SetHealthBar(CurrentHealth);
         AudioManager.Instance.PlayAudioEffect(!Blocking ? AudioManager.PlayerHit : AudioManager.PlayerBlock);
