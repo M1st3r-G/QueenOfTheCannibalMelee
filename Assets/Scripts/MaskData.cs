@@ -4,9 +4,6 @@ using UnityEngine;
 public class MaskData : ScriptableObject
 {
     //ComponentReferences
-    public Sprite Image => maskImage;
-    [SerializeField] private Sprite maskImage;
-
     public float BlockMod => blockModifier;
     [SerializeField] private float blockModifier; 
     public float MovementMod => movementSpeedModifier;

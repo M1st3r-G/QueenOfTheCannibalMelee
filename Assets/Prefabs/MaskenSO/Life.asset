@@ -13,6 +13,7 @@ MonoBehaviour:
   m_Name: Life
   m_EditorClassIdentifier: 
   maskImage: {fileID: -1880239480, guid: 565f0c26a2842e24ca6f7c43d194f03b, type: 3}
+  blockModifier: 1
   movementSpeedModifier: 1.1
   animationSpeedModifier: 1
   healthModifier: 2

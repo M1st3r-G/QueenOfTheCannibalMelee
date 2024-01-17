@@ -13,6 +13,7 @@ MonoBehaviour:
   m_Name: Power
   m_EditorClassIdentifier: 
   maskImage: {fileID: -909223557, guid: fb2c4542d4aea414e90487d47fef3b73, type: 3}
+  blockModifier: 1
   movementSpeedModifier: 1
   animationSpeedModifier: 1
   healthModifier: 0.75

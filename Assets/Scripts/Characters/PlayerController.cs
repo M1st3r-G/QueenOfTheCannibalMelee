@@ -58,9 +58,15 @@ public class PlayerController : Character
     private void OnHealthChange(int oldMax, bool higher)
     {
         if (!higher)
+        {
+            CurrentHealth = Mathf.Clamp(CurrentHealth, 0, Stats.MaxHealth);
             SetHealthBar(CurrentHealth);
+        }
         else
-            SetHealthBar(CurrentHealth + (Stats.MaxHealth - oldMax));
+        {
+            if (CurrentHealth == oldMax) CurrentHealth += Stats.MaxHealth - oldMax;
+            SetHealthBar(CurrentHealth);
+        }
     }
 
     
@@ -150,7 +156,7 @@ public class PlayerController : Character
         CurrentHealth -= amount;
         SetHealthBar(CurrentHealth);
         AudioManager.Instance.PlayAudioEffect(!Blocking ? AudioManager.PlayerHit : AudioManager.PlayerBlock);
-        print($"Player Took Damage and is now at {CurrentHealth} health");
+        print($"Player Took {amount} Damage and is now at {CurrentHealth} health");
 
         if (!Blocking)
         {
@@ -172,14 +178,13 @@ public class PlayerController : Character
     
     private void SetHealthBar(int amount)
     {
+        print($"New Health: {amount} / {Stats.MaxHealth}");
         Vector3 newScale = Vector3.one;
-        newScale.x = Mathf.Clamp((float) amount / Stats.MaxHealth, 0f, 1f);
+        newScale.x = (float) amount / Stats.MaxHealth;
         healthBar.transform.localScale = newScale;
         healthBar.GetComponent<Image>().color = healthGradient.Evaluate(newScale.x);
     }
 
-    //TODO ChangeMask
-    
     protected override void PlayPunchSound()
     {
         AudioManager.Instance.PlayAudioEffect(AudioManager.PlayerPunch);

@@ -13,6 +13,7 @@ MonoBehaviour:
   m_Name: Speed
   m_EditorClassIdentifier: 
   maskImage: {fileID: 21300000, guid: cb514d4807afa8145bb9518aafbac993, type: 3}
+  blockModifier: 1
   movementSpeedModifier: 1.5
   animationSpeedModifier: 1.5
   healthModifier: 1
