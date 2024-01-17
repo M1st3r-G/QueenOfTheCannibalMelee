@@ -1,3 +1,4 @@
+using System;
 using UnityEngine;
 using UnityEngine.InputSystem;
 using UnityEngine.SceneManagement;
@@ -134,11 +135,18 @@ public class PlayerController : Character
     {
         if (!ctx.performed) return;
         Vector2 dir = ctx.ReadValue<Vector2>();
-        int mask = 0;
-        if (dir.x == -1) mask = 0;
-        else if (dir.y == 1) mask = 1;
-        else if (dir.y == -1) mask = 2;
-        else if (dir.x == 1) mask = 3;
+        int mask = dir.x switch
+        {
+            -1 => 0,
+            1 => 3,
+            _ => dir.y switch
+            {
+                1 => 1,
+                -1 => 2,
+                _ => -1
+            }
+        };
+        if (mask == -1) throw new Exception("Got Wrong Mask input");
         MaskUIController.Instance.SetMaskActive(mask);
         Stats.ChangeMask(mask);
     }
@@ -150,39 +158,30 @@ public class PlayerController : Character
         Rb.velocity = Vector2.right * (!KnockedBack ? Direction * Stats.MovementSpeed : -CurrentKnockBackSpeed);
     }
     
-    protected override void TakeDamage(int amount, float speed, float distance)
-    {
-        if (Blocking) amount = (int)((1 - Stats.DamageBlock) * amount);
-        CurrentHealth -= amount;
-        SetHealthBar(CurrentHealth);
-        AudioManager.Instance.PlayAudioEffect(!Blocking ? AudioManager.PlayerHit : AudioManager.PlayerBlock);
-        print($"Player Took {amount} Damage and is now at {CurrentHealth} health");
-
-        if (!Blocking)
-        {
-            StopAllCoroutines();
-            StartCoroutine(HitRoutine());
-            StartCoroutine(KnockBack(speed, distance));
-        }
-        
-        if (CurrentHealth > 0) return;
-        AudioManager.Instance.PlayAudioEffect(AudioManager.PlayerDeath);
-        Time.timeScale = 0;
-        OnGameOver?.Invoke();
-    }
-    
     private void OnTriggerEnter2D(Collider2D other)
     { 
         if(other.gameObject.CompareTag("Transition")) GameManager.LoadNextScene();
     }
-    
-    private void SetHealthBar(int amount)
+
+    protected override void SetHealthBar(int amount)
     {
         print($"New Health: {amount} / {Stats.MaxHealth}");
         Vector3 newScale = Vector3.one;
         newScale.x = (float) amount / Stats.MaxHealth;
         healthBar.transform.localScale = newScale;
         healthBar.GetComponent<Image>().color = healthGradient.Evaluate(newScale.x);
+    }
+
+    protected override void OnNoHealth()
+    {
+        AudioManager.Instance.PlayAudioEffect(AudioManager.PlayerDeath);
+        Time.timeScale = 0;
+        OnGameOver?.Invoke();
+    }
+
+    protected override void PlayHitSound(bool blocked)
+    {
+        AudioManager.Instance.PlayAudioEffect(!blocked ? AudioManager.PlayerHit : AudioManager.PlayerBlock);
     }
 
     protected override void PlayPunchSound()

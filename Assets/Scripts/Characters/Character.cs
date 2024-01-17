@@ -24,7 +24,7 @@ public abstract class Character : MonoBehaviour
     protected float CurrentKnockBackSpeed;
     protected float Direction;
     protected int CurrentHealth;
-    protected bool Blocking;
+    private bool blocking;
     protected bool ActionActive;
     protected bool KnockedBack;
 
@@ -119,8 +119,8 @@ public abstract class Character : MonoBehaviour
             attackTarget.GetComponent<Character>()?.TakeDamage(Stats.Damage, Stats.KnockBackSpeed, Stats.KnockBackDistance);
         }
     }
-    
-    protected IEnumerator HitRoutine()
+
+    private IEnumerator HitRoutine()
     {
         ActionActive = true;
         Anim.Play(AnimationPath + "Hit");
@@ -134,8 +134,8 @@ public abstract class Character : MonoBehaviour
 
         ActionActive = false;
     }
-    
-    protected IEnumerator KnockBack(float speed, float distance)
+
+    private IEnumerator KnockBack(float speed, float distance)
     {
         float counter = 0;
         KnockedBack = true;
@@ -153,7 +153,7 @@ public abstract class Character : MonoBehaviour
     {
         ActionActive = true;
         Anim.Play(AnimationPath + "Block");
-        Blocking = true;
+        blocking = true;
         Rb.bodyType = RigidbodyType2D.Static;
         
         float counter = 0;
@@ -164,7 +164,7 @@ public abstract class Character : MonoBehaviour
         }
 
         Rb.bodyType = RigidbodyType2D.Dynamic;
-        Blocking = false;
+        blocking = false;
         ActionActive = false;
     }
 
@@ -175,7 +175,28 @@ public abstract class Character : MonoBehaviour
     /// <param name="amount">The amount of Damage</param>
     /// <param name="kSpeed">The KnockBack Speed</param>
     /// <param name="kDistance">The KnockBack Distance</param>
-    protected abstract void TakeDamage(int amount, float kSpeed, float kDistance);
+    private void TakeDamage(int amount, float kSpeed, float kDistance)
+    {
+        if (blocking) amount = (int)((1 - Stats.DamageBlock) * amount);
+        CurrentHealth -= amount;
+        SetHealthBar(CurrentHealth);
+        PlayHitSound(blocking);
+        print($"{AnimationPath} Took {amount} Damage and is now at {CurrentHealth} health");
+
+        if (!blocking)
+        {
+            StopAllCoroutines();
+            StartCoroutine(HitRoutine());
+            StartCoroutine(KnockBack(kSpeed, kDistance));
+        }
+        
+        if (CurrentHealth > 0) return;
+        OnNoHealth();
+    }
+    
+    protected abstract void SetHealthBar(int amount);
+    protected abstract void OnNoHealth();
+    protected abstract void PlayHitSound(bool blocked);
     protected abstract void PlayPunchSound();
     protected abstract void FixedUpdate();
 }
