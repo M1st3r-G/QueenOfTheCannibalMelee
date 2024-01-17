@@ -382,7 +382,6 @@ MonoBehaviour:
     m_ColorSpace: -1
     m_NumColorKeys: 4
     m_NumAlphaKeys: 2
-  blockDamageModifier: 0.2
   relativeEarlyEscape: 0.75
 --- !u!114 &5126546162175589929
 MonoBehaviour:
@@ -401,8 +400,9 @@ MonoBehaviour:
   - {fileID: 11400000, guid: 33064eb1cc371e14d9369420b7ca88b0, type: 2}
   - {fileID: 11400000, guid: d1b33e6ec53aa594da25349e7e9ec83d, type: 2}
   - {fileID: 11400000, guid: 0ddb9c79215dddd4d8b766961c23b542, type: 2}
+  baseDamageBlock: 0
   baseDamage: 25
-  baseMovementSpeed: 10
+  baseMovementSpeed: 5
   baseKnockBackSpeed: 3
   baseKnockBackDistance: 1.5
   baseMaxHealth: 100
