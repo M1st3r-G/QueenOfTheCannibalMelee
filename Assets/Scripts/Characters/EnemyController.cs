@@ -16,7 +16,7 @@ public class EnemyController : Character
     //Temps
     private float blockChance;
     private bool wantsToBlock;
-    private float lastAttackCounter;
+    private float timeSinceLastAttackCounter;
     //Publics
     
     private new void Awake()
@@ -55,7 +55,7 @@ public class EnemyController : Character
         if (Random.Range(0f, 1f) > blockChance)wantsToBlock = true;
         else blockChance += blockChanceIncrease;
 
-        lastAttackCounter = 0;
+        timeSinceLastAttackCounter = 0;
     }
 
 
@@ -64,12 +64,12 @@ public class EnemyController : Character
     /// </summary>
     private void Update()
     {
-        if (lastAttackCounter > spamCooldown)
+        if (timeSinceLastAttackCounter > spamCooldown)
         {
             blockChance = baseBlockChance;
             print("Reset BlockChance");
         }
-        else if (lastAttackCounter <= spamCooldown) lastAttackCounter += Time.deltaTime;
+        else if (timeSinceLastAttackCounter <= spamCooldown) timeSinceLastAttackCounter += Time.deltaTime;
         
         if (ActionActive) return;
 
