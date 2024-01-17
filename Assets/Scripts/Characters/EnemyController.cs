@@ -77,11 +77,12 @@ public class EnemyController : Character
         int playerLine = LayerMask.LayerToName(target.gameObject.layer)[^1] - '0' - 1;
         int enemyLine = LayerMask.LayerToName(gameObject.layer)[^1] - '0' - 1;
 
-        if (wantsToBlock)
+        if (wantsToBlock) 
         {
+            wantsToBlock = false;
+            if (!(Mathf.Abs(target.transform.position.x - transform.position.x) < attackDistance)) return;
             print("Enemy Blocks");
             StartCoroutine(BlockRoutine());
-            wantsToBlock = false;
         }
         else if (Mathf.Abs(target.transform.position.x - transform.position.x) < changeDistance && playerLine != enemyLine)
         {
