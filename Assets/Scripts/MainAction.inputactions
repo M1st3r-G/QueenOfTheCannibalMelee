@@ -119,6 +119,39 @@
                     "isPartOfComposite": true
                 },
                 {
+                    "name": "1D Axis",
+                    "id": "7bc5cd36-6bb6-4249-8dfb-98c844b838ba",
+                    "path": "1DAxis",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "Move",
+                    "isComposite": true,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "negative",
+                    "id": "e5461552-ddfd-489e-8ceb-dafc807de3fc",
+                    "path": "<Keyboard>/leftArrow",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "Default",
+                    "action": "Move",
+                    "isComposite": false,
+                    "isPartOfComposite": true
+                },
+                {
+                    "name": "positive",
+                    "id": "cee573d0-da8b-4b24-8666-636ddd21cda0",
+                    "path": "<Keyboard>/rightArrow",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "Default",
+                    "action": "Move",
+                    "isComposite": false,
+                    "isPartOfComposite": true
+                },
+                {
                     "name": "",
                     "id": "5ce2d107-8147-4e87-a869-f8e3219dee6b",
                     "path": "<Keyboard>/e",
@@ -143,7 +176,7 @@
                 {
                     "name": "",
                     "id": "7ba1f792-dcfd-4c56-a59a-8bc34b359752",
-                    "path": "<Mouse>/leftButton",
+                    "path": "<Mouse>/rightButton",
                     "interactions": "",
                     "processors": "",
                     "groups": "Default",
@@ -155,6 +188,17 @@
                     "name": "",
                     "id": "5154d044-27bc-4e81-bdee-f64138894c13",
                     "path": "<Keyboard>/w",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "Default",
+                    "action": "ChangeLineUp",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "873ca5a0-62a4-4b0c-a7c4-b16f28b2a27a",
+                    "path": "<Keyboard>/upArrow",
                     "interactions": "",
                     "processors": "",
                     "groups": "Default",
@@ -197,6 +241,17 @@
                 },
                 {
                     "name": "",
+                    "id": "a8fafb8c-df1f-415e-9512-5cfe8c8ce554",
+                    "path": "<Keyboard>/downArrow",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "Default",
+                    "action": "ChangeLineDown",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
                     "id": "59796fef-8ca0-419d-bfd1-210a1bc50dad",
                     "path": "<Keyboard>/q",
                     "interactions": "",
@@ -213,6 +268,17 @@
                     "interactions": "",
                     "processors": "",
                     "groups": "Controller",
+                    "action": "Block",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "5af0fe69-fb79-45a5-8be9-9184b296ed38",
+                    "path": "<Mouse>/leftButton",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "Default",
                     "action": "Block",
                     "isComposite": false,
                     "isPartOfComposite": false
