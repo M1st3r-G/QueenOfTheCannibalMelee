@@ -1,6 +1,5 @@
 using UnityEngine;
 using UnityEngine.SceneManagement;
-using Random = UnityEngine.Random;
 
 public class GameManager : MonoBehaviour
 {
@@ -39,6 +38,8 @@ public class GameManager : MonoBehaviour
 
         enemyPrefab = level.EnemyInLevel;
         Instantiate(level.LevelObject, Vector3.zero, Quaternion.identity);
+
+        GameObject.FindGameObjectWithTag("Transition").GetComponent<SpriteRenderer>().sprite = level.Transition;
     }
 
     private void OnEnable()
