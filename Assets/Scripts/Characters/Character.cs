@@ -19,7 +19,6 @@ public abstract class Character : MonoBehaviour
     protected float AttackCooldown;
     protected float LineCooldown;
     protected float HitCooldown;
-    protected float BlockCooldown;
     //Temps
     protected float CurrentKnockBackSpeed;
     protected float Direction;
@@ -47,7 +46,6 @@ public abstract class Character : MonoBehaviour
             if (clip.name.EndsWith("Attack"))AttackCooldown = clip.length;
             else if (clip.name.EndsWith("LineChange")) LineCooldown = clip.length;
             else if (clip.name.EndsWith("Hit")) HitCooldown = clip.length;
-            else if (clip.name.EndsWith("Block")) BlockCooldown = clip.length;
         }
     }
     
@@ -149,25 +147,23 @@ public abstract class Character : MonoBehaviour
         KnockedBack = false;
     }
 
-    protected IEnumerator BlockRoutine()
+    protected void StartBlock()
     {
         ActionActive = true;
         Anim.Play(AnimationPath + "Block");
         blocking = true;
         Rb.bodyType = RigidbodyType2D.Static;
-        
-        float counter = 0;
-        while (counter < BlockCooldown)
-        {
-            counter += Time.deltaTime;
-            yield return null;
-        }
-
+    }
+    
+    protected void BreakBlock()
+    {
+        if (!blocking) return;
+        Anim.Play("EmptyIdle");
+        StopAllCoroutines();
         Rb.bodyType = RigidbodyType2D.Dynamic;
         blocking = false;
         ActionActive = false;
     }
-
     
     /// <summary>
     /// Used By the Characters to TakeDamage

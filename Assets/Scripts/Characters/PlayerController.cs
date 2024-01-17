@@ -34,7 +34,6 @@ public class PlayerController : Character
         LineCooldown *= relativeEarlyEscape;
         HitCooldown *= relativeEarlyEscape;
         AttackCooldown *= relativeEarlyEscape;
-        BlockCooldown *= relativeEarlyEscape;
     }
     
     private void OnEnable()
@@ -125,10 +124,12 @@ public class PlayerController : Character
 
     public void OnBlock(InputAction.CallbackContext ctx)
     {
-        if (!ctx.performed) return;
-        print("Blocked");
+        if (ctx.performed){
+            print(" Begin Block");
+            if (!ActionActive) StartBlock();
+        }
 
-        if (!ActionActive) StartCoroutine(BlockRoutine());
+        if (ctx.canceled) BreakBlock();
     }
 
     public void OnMaskButton(InputAction.CallbackContext ctx)

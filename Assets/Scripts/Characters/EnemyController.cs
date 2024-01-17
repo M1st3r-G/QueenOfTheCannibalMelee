@@ -13,6 +13,7 @@ public class EnemyController : Character
     [SerializeField] [Range(0f,1f)] private float baseBlockChance;
     [SerializeField] private float blockChanceIncrease;
     [SerializeField] private float spamCooldown;
+    [SerializeField] private float blockCooldown;
     private float attackDistance;
     //Temps
     private float blockChance;
@@ -84,7 +85,9 @@ public class EnemyController : Character
         if (wantsToBlock && (Mathf.Abs(target.transform.position.x - transform.position.x) < attackDistance)) 
         {
             print("Enemy Blocks");
-            StartCoroutine(BlockRoutine());
+            StartBlock();
+            StartCoroutine(BreakBlockAfterTime(blockCooldown));
+            wantsToBlock = false;
         }
         else if (Mathf.Abs(target.transform.position.x - transform.position.x) < changeDistance && playerLine != enemyLine)
         {
@@ -123,6 +126,17 @@ public class EnemyController : Character
         Destroy(gameObject);
     }
 
+    private IEnumerator BreakBlockAfterTime(float t)
+    {
+        float counter = 0;
+        while (counter < t)
+        {
+            counter += Time.deltaTime;
+            yield return null;
+        }
+        BreakBlock();
+    }
+    
     protected override void SetHealthBar(int amount) => healthBar.SetValue(CurrentHealth);
 
     protected override void PlayHitSound(bool blocked) { }

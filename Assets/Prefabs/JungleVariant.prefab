@@ -21,6 +21,10 @@ PrefabInstance:
       value: 2
       objectReference: {fileID: 0}
     - target: {fileID: 1077334039391615572, guid: 53261a82533fe3a43ac7001b243eab22, type: 3}
+      propertyPath: blockCooldown
+      value: 1.5
+      objectReference: {fileID: 0}
+    - target: {fileID: 1077334039391615572, guid: 53261a82533fe3a43ac7001b243eab22, type: 3}
       propertyPath: movementSpeed
       value: 3
       objectReference: {fileID: 0}
