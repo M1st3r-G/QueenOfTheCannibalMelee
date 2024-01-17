@@ -121,6 +121,16 @@ public class PlayerController : Character
         if (!ActionActive) StartCoroutine(BlockRoutine());
     }
 
+    public void OnMaskButton(InputAction.CallbackContext ctx)
+    {
+        if (!ctx.performed) return;
+        Vector2 dir = ctx.ReadValue<Vector2>();
+        if (dir.x == -1) print(1);
+        else if (dir.y == 1) print(2);
+        else if (dir.y == -1) print(3);
+        else if (dir.x == 1) print(4);
+    }
+    
     protected override void FixedUpdate()
     {
         Direction = !ActionActive ? moveAction.ReadValue<float>() : 0;

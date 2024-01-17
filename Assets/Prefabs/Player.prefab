@@ -334,6 +334,22 @@ MonoBehaviour:
         m_CallState: 2
     m_ActionId: 94e39ed3-ee76-4f02-982c-a2e2fe46ed59
     m_ActionName: Player/Block[/Keyboard/q]
+  - m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 8242529955882049647}
+        m_TargetAssemblyTypeName: PlayerController, Assembly-CSharp
+        m_MethodName: OnMaskButton
+        m_Mode: 0
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+    m_ActionId: e3412c26-134c-4f82-8724-ef47ec076d82
+    m_ActionName: Player/New action
   m_NeverAutoSwitchControlSchemes: 0
   m_DefaultControlScheme: 
   m_DefaultActionMap: Player
@@ -382,7 +398,6 @@ MonoBehaviour:
     m_ColorSpace: -1
     m_NumColorKeys: 4
     m_NumAlphaKeys: 2
-  blockDamageModifier: 0.2
   relativeEarlyEscape: 0.75
 --- !u!114 &5126546162175589929
 MonoBehaviour:
@@ -401,6 +416,7 @@ MonoBehaviour:
   - {fileID: 11400000, guid: 33064eb1cc371e14d9369420b7ca88b0, type: 2}
   - {fileID: 11400000, guid: d1b33e6ec53aa594da25349e7e9ec83d, type: 2}
   - {fileID: 11400000, guid: 0ddb9c79215dddd4d8b766961c23b542, type: 2}
+  baseDamageBlock: 0
   baseDamage: 25
   baseMovementSpeed: 10
   baseKnockBackSpeed: 3
