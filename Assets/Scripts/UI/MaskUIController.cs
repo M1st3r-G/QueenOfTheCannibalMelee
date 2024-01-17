@@ -6,21 +6,25 @@ public class MaskUIController : MonoBehaviour
     //ComponentReferences
     [SerializeField] private Image[] masks;
     //Params
+    [SerializeField] private Color unknown;
+    [SerializeField] private Color disabled;
+    private readonly Color active = Color.white;
     //Temps
+    private int currentlyActive;
     //Publics
-    public static MaskUIController Instance { get; set; }
+    public static MaskUIController Instance { get; private set; }
 
     
     
     private void Awake()
     {
-        if (Instance is not null)
-        {
-            Destroy(gameObject);
-            return;
-        }
         Instance = this;
-        DontDestroyOnLoad(this);
+        currentlyActive = -1;
+
+        foreach (Image mask in masks)
+        {
+            mask.color = unknown;
+        }
     }
     
     private void OnDestroy()
@@ -28,8 +32,10 @@ public class MaskUIController : MonoBehaviour
         Instance = null;
     }
 
-    public void SetMaskUnlocked(int index)
+    public void SetMaskActive(int index)
     {
-        masks[index].color = Color.white;
+        if (currentlyActive != -1) masks[currentlyActive].color = disabled;
+        masks[index].color = active;
+        currentlyActive = index;
     }
 }

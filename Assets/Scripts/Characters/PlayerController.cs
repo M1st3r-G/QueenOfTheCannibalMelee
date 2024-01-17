@@ -129,11 +129,12 @@ public class PlayerController : Character
         if (!ctx.performed) return;
         Vector2 dir = ctx.ReadValue<Vector2>();
         int mask = 0;
-        if (dir.x == -1) mask = 1;
-        else if (dir.y == 1) mask = 2;
-        else if (dir.y == -1) mask = 3;
-        else if (dir.x == 1) mask = 4;
-        MaskUIController.Instance.SetMaskUnlocked(mask-1);
+        if (dir.x == -1) mask = 0;
+        else if (dir.y == 1) mask = 1;
+        else if (dir.y == -1) mask = 2;
+        else if (dir.x == 1) mask = 3;
+        MaskUIController.Instance.SetMaskActive(mask);
+        Stats.ChangeMask(mask);
     }
     
     protected override void FixedUpdate()
