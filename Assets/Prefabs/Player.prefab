@@ -418,7 +418,7 @@ MonoBehaviour:
   - {fileID: 11400000, guid: 0ddb9c79215dddd4d8b766961c23b542, type: 2}
   baseDamageBlock: 0
   baseDamage: 25
-  baseMovementSpeed: 10
+  baseMovementSpeed: 5
   baseKnockBackSpeed: 3
   baseKnockBackDistance: 1.5
   baseMaxHealth: 100
