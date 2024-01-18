@@ -1,4 +1,3 @@
-using System.Collections;
 using UnityEngine;
 using Random = UnityEngine.Random;
 
@@ -10,14 +9,8 @@ public class EnemyController : Character
     private EnemyHealthbar healthBar;
     //Params
     [SerializeField] private float changeDistance;
-    [SerializeField] [Range(0f,1f)] private float baseBlockChance;
-    [SerializeField] private float blockChanceIncrease;
-    [SerializeField] private float spamCooldown;
-    [SerializeField] private float blockCooldown;
     private float attackDistance;
     //Temps
-    private float blockChance;
-    private bool wantsToBlock;
     private Coroutine resetTime;
     //Publics
     public delegate void EnemyDeath();
@@ -40,37 +33,7 @@ public class EnemyController : Character
         
         healthBar = GetComponent<EnemyHealthbar>();
         healthBar.SetMaxAndMin(Stats.MaxHealth, 0);
-
-        blockChance = baseBlockChance;
     }
-
-    private void OnEnable()
-    {
-        PlayerController.OnPlayerAttack += OnPlayerAttack;
-    }
-
-    private void OnDisable()
-    {
-        PlayerController.OnPlayerAttack -= OnPlayerAttack;
-    }
-
-    private void OnPlayerAttack()
-    {
-        if (Random.Range(0f, 1f) < blockChance)
-        {
-            wantsToBlock = true;
-            print("Enemy wants To Block after this Attack");
-        }
-        else
-        {
-            blockChance += blockChanceIncrease;
-            print($"Enemy Noticed Attack and is now at {blockChance} blockChance");
-        }
-
-        if (resetTime is not null) StopCoroutine(resetTime);
-        resetTime = StartCoroutine(ResetTimeSinceAttackRoutine());
-    }
-
 
     /// <summary>
     /// Controls the AI of the Enemy
@@ -82,14 +45,7 @@ public class EnemyController : Character
         int playerLine = LayerMask.LayerToName(target.gameObject.layer)[^1] - '0' - 1;
         int enemyLine = LayerMask.LayerToName(gameObject.layer)[^1] - '0' - 1;
 
-        if (wantsToBlock && (Mathf.Abs(target.transform.position.x - transform.position.x) < attackDistance)) 
-        {
-            print("Enemy Blocks");
-            StartBlock();
-            StartCoroutine(BreakBlockAfterTime(blockCooldown));
-            wantsToBlock = false;
-        }
-        else if (Mathf.Abs(target.transform.position.x - transform.position.x) < changeDistance && playerLine != enemyLine)
+        if (Mathf.Abs(target.transform.position.x - transform.position.x) < changeDistance && playerLine != enemyLine)
         {
             StartCoroutine(LineChangeRoutine((int) Mathf.Sign(playerLine - enemyLine)));
         }
@@ -105,36 +61,12 @@ public class EnemyController : Character
         Anim.SetFloat(AnimatorDirection, Direction);
         Rb.velocity = Vector2.right * (!KnockedBack ? Direction * Stats.MovementSpeed : CurrentKnockBackSpeed);
     }
-
-    private IEnumerator ResetTimeSinceAttackRoutine()
-    {
-        float counter = 0f;
-        while (counter < spamCooldown)
-        {
-            counter += Time.deltaTime;
-            yield return null;
-        }
-        
-        print($"Reset BlockChance to {baseBlockChance}");
-        blockChance = baseBlockChance;
-    }
     
     protected override void OnNoHealth()
     {
         AudioManager.Instance.PlayAudioEffect(AudioManager.Enemy1Death);
         OnEnemyDeath?.Invoke();
         Destroy(gameObject);
-    }
-
-    private IEnumerator BreakBlockAfterTime(float t)
-    {
-        float counter = 0;
-        while (counter < t)
-        {
-            counter += Time.deltaTime;
-            yield return null;
-        }
-        BreakBlock();
     }
     
     protected override void SetHealthBar(int amount) => healthBar.SetValue(CurrentHealth);

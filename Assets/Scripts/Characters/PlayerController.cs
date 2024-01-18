@@ -17,9 +17,6 @@ public class PlayerController : Character
     public delegate void GameOverDelegate();
     public static GameOverDelegate OnGameOver;
 
-    public delegate void AttackingDelegate();
-    public static AttackingDelegate OnPlayerAttack;
-    
     private new void Awake()
     {
         base.Awake();
@@ -93,9 +90,7 @@ public class PlayerController : Character
         if (!ctx.performed) return;
         print("Received AttackInput");
 
-        if (ActionActive) return;
-        StartCoroutine(AttackRoutine());
-        OnPlayerAttack?.Invoke();
+        if (!ActionActive) StartCoroutine(AttackRoutine());
     }
     
     /// <summary>
@@ -124,11 +119,7 @@ public class PlayerController : Character
 
     public void OnBlock(InputAction.CallbackContext ctx)
     {
-        if (ctx.performed){
-            print(" Begin Block");
-            if (!ActionActive) StartBlock();
-        }
-
+        if (ctx.performed && !ActionActive) StartBlock();
         if (ctx.canceled) BreakBlock();
     }
 
