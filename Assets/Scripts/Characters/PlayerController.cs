@@ -11,7 +11,7 @@ public class PlayerController : Character
     //ComponentReferences
     private InputAction moveAction;
     private GameObject healthBar;
-    private Animator maskController;
+    [SerializeField] private Animator maskController;
     [SerializeField] private Gradient healthGradient;
     //Params
     [SerializeField] [Range(0f, 1f)] private float relativeEarlyEscape;
@@ -29,7 +29,6 @@ public class PlayerController : Character
         SetHealthBar(CurrentHealth);
         transform.position =  LineManager.Instance.SetToLine(gameObject, 0);
         moveAction = GetComponent<PlayerInput>().actions.FindAction("Move");
-        maskController = transform.GetChild(2).GetComponentInChildren<Animator>();
         DontDestroyOnLoad(gameObject);
 
         LineCooldown *= relativeEarlyEscape;

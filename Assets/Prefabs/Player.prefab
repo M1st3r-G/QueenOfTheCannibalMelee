@@ -564,6 +564,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   fistReference: {fileID: 661644869271904063}
+  maskController: {fileID: 6628234850031222080}
   healthGradient:
     serializedVersion: 2
     key0: {r: 0.745283, g: 0, b: 0, a: 1}
