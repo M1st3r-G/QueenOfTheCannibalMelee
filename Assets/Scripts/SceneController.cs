@@ -30,7 +30,10 @@ public class SceneController : MonoBehaviour
         }
         Instance = this;
         DontDestroyOnLoad(this);
-        
+    }
+
+    private void Start()
+    {
         player = GameObject.FindGameObjectWithTag("Player");
     }
     
