@@ -5,22 +5,18 @@ public class GameManager : MonoBehaviour
 {
     //ComponentReferences
     [SerializeField] private GameObject playerPrefab;
-    [SerializeField] private LevelData level;
-    [SerializeField] private AudioClip bossMusic;
     private GameObject enemyPrefab;
+    private static LevelData CurrentLevel => SceneController.Instance.GetCurrentLevel();
     private Transform cam;
     //Params
     [SerializeField] private int spawnCap;
     [SerializeField] private float spawnTime;
     //Temps
-    private bool isInLoading;
     private int numberOfEnemies;
     private float counter;
-    private bool inBossArena;
     //Publics
-    public static GameManager Instance { get; private set; }
-    public int NextLevelIndex { get; private set; }
-    public AudioClip LevelMusic => level is null ? bossMusic : level.Music;
+    private static GameManager Instance { get; set; }
+    public static AudioClip LevelMusic => CurrentLevel.Music;
     
     
     private void Awake()
@@ -33,17 +29,12 @@ public class GameManager : MonoBehaviour
         Instance = this;
         DontDestroyOnLoad(this);
         
-        isInLoading = true;
-        NextLevelIndex = SceneManager.GetActiveScene().buildIndex;
         Instantiate(playerPrefab, Vector3.zero, Quaternion.identity);
 
-        if (level is null) inBossArena = true;
-        else
-        {
-            enemyPrefab = level.EnemyInLevel;
-            Instantiate(level.Transition);
-            Instantiate(level.LevelObject, Vector3.zero, Quaternion.identity);
-        }
+        if (SceneController.IsInBossArena) return;
+        enemyPrefab = CurrentLevel.EnemyInLevel;
+        Instantiate(CurrentLevel.Transition);
+        Instantiate(CurrentLevel.LevelObject, Vector3.zero, Quaternion.identity);
     }
 
     private void OnEnable()
@@ -61,20 +52,18 @@ public class GameManager : MonoBehaviour
     private void OnEnemyDeath() => numberOfEnemies--;
     
     /// <summary>
-    /// This Method is Triggered when Loading into a new Scene, it resets Refrences and counts up the Levels
+    /// This Method is Triggered when Loading into a new Scene, it resets References and counts up the Levels
     /// </summary>
     /// <param name="s">irrelevant</param>
     /// <param name="m">irrelevant</param>
     private void RefreshReference(Scene s, LoadSceneMode m)
     {
         cam = GameObject.FindGameObjectWithTag("MainCamera").transform;
-        NextLevelIndex++;
-        isInLoading = !isInLoading; 
     }
     
     private void Update()
     {
-        if (isInLoading || inBossArena) return;
+        if (SceneController.IsInLoading || SceneController.IsInBossArena) return;
         
         if (numberOfEnemies >= spawnCap) return;
         if (counter > spawnTime)
@@ -99,24 +88,5 @@ public class GameManager : MonoBehaviour
     {
         print("Spawned Enemy");
         Instantiate(enemyPrefab, Vector3.right * (cam.position.x + 5), Quaternion.identity);
-    }
-    
-    /// <summary>
-    /// Loads the Next Scene in BuildSettings, if the Current Scene was the Last Scene, it Resets to Index 0
-    /// </summary>
-    public static void LoadNextScene()
-    {   
-        int nextSceneIndex = SceneManager.GetActiveScene().buildIndex + 1;
-        if (nextSceneIndex == SceneManager.sceneCountInBuildSettings) nextSceneIndex = 0;
-        print($"LoadNextScene: {nextSceneIndex}");
-        SceneManager.LoadScene(nextSceneIndex);
-    }
-    
-    public static void LoadMainMenu()
-    {
-        Destroy(GameManager.Instance.gameObject);
-        Destroy(GameObject.FindGameObjectWithTag("Player"));
-        Time.timeScale = 1f;
-        SceneManager.LoadScene(1);
     }
 }

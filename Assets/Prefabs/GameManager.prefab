@@ -13,6 +13,7 @@ GameObject:
   - component: {fileID: 4321711819564825640}
   - component: {fileID: 5825266259716157179}
   - component: {fileID: 2918709054073469661}
+  - component: {fileID: 2052377368514745029}
   m_Layer: 0
   m_Name: GameManager
   m_TagString: Untagged
@@ -48,8 +49,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   playerPrefab: {fileID: 5033552880383383475, guid: e3fd0542dae51804f87bb1307bf64f84, type: 3}
-  level: {fileID: 11400000, guid: 9f9b3caa33badc045982313a0c15df64, type: 2}
-  bossMusic: {fileID: 8300000, guid: c766d6ee775723c4eb40de1f25fd4080, type: 3}
   spawnCap: 3
   spawnTime: 5
 --- !u!114 &4321711819564825640
@@ -181,3 +180,18 @@ AudioSource:
     m_PreInfinity: 2
     m_PostInfinity: 2
     m_RotationOrder: 4
+--- !u!114 &2052377368514745029
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5666446566486608536}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 18a0504d3332df24fb91ed5c3c518609, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  levels:
+  - {fileID: 11400000, guid: 9f9b3caa33badc045982313a0c15df64, type: 2}
+  - {fileID: 11400000, guid: f215fdbf884137e48b924fbd706750ba, type: 2}

@@ -30,7 +30,7 @@ public class MainMenuFunction : MonoBehaviour
     public void OnSettingsClick()
     {
         effects.PlayOneShot(clips[1]);
-        StartCoroutine(DelaySceneLoad(clips[1].length, 2));
+        StartCoroutine(DelaySceneLoad(clips[1].length, SceneController.SettingsIndex));
     }
 
     /// <summary>
@@ -39,7 +39,7 @@ public class MainMenuFunction : MonoBehaviour
     public void OnPlayClick()
     {
         effects.PlayOneShot(clips[1]);
-        StartCoroutine(DelaySceneLoad(clips[1].length, 3));
+        StartCoroutine(DelaySceneLoad(clips[1].length, SceneController.DefaultLevelIndex));
     }
     
     /// <summary>
@@ -75,7 +75,7 @@ public class MainMenuFunction : MonoBehaviour
             yield return null;
         }
 
-        SceneManager.LoadScene(s);
+        SceneController.LoadFirstLoadingScreen();
     }
     
     /// <summary>

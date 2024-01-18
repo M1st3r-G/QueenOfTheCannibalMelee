@@ -68,9 +68,7 @@ public class PlayerController : Character
             SetHealthBar(CurrentHealth);
         }
     }
-
     
-
     /// <summary>
     /// Resets the Player X position to -4 when a new Scene is Loaded  
     /// </summary>
@@ -78,6 +76,12 @@ public class PlayerController : Character
     /// <param name="m">irrelevant</param>
     private void ResetPosition(Scene s, LoadSceneMode m)
     {
+        if (!SceneController.IsInLoading)
+        {
+            healthBar = GameObject.FindGameObjectWithTag("HealthUI");
+            SetHealthBar(CurrentHealth);
+        }
+ 
         Vector3 newPos = transform.position;
         newPos.x = -4;
         transform.position = newPos;
@@ -156,7 +160,7 @@ public class PlayerController : Character
     
     private void OnTriggerEnter2D(Collider2D other)
     { 
-        if(other.gameObject.CompareTag("Transition")) GameManager.LoadNextScene();
+        if(other.gameObject.CompareTag("Transition")) SceneController.Instance.LoadNextScene();
     }
 
     protected override void SetHealthBar(int amount)

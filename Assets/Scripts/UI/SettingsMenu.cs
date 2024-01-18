@@ -46,7 +46,7 @@ public class SettingsMenu : MonoBehaviour
         PlayerPrefs.SetFloat(MusicVolumeKey, musicVolume);
         PlayerPrefs.SetFloat(EffectVolumeKey, effectVolume);
         PlayerPrefs.SetFloat(GeneralVolumeKey, generalVolume);
-        SceneManager.LoadScene(1);
+        SceneController.LoadScene(SceneController.MainMenuIndex);
     }
     
     public void OnMusicVolumeChange()

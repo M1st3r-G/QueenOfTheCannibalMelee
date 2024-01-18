@@ -32,6 +32,7 @@ public class LoadingScreenController : MonoBehaviour
             counter += Time.deltaTime;
             yield return null;
         }
-        SceneManager.LoadScene(GameManager.Instance.NextLevelIndex);
+        if(SceneController.Instance is null) SceneController.LoadFirstLevel();
+        else SceneController.Instance.LoadNextScene();
     }
 }

@@ -58,8 +58,9 @@ public class AudioManager : MonoBehaviour
 
     private void OnSceneLoaded(Scene s, LoadSceneMode m)
     {
+        if (SceneController.IsInLoading) return;
         musicAudioSource = GameObject.FindGameObjectWithTag("MainCamera").GetComponent<AudioSource>();
-        musicAudioSource.clip = GameManager.Instance.LevelMusic;
+        musicAudioSource.clip = GameManager.LevelMusic;
         musicAudioSource.volume = musicVolume * generalVolume;
         musicAudioSource.Play();
     }
