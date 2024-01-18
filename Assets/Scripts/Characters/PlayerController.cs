@@ -154,7 +154,7 @@ public class PlayerController : Character
     
     protected override void FixedUpdate()
     {
-        Direction = !ActionActive ? moveAction.ReadValue<float>() : 0;
+        Direction = moveAction.ReadValue<float>() * (!ActionActive ? 1f : 0.5f);
         Anim.SetFloat(AnimatorDirection, Direction);
         Rb.velocity = Vector2.right * (!KnockedBack ? Direction * Stats.MovementSpeed : -CurrentKnockBackSpeed);
     }

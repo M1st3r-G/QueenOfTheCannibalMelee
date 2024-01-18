@@ -23,7 +23,7 @@ public abstract class Character : MonoBehaviour
     protected float CurrentKnockBackSpeed;
     protected float Direction;
     protected int CurrentHealth;
-    private bool blocking;
+    protected bool Blocking;
     protected bool ActionActive;
     protected bool KnockedBack;
 
@@ -151,15 +151,15 @@ public abstract class Character : MonoBehaviour
     {
         ActionActive = true;
         Anim.Play(AnimationPath + "Block");
-        blocking = true;
+        Blocking = true;
     }
     
     protected void BreakBlock()
     {
-        if (!blocking) return;
+        if (!Blocking) return;
         Anim.Play("EmptyIdle");
         StopAllCoroutines();
-        blocking = false;
+        Blocking = false;
         ActionActive = false;
     }
     
@@ -171,13 +171,13 @@ public abstract class Character : MonoBehaviour
     /// <param name="kDistance">The KnockBack Distance</param>
     private void TakeDamage(int amount, float kSpeed, float kDistance)
     {
-        if (blocking) amount = (int)((1 - Stats.DamageBlock) * amount);
+        if (Blocking) amount = (int)((1 - Stats.DamageBlock) * amount);
         CurrentHealth -= amount;
         SetHealthBar(CurrentHealth);
-        PlayHitSound(blocking);
+        PlayHitSound(Blocking);
         print($"{AnimationPath} Took {amount} Damage and is now at {CurrentHealth} health");
 
-        if (!blocking)
+        if (!Blocking)
         {
             StopAllCoroutines();
             StartCoroutine(HitRoutine());
