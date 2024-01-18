@@ -6,9 +6,12 @@ using UnityEngine.UI;
 
 public class PlayerController : Character
 {
+    private static readonly int AnimatorMaskParameter = Animator.StringToHash("MaskInt");
+    
     //ComponentReferences
     private InputAction moveAction;
     private GameObject healthBar;
+    private Animator maskController;
     [SerializeField] private Gradient healthGradient;
     //Params
     [SerializeField] [Range(0f, 1f)] private float relativeEarlyEscape;
@@ -26,6 +29,7 @@ public class PlayerController : Character
         SetHealthBar(CurrentHealth);
         transform.position =  LineManager.Instance.SetToLine(gameObject, 0);
         moveAction = GetComponent<PlayerInput>().actions.FindAction("Move");
+        maskController = transform.GetChild(1).GetChild(0).GetComponent<Animator>();
         DontDestroyOnLoad(gameObject);
 
         LineCooldown *= relativeEarlyEscape;
@@ -141,6 +145,7 @@ public class PlayerController : Character
         if (mask == -1) throw new Exception("Got Wrong Mask input");
         MaskUIController.Instance.SetMaskActive(mask);
         Stats.ChangeMask(mask);
+        maskController.SetInteger(AnimatorMaskParameter, mask);
     }
     
     protected override void FixedUpdate()
