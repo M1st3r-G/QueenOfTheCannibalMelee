@@ -44,11 +44,5 @@ public class GameOverScreen : MonoBehaviour
         }
     }
 
-    public void ToMainMenu()
-    {
-        Destroy(GameManager.Instance.gameObject);
-        Destroy(GameObject.FindGameObjectWithTag("Player"));
-        Time.timeScale = 1f;
-        SceneManager.LoadScene(1);
-    }
+    public void ToMainMenu() => GameManager.Instance.LoadMainMenu();
 }

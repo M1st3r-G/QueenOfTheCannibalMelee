@@ -105,4 +105,12 @@ public class GameManager : MonoBehaviour
         print($"LoadNextScene: {nextSceneIndex}");
         SceneManager.LoadScene(nextSceneIndex);
     }
+    
+    public void LoadMainMenu()
+    {
+        Destroy(GameManager.Instance.gameObject);
+        Destroy(GameObject.FindGameObjectWithTag("Player"));
+        Time.timeScale = 1f;
+        SceneManager.LoadScene(1);
+    }
 }
