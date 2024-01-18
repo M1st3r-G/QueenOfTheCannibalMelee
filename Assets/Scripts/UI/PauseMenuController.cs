@@ -75,5 +75,5 @@ public class PauseMenuController : MonoBehaviour
     
     public void ContinueButton() => OnPause(new InputAction.CallbackContext());
     public void OnQuitButton() => Application.Quit();
-    public void OnMenuButton() => GameManager.Instance.LoadMainMenu();
+    public void OnMenuButton() => GameManager.LoadMainMenu();
 }

@@ -115,6 +115,8 @@ public abstract class Character : MonoBehaviour
         {
             if (attackTarget.gameObject == gameObject) continue;
             attackTarget.GetComponent<Character>()?.TakeDamage(Stats.Damage, Stats.KnockBackSpeed, Stats.KnockBackDistance);
+            attackTarget.GetComponent<BossController>()
+                ?.TakeDamage(Stats.Damage);
         }
     }
 
@@ -169,7 +171,7 @@ public abstract class Character : MonoBehaviour
     /// <param name="amount">The amount of Damage</param>
     /// <param name="kSpeed">The KnockBack Speed</param>
     /// <param name="kDistance">The KnockBack Distance</param>
-    private void TakeDamage(int amount, float kSpeed, float kDistance)
+    public void TakeDamage(int amount, float kSpeed, float kDistance)
     {
         if (blocking) amount = (int)((1 - Stats.DamageBlock) * amount);
         CurrentHealth -= amount;

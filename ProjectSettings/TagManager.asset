@@ -8,14 +8,15 @@ TagManager:
   - Enemy
   - Damage
   - HealthUI
+  - Background
   layers:
   - Default
   - TransparentFX
   - Ignore Raycast
-  - 
+  - Boss
   - Water
   - UI
-  - 
+  - Background
   - 
   - 
   - 

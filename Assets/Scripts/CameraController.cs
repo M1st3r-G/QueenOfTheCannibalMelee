@@ -8,8 +8,8 @@ public class CameraController : MonoBehaviour
     private GameObject target;
     private Rigidbody2D rb;
     //Param 
-    [SerializeField] private float speedFactor;
-    [SerializeField] private float xTarget;
+    [SerializeField] protected float speedFactor;
+    [SerializeField] protected float xTarget;
     //Temps
     private float oldXPosition;
     //Publics

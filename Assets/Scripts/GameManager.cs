@@ -6,6 +6,7 @@ public class GameManager : MonoBehaviour
     //ComponentReferences
     [SerializeField] private GameObject playerPrefab;
     [SerializeField] private LevelData level;
+    [SerializeField] private AudioClip bossMusic;
     private GameObject enemyPrefab;
     private Transform cam;
     //Params
@@ -15,10 +16,11 @@ public class GameManager : MonoBehaviour
     private bool isInLoading;
     private int numberOfEnemies;
     private float counter;
+    private bool inBossArena;
     //Publics
     public static GameManager Instance { get; private set; }
     public int NextLevelIndex { get; private set; }
-    public AudioClip LevelMusic => level.Music;
+    public AudioClip LevelMusic => level is null ? bossMusic : level.Music;
     
     
     private void Awake()
@@ -33,12 +35,15 @@ public class GameManager : MonoBehaviour
         
         isInLoading = true;
         NextLevelIndex = SceneManager.GetActiveScene().buildIndex;
-        
-        enemyPrefab = level.EnemyInLevel;
-        
-        Instantiate(level.Transition);
         Instantiate(playerPrefab, Vector3.zero, Quaternion.identity);
-        Instantiate(level.LevelObject, Vector3.zero, Quaternion.identity);
+
+        if (level is null) inBossArena = true;
+        else
+        {
+            enemyPrefab = level.EnemyInLevel;
+            Instantiate(level.Transition);
+            Instantiate(level.LevelObject, Vector3.zero, Quaternion.identity);
+        }
     }
 
     private void OnEnable()
@@ -69,7 +74,8 @@ public class GameManager : MonoBehaviour
     
     private void Update()
     {
-        if (isInLoading) return;
+        if (isInLoading || inBossArena) return;
+        
         if (numberOfEnemies >= spawnCap) return;
         if (counter > spawnTime)
         {
@@ -106,7 +112,7 @@ public class GameManager : MonoBehaviour
         SceneManager.LoadScene(nextSceneIndex);
     }
     
-    public void LoadMainMenu()
+    public static void LoadMainMenu()
     {
         Destroy(GameManager.Instance.gameObject);
         Destroy(GameObject.FindGameObjectWithTag("Player"));

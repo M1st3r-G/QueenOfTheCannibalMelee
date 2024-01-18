@@ -44,5 +44,5 @@ public class GameOverScreen : MonoBehaviour
         }
     }
 
-    public void ToMainMenu() => GameManager.Instance.LoadMainMenu();
+    public void ToMainMenu() => GameManager.LoadMainMenu();
 }
