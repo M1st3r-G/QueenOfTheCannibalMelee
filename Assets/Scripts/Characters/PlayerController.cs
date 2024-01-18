@@ -29,7 +29,7 @@ public class PlayerController : Character
         SetHealthBar(CurrentHealth);
         transform.position =  LineManager.Instance.SetToLine(gameObject, 0);
         moveAction = GetComponent<PlayerInput>().actions.FindAction("Move");
-        maskController = transform.GetChild(1).GetChild(0).GetComponent<Animator>();
+        maskController = transform.GetChild(2).GetComponentInChildren<Animator>();
         DontDestroyOnLoad(gameObject);
 
         LineCooldown *= relativeEarlyEscape;
