@@ -139,11 +139,11 @@ public class PlayerController : Character
         int mask = dir.x switch
         {
             -1 => 0,
-            1 => 3,
+            1 => 2,
             _ => dir.y switch
             {
                 1 => 1,
-                -1 => 2,
+                -1 => 3,
                 _ => -1
             }
         };

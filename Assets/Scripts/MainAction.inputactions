@@ -317,7 +317,7 @@
                 {
                     "name": "down",
                     "id": "fc74148a-6029-41b3-86d8-adbd7f4a2616",
-                    "path": "<Keyboard>/3",
+                    "path": "<Keyboard>/4",
                     "interactions": "",
                     "processors": "",
                     "groups": "Default",
@@ -339,7 +339,7 @@
                 {
                     "name": "right",
                     "id": "e5cc17d7-5b7e-4bc6-b5df-f0bcee8a0b15",
-                    "path": "<Keyboard>/4",
+                    "path": "<Keyboard>/3",
                     "interactions": "",
                     "processors": "",
                     "groups": "Default",
