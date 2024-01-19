@@ -5,6 +5,7 @@ using UnityEngine.InputSystem;
 public class PauseMenuController : MonoBehaviour
 {
     //ComponentReferences
+    [SerializeField] private InputActionAsset playerActions;
     //Params
     //Temps
     //Publics
@@ -60,6 +61,10 @@ public class PauseMenuController : MonoBehaviour
     {
         float counter = 0f;
         Time.timeScale = active ? 0f : 1f;
+
+
+        if (active) playerActions.Disable();
+        else playerActions.Enable();
         
         isPaused = active;
         group.interactable = active;

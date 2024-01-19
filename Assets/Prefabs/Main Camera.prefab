@@ -145,7 +145,7 @@ GameObject:
   - component: {fileID: 2683010364057572618}
   m_Layer: 5
   m_Name: Mask
-  m_TagString: Untagged
+  m_TagString: MaskImage
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -488,7 +488,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e1bbc471a7a856b499507e5ff3da48ba, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  pauseAction: {fileID: 3990616192828962888, guid: 671c9260b7226834a90941635700bce4, type: 3}
+  playerActions: {fileID: 0}
+  pauseAction: {fileID: -243404182102040280, guid: 671c9260b7226834a90941635700bce4, type: 3}
   fadeInTime: 0.3
 --- !u!1 &1646563556090205584
 GameObject:
@@ -1065,7 +1066,7 @@ GameObject:
   - component: {fileID: 5564574064766038457}
   m_Layer: 5
   m_Name: Mask
-  m_TagString: Untagged
+  m_TagString: MaskImage
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -1630,7 +1631,7 @@ GameObject:
   - component: {fileID: 7652459530151684748}
   - component: {fileID: 4199732235607186126}
   - component: {fileID: 7650374003437239132}
-  - component: {fileID: 1131123644365507222}
+  - component: {fileID: 34687213654465558}
   m_Layer: 5
   m_Name: Canvas
   m_TagString: Untagged
@@ -1727,7 +1728,7 @@ MonoBehaviour:
   m_BlockingMask:
     serializedVersion: 2
     m_Bits: 4294967295
---- !u!114 &1131123644365507222
+--- !u!114 &34687213654465558
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -1736,16 +1737,24 @@ MonoBehaviour:
   m_GameObject: {fileID: 6108380663858562593}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 046caeccf8ec8f947ab59e06bce71012, type: 3}
+  m_Script: {fileID: 11500000, guid: 1f25c2220683c7145adbd81af008ec5c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  masks:
+  maskImages:
   - {fileID: 2683010364057572618}
   - {fileID: 2381165901219986784}
   - {fileID: 5564574064766038457}
   - {fileID: 8378359304772414110}
-  unknown: {r: 0.08627451, g: 0.08627451, b: 0.08627451, a: 0.7058824}
-  disabled: {r: 0.7294118, g: 0.7294118, b: 0.7294118, a: 0.5882353}
+  allMasks:
+  - {fileID: 11400000, guid: d1b33e6ec53aa594da25349e7e9ec83d, type: 2}
+  - {fileID: 11400000, guid: 0ddb9c79215dddd4d8b766961c23b542, type: 2}
+  - {fileID: 11400000, guid: 1873858b7e5900f4580075f1693d554b, type: 2}
+  - {fileID: 11400000, guid: 33064eb1cc371e14d9369420b7ca88b0, type: 2}
+  unknown: {r: 0, g: 0, b: 0, a: 0.62352943}
+  disabled: {r: 0.4433962, g: 0.4433962, b: 0.4433962, a: 0.5372549}
+  baseDropRate: 0.2
+  maxMasksPerLevel: 2
+  masksFound: 0
 --- !u!1 &6549452536257137803
 GameObject:
   m_ObjectHideFlags: 0
@@ -1796,7 +1805,7 @@ GameObject:
   - component: {fileID: 8378359304772414110}
   m_Layer: 5
   m_Name: Mask
-  m_TagString: Untagged
+  m_TagString: MaskImage
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -2021,7 +2030,7 @@ GameObject:
   - component: {fileID: 2381165901219986784}
   m_Layer: 5
   m_Name: Mask
-  m_TagString: Untagged
+  m_TagString: MaskImage
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0

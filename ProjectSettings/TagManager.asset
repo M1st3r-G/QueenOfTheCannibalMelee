@@ -9,6 +9,7 @@ TagManager:
   - Damage
   - HealthUI
   - Background
+  - MaskImage
   layers:
   - Default
   - TransparentFX

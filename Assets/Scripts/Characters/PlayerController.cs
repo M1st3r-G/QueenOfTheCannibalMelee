@@ -146,7 +146,7 @@ public class PlayerController : Character
             }
         };
         if (mask == -1) throw new Exception("Got Wrong Mask input");
-        MaskUIController.Instance.SetMaskActive(mask);
+        if (!MaskUIController.Instance.SetMaskActive(mask)) return;
         Stats.ChangeMask(mask);
         maskController.SetInteger(AnimatorMaskParameter, mask);
     }
