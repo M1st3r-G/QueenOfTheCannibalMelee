@@ -156,6 +156,7 @@ public class PlayerController : Character
         Direction = moveAction.ReadValue<float>() * (!ActionActive ? 1f : 0.5f);
         Anim.SetFloat(AnimatorDirection, Direction);
         Rb.velocity = Vector2.right * (!KnockedBack ? Direction * Stats.MovementSpeed : -CurrentKnockBackSpeed);
+        CheckFlip();
     }
     
     private void OnTriggerEnter2D(Collider2D other)

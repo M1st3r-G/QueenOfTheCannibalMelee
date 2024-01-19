@@ -14,7 +14,8 @@ public abstract class Character : MonoBehaviour
     [SerializeField] protected GameObject fistReference;
     //Params
     protected StatsController Stats;
-    
+    private bool IsFlipped => Mathf.Abs(Mathf.Sign(transform.localScale.x) - (-1)) < Mathf.Epsilon;
+
     protected string AnimationPath;
     protected float AttackCooldown;
     protected float LineCooldown;
@@ -105,16 +106,20 @@ public abstract class Character : MonoBehaviour
     {
         print($"Noticed An Attack by {gameObject.name}");
 
-        var fistPosition = fistReference.transform.localPosition + transform.position;
+        var fistPosition = fistReference.transform.localPosition;
+        if (IsFlipped) fistPosition.x *= -1;
+        fistPosition += transform.position;
         var coll = fistReference.GetComponent<CapsuleCollider2D>();
-        
+
         Collider2D[] attackTargets =
-            Physics2D.OverlapCapsuleAll(fistPosition, coll.size, coll.direction, fistReference.transform.rotation.z); 
+            Physics2D.OverlapCapsuleAll(fistPosition, coll.size, coll.direction,
+                (IsFlipped ? -1 : 1) * fistReference.transform.rotation.z);
         
         foreach (Collider2D attackTarget in attackTargets)
         {
             if (attackTarget.gameObject == gameObject) continue;
-            attackTarget.GetComponent<Character>()?.TakeDamage(Stats.Damage, Stats.KnockBackSpeed, Stats.KnockBackDistance);
+            attackTarget.GetComponent<Character>()
+                ?.TakeDamage(Stats.Damage, Stats.KnockBackSpeed, Stats.KnockBackDistance);
             attackTarget.GetComponent<BossController>()
                 ?.TakeDamage(Stats.Damage);
         }
@@ -188,6 +193,15 @@ public abstract class Character : MonoBehaviour
         
         if (CurrentHealth > 0) return;
         OnNoHealth();
+    }
+
+    protected void CheckFlip()
+    {
+        if (ActionActive) return;
+        if ((!(Direction < 0) || IsFlipped) && (!(Direction > 0) || !IsFlipped)) return;
+        Vector3 localScale = transform.localScale;
+        localScale.x = -localScale.x;
+        transform.localScale = localScale;
     }
     
     protected abstract void SetHealthBar(int amount);
