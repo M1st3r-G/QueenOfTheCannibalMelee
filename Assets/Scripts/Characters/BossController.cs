@@ -26,7 +26,6 @@ public class BossController : MonoBehaviour
         mainSprite = GetComponent<SpriteRenderer>();
         hitBox = GetComponent<CapsuleCollider2D>();
         currentHealth = maxHealth;
-        StartCoroutine(DashAttack());
     }
     
     /// <summary>
