@@ -60,12 +60,13 @@ public class MainMenuFunction : MonoBehaviour
         effects.PlayOneShot(clips[0]);
     }
 
+    // ReSharper disable Unity.PerformanceAnalysis
     /// <summary>
     /// A Coroutine to Delay the Scene Load of Scene with buildIndex s by delay seconds.
     /// </summary>
     /// <param name="delay">The amount of Seconds to wait</param>
     /// <param name="s">The BuildIndex of the Scene to Load</param>
-    /// <returns>irrelevant, as this used as a Corountine</returns>
+    /// <returns>irrelevant, as this used as a Coroutine</returns>
     private static IEnumerator DelaySceneLoad(float delay, int s)
     {
         float counter = 0;
@@ -75,7 +76,9 @@ public class MainMenuFunction : MonoBehaviour
             yield return null;
         }
 
-        SceneController.LoadFirstLoadingScreen();
+        if(s == SceneController.DefaultLevelIndex) SceneController.LoadFirstLoadingScreen();
+        else if(s == SceneController.SettingsIndex) SceneController.LoadSettings();
+        else Debug.LogError("Scene Index Not Found");
     }
     
     /// <summary>

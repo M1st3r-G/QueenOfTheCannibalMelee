@@ -49,7 +49,7 @@ public class VideoScreen : MonoBehaviour
     /// <param name="ctx">irrelevant in this Context</param>
     private void Skip(InputAction.CallbackContext ctx)
     {
-        SceneController.LoadScene(SceneController.MainMenuIndex);
+        SceneController.LoadMainMenu();
     }
 
     

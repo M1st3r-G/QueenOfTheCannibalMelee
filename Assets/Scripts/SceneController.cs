@@ -59,21 +59,10 @@ public class SceneController : MonoBehaviour
         Time.timeScale = 1f;
         SceneManager.LoadScene(MainMenuIndex);
     }
-    
-    public static void LoadScene(int i)
-    {
-        switch (i)
-        {
-            case MainMenuIndex:
-                SceneManager.LoadScene(MainMenuIndex);
-                break;
-            case SettingsIndex:
-                SceneManager.LoadScene(SettingsIndex);
-                break;
-            default:
-                throw new Exception("Unexpected Scene Index");
-        }
-    }
+
+    public static void LoadSettings() => SceneManager.LoadScene(SettingsIndex);
+
+    public static void LoadMainMenu() => SceneManager.LoadScene(MainMenuIndex);
     
     public static void LoadFirstLevel() => SceneManager.LoadScene(DefaultLevelIndex);
     public static void LoadFirstLoadingScreen() => SceneManager.LoadScene(LoadingScreenIndex);
