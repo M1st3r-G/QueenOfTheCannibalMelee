@@ -4,7 +4,7 @@ using UnityEngine.InputSystem;
 public class PauseMenuController : PopUpMenu
 {
     //ComponentReferences
-    [SerializeField] private InputActionReference pauseAction;
+    [SerializeField] private InputAction pauseAction;
     [SerializeField] private SettingsMenu settings;
     //Params
     //Temps
@@ -13,15 +13,15 @@ public class PauseMenuController : PopUpMenu
     
     private void OnEnable()
     {
-        pauseAction.action.Enable();
-        pauseAction.action.performed += OnPause;
+        pauseAction.Enable();
+        pauseAction.performed += OnPause;
         PlayerController.OnGameOver += OnGameOver;
     }
 
     private void OnDisable()
     {        
-        pauseAction.action.performed -= OnPause;
-        pauseAction.action.Disable();
+        pauseAction.performed -= OnPause;
+        pauseAction.Disable();
         PlayerController.OnGameOver += OnGameOver;
     }
 
