@@ -9,6 +9,7 @@ public class EnemyController : Character
     private EnemyHealthbar healthBar;
     //Params
     [SerializeField] private float changeDistance;
+    [SerializeField] private GameObject maskDropPrefab;
     private float attackDistance;
     //Temps
     private Coroutine resetTime;
@@ -66,6 +67,7 @@ public class EnemyController : Character
     {
         AudioManager.Instance.PlayAudioEffect(AudioManager.Enemy1Death);
         OnEnemyDeath?.Invoke();
+        if (Random.Range(0f, 1f) < MaskUIController.Instance.MaskDropRate) Instantiate(maskDropPrefab, transform.position, Quaternion.identity);
         Destroy(gameObject);
     }
     
