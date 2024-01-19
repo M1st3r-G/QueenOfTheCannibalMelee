@@ -1,11 +1,13 @@
 using System.Collections;
 using UnityEngine;
+using UnityEngine.EventSystems;
 using UnityEngine.InputSystem;
 
 public class PauseMenuController : MonoBehaviour
 {
     //ComponentReferences
     [SerializeField] private InputActionAsset playerActions;
+    [SerializeField] private EventSystem controllerUI;
     //Params
     //Temps
     //Publics
@@ -65,7 +67,8 @@ public class PauseMenuController : MonoBehaviour
 
         if (active) playerActions.Disable();
         else playerActions.Enable();
-        
+
+        controllerUI.SetSelectedGameObject(transform.GetChild(0).gameObject);
         isPaused = active;
         group.interactable = active;
         group.blocksRaycasts = active;

@@ -1,11 +1,14 @@
 using System.Collections;
 using UnityEngine;
-using UnityEngine.SceneManagement;
+using UnityEngine.EventSystems;
+using UnityEngine.InputSystem;
 
 public class GameOverScreen : MonoBehaviour
 {
     //ComponentReferences
     private CanvasGroup cg;
+    [SerializeField] private EventSystem controllerUI;
+    [SerializeField] private InputActionAsset playerActions;
     //Params
     [SerializeField] private float fadeInDuration;
     //Temps
@@ -36,6 +39,9 @@ public class GameOverScreen : MonoBehaviour
     {
         cg.interactable = true;
         cg.blocksRaycasts = true;
+        controllerUI.SetSelectedGameObject(transform.GetChild(0).gameObject);
+        playerActions.Disable();
+        
         float counter = 0f;
         while (counter <  fadeInDuration)
         {
@@ -45,5 +51,9 @@ public class GameOverScreen : MonoBehaviour
         }
     }
 
-public void ToMainMenu() => SceneController.Instance.CleanLoadMainMenu();
+    public void ToMainMenu()
+    {
+        SceneController.Instance.CleanLoadMainMenu();
+        playerActions.Enable();
+    }
 }

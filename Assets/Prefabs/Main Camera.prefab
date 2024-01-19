@@ -383,6 +383,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: bef02a62b371c6f4c8670e371c02fa7f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  controllerUI: {fileID: 7047145219294375008}
+  playerActions: {fileID: -944628639613478452, guid: 671c9260b7226834a90941635700bce4, type: 3}
   fadeInDuration: 1
 --- !u!1 &1589353810818963195
 GameObject:
@@ -416,8 +418,8 @@ RectTransform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
-  - {fileID: 7553063812558143528}
   - {fileID: 8758733493927132964}
+  - {fileID: 7553063812558143528}
   - {fileID: 8496913484439273216}
   m_Father: {fileID: 1038232091295694245}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -488,7 +490,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e1bbc471a7a856b499507e5ff3da48ba, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  playerActions: {fileID: 0}
+  playerActions: {fileID: -944628639613478452, guid: 671c9260b7226834a90941635700bce4, type: 3}
+  controllerUI: {fileID: 7047145219294375008}
   pauseAction: {fileID: -243404182102040280, guid: 671c9260b7226834a90941635700bce4, type: 3}
   fadeInTime: 0.3
 --- !u!1 &1646563556090205584
@@ -1342,7 +1345,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 76c392e42b5098c458856cdf6ecaaaa1, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  m_FirstSelected: {fileID: 4199850304250935473}
+  m_FirstSelected: {fileID: 0}
   m_sendNavigationEvents: 1
   m_DragThreshold: 10
 --- !u!114 &8474003199555459130
