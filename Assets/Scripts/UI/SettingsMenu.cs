@@ -1,35 +1,34 @@
+using System.Collections;
 using UnityEngine;
-using UnityEngine.SceneManagement;
 using UnityEngine.UI;
 
 [RequireComponent(typeof(AudioSource))]
-public class SettingsMenu : MonoBehaviour
+public class SettingsMenu : PopUpMenu
 {
     public const string GeneralVolumeKey = "GeneralVolume";
     public const string EffectVolumeKey = "EffectVolume";
     public const string MusicVolumeKey = "MusicVolume";
 
     //ComponentReferences
+    [SerializeField] private PauseMenuController pauseMenu;
     [SerializeField] private Slider generalVolumeSlider;
     [SerializeField] private Slider musicVolumeSlider;
     [SerializeField] private Slider effectVolumeSlider;
-
     private AudioSource effectTest;
     //Params
     [SerializeField] private float soundCooldown;
     //Temps
-    private float counter;
+    private bool playable;
     private float musicVolume;
     private float effectVolume;
     private float generalVolume;
-    //Publics
+    //Public
      
-    private void Awake()
+    private new void Awake()
     {
+        base.Awake();
         effectTest = GetComponent<AudioSource>();
 
-        counter = 0;
-        
         musicVolume = PlayerPrefs.GetFloat(MusicVolumeKey, 0.75f);
         effectVolume = PlayerPrefs.GetFloat(EffectVolumeKey, 0.75f);
         generalVolume = PlayerPrefs.GetFloat(GeneralVolumeKey, 0.75f);
@@ -40,13 +39,19 @@ public class SettingsMenu : MonoBehaviour
 
     }
 
-    public void ChangeToMainMenu()
+    public void CloseSettings()
     {
-        // Save in Player Prefs
+        // Save in PlayerPrefs
         PlayerPrefs.SetFloat(MusicVolumeKey, musicVolume);
         PlayerPrefs.SetFloat(EffectVolumeKey, effectVolume);
         PlayerPrefs.SetFloat(GeneralVolumeKey, generalVolume);
-        SceneController.LoadMainMenu();
+        
+        if (pauseMenu is not null)
+        {
+            JumpTo(false);
+            pauseMenu.JumpTo(true);
+        }
+        else ToggleMenu();
     }
     
     public void OnMusicVolumeChange()
@@ -66,14 +71,9 @@ public class SettingsMenu : MonoBehaviour
     {
         effectVolume = effectVolumeSlider.value;
         effectTest.volume = effectVolume * generalVolume;
-        if (counter > 0) return;
+        if (!playable) return;
         effectTest.Play();
-        counter = soundCooldown;
-    }
-
-    private void Update()
-    {
-        if(counter > 0) counter -= Time.deltaTime;
+        StartCoroutine(RefreshCooldown());
     }
 
     public void WipeSaveData()
@@ -81,6 +81,17 @@ public class SettingsMenu : MonoBehaviour
         print("WipedSaveData");
         PlayerPrefs.DeleteAll();
     }
-    
-    
+
+    private IEnumerator RefreshCooldown()
+    {
+        playable = false;
+        float counter = 0;
+        while(counter < soundCooldown)
+        {
+            counter += Time.unscaledDeltaTime;
+            yield return null;
+        }
+
+        playable = true;
+    }
 }

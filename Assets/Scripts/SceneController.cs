@@ -1,14 +1,12 @@
-using System;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
 public class SceneController : MonoBehaviour
 {
-    public const int MainMenuIndex = 1;
-    public const int SettingsIndex = 2;
-    public const int DefaultLevelIndex = 3;
-    private const int LoadingScreenIndex = 4;
-    private const int BossLevelIndex = 5;
+    private const int MainMenuIndex = 1;
+    public const int DefaultLevelIndex = 2;
+    private const int LoadingScreenIndex = 3;
+    private const int BossLevelIndex = 4;
     
     //ComponentReferences
     private GameObject player;
@@ -18,7 +16,7 @@ public class SceneController : MonoBehaviour
     public static bool IsInLoading => SceneManager.GetActiveScene().buildIndex == LoadingScreenIndex;
     public static bool IsInBossArena => SceneManager.GetActiveScene().buildIndex == BossLevelIndex;
     [SerializeField] private int currentLevel;
-    //Publics
+    //Public
     public static SceneController Instance { get; private set; }
 
     private void Awake()
@@ -59,10 +57,6 @@ public class SceneController : MonoBehaviour
         Time.timeScale = 1f;
         SceneManager.LoadScene(MainMenuIndex);
     }
-
-    public static void LoadSettings() => SceneManager.LoadScene(SettingsIndex);
-
-    public static void LoadMainMenu() => SceneManager.LoadScene(MainMenuIndex);
     
     public static void LoadFirstLevel() => SceneManager.LoadScene(DefaultLevelIndex);
     public static void LoadFirstLoadingScreen() => SceneManager.LoadScene(LoadingScreenIndex);

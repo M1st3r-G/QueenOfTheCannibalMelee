@@ -8,9 +8,10 @@ public class MainMenuFunction : MonoBehaviour
     //ComponentReferences
     private AudioSource effects;
     [SerializeField] private AudioClip[] clips;
+    [SerializeField] private SettingsMenu settings;
     //Params
     //Temps
-    //Publics
+    //Public
 
     private void Awake()
     {
@@ -30,7 +31,7 @@ public class MainMenuFunction : MonoBehaviour
     public void OnSettingsClick()
     {
         effects.PlayOneShot(clips[1]);
-        StartCoroutine(DelaySceneLoad(clips[1].length, SceneController.SettingsIndex));
+        settings.ToggleMenu();
     }
 
     /// <summary>
@@ -39,7 +40,7 @@ public class MainMenuFunction : MonoBehaviour
     public void OnPlayClick()
     {
         effects.PlayOneShot(clips[1]);
-        StartCoroutine(DelaySceneLoad(clips[1].length, SceneController.DefaultLevelIndex));
+        StartCoroutine(DelayStart(clips[1].length));
     }
     
     /// <summary>
@@ -65,9 +66,8 @@ public class MainMenuFunction : MonoBehaviour
     /// A Coroutine to Delay the Scene Load of Scene with buildIndex s by delay seconds.
     /// </summary>
     /// <param name="delay">The amount of Seconds to wait</param>
-    /// <param name="s">The BuildIndex of the Scene to Load</param>
     /// <returns>irrelevant, as this used as a Coroutine</returns>
-    private static IEnumerator DelaySceneLoad(float delay, int s)
+    private static IEnumerator DelayStart(float delay)
     {
         float counter = 0;
         while (counter < delay)
@@ -76,9 +76,7 @@ public class MainMenuFunction : MonoBehaviour
             yield return null;
         }
 
-        if(s == SceneController.DefaultLevelIndex) SceneController.LoadFirstLoadingScreen();
-        else if(s == SceneController.SettingsIndex) SceneController.LoadSettings();
-        else Debug.LogError("Scene Index Not Found");
+        SceneController.LoadFirstLoadingScreen();
     }
     
     /// <summary>
