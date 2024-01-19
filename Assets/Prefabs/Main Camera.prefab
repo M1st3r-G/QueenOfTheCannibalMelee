@@ -489,7 +489,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   pauseAction: {fileID: 3990616192828962888, guid: 671c9260b7226834a90941635700bce4, type: 3}
-  fadeInTime: 1
+  fadeInTime: 0.3
 --- !u!1 &1646563556090205584
 GameObject:
   m_ObjectHideFlags: 0
