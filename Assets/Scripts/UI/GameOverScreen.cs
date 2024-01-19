@@ -34,7 +34,8 @@ public class GameOverScreen : MonoBehaviour
 
     private IEnumerator FadeInRoutine()
     {
-        cg.interactable = cg.blocksRaycasts = true;
+        cg.interactable = true;
+        cg.blocksRaycasts = true;
         float counter = 0f;
         while (counter <  fadeInDuration)
         {
