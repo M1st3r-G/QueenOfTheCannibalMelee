@@ -1,13 +1,16 @@
 using System.Collections;
+using Unity.VisualScripting;
 using UnityEngine;
 
 [RequireComponent(typeof(Rigidbody2D))]
 [RequireComponent(typeof(Animator))]
 public class BossController : MonoBehaviour
 {
+    private static readonly int AnimatorDirection = Animator.StringToHash("Direction");
+
     //ComponentReferences
     private Rigidbody2D rb;
-    private SpriteRenderer mainSprite;
+    private Animator anim;
     private CapsuleCollider2D hitBox;
     [SerializeField] private GameObject hitBoxReference;
     //Params
@@ -16,16 +19,39 @@ public class BossController : MonoBehaviour
     [SerializeField] private float dashSpeed;
     [SerializeField] private float knockBackSpeed;
     [SerializeField] private float knockBackDistance;
+    
+    private float attackCooldown;
+    private float hitCooldown;
     //Temps
-    private bool isLookingRight;
+    private bool IsFlipped => Mathf.Abs(Mathf.Sign(transform.localScale.x) - (-1)) < Mathf.Epsilon;
     private int currentHealth;
-
+    private bool actionActive;
+    
     private void Awake()
     {
         rb = GetComponent<Rigidbody2D>();
-        mainSprite = GetComponent<SpriteRenderer>();
+        anim = GetComponent<Animator>();
         hitBox = GetComponent<CapsuleCollider2D>();
         currentHealth = maxHealth;
+        actionActive = false;
+        UpdateCooldown();
+    }
+    
+    private void UpdateCooldown()
+    {
+        foreach (AnimationClip clip in anim.runtimeAnimatorController.animationClips)
+        {
+            if (clip.name.EndsWith("Attack")) attackCooldown = clip.length;
+            else if (clip.name.EndsWith("Hit")) hitCooldown = clip.length;
+        }
+    }
+    
+    private void Update()
+    {
+        if (actionActive) return;
+
+        if (Random.Range(0, 2) == 1) StartCoroutine(DashAttackRoutine());
+        else StartCoroutine(AttackRoutine());
     }
     
     /// <summary>
@@ -35,11 +61,14 @@ public class BossController : MonoBehaviour
     {
         print($"Boss used Attack");
 
-        var fistPosition = hitBoxReference.transform.localPosition + transform.position;
+        var fistPosition = hitBoxReference.transform.localPosition;
+        if (IsFlipped) fistPosition.x *= -1;
+        fistPosition += transform.position;
         var coll = hitBoxReference.GetComponent<CapsuleCollider2D>();
-        
+
         Collider2D[] attackTargets =
-            Physics2D.OverlapCapsuleAll(fistPosition, coll.size, coll.direction, hitBoxReference.transform.rotation.z); 
+            Physics2D.OverlapCapsuleAll(fistPosition, coll.size, coll.direction,
+                (IsFlipped ? -1 : 1) * hitBoxReference.transform.rotation.z);
         
         foreach (Collider2D attackTarget in attackTargets)
         {
@@ -50,15 +79,47 @@ public class BossController : MonoBehaviour
 
     private IEnumerator HitRoutine()
     {
-        mainSprite.color = Color.white;
+        actionActive = true;
+        anim.Play("BossHit");
 
         float counter = 0;
-        while (counter < 0.5f)
+        while (counter < hitCooldown)
         {
             counter += Time.deltaTime;
             yield return null;
         }
-        mainSprite.color = Color.red;
+
+        actionActive = false;
+    }
+
+    private IEnumerator DashAttackRoutine()
+    {
+        hitBox.isTrigger = true;
+        bool currentDirection = IsFlipped;
+        anim.Play("BossDash");
+        while (currentDirection ? transform.position.x > -9 : transform.position.x < 9)
+        {
+            rb.velocity = Vector2.right * (dashSpeed * (!currentDirection ? 1 : -1));
+            yield return null;
+        }
+        anim.Play("EmptyIdle");
+        rb.velocity = Vector2.zero;
+        hitBox.isTrigger = false;
+    }
+
+    private IEnumerator AttackRoutine()
+    {
+        actionActive = true;
+        anim.Play("BossAttack");
+
+        float counter = 0;
+        while (counter < attackCooldown)
+        {
+            counter += Time.deltaTime;
+            yield return null;
+        }
+
+        actionActive = false;
     }
 
     /// <summary>
@@ -77,25 +138,10 @@ public class BossController : MonoBehaviour
         Destroy(gameObject);
         print("Player Won");
     }
-
-    private IEnumerator DashAttack()
-    {
-        hitBox.isTrigger = true;
-        while (!isLookingRight ? transform.position.x > -9 : transform.position.x < 9)
-        {
-            rb.velocity = Vector2.right * (dashSpeed * (isLookingRight ? 1 : -1));
-            yield return null;
-        }
-
-        rb.velocity = Vector2.zero;
-        hitBox.isTrigger = false;
-    }
-    
     private void SetHealthBar()
     {
         print($"{currentHealth} / {maxHealth}");
     }
-
     private void OnTriggerEnter2D(Collider2D other)
     {
         other.gameObject.GetComponent<PlayerController>()?.TakeDamage(damage, 10, 0);
