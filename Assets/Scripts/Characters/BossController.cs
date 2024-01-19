@@ -8,7 +8,7 @@ public class BossController : MonoBehaviour
     //ComponentReferences
     private Rigidbody2D rb;
     private SpriteRenderer mainSprite;
-    private BoxCollider2D hitBox;
+    private CapsuleCollider2D hitBox;
     [SerializeField] private GameObject hitBoxReference;
     //Params
     [SerializeField] private int maxHealth;
@@ -24,7 +24,7 @@ public class BossController : MonoBehaviour
     {
         rb = GetComponent<Rigidbody2D>();
         mainSprite = GetComponent<SpriteRenderer>();
-        hitBox = GetComponent<BoxCollider2D>();
+        hitBox = GetComponent<CapsuleCollider2D>();
         currentHealth = maxHealth;
         StartCoroutine(DashAttack());
     }
