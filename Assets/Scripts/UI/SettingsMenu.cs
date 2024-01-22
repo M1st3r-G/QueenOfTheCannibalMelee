@@ -14,7 +14,8 @@ public class SettingsMenu : PopUpMenu
     [SerializeField] private Slider generalVolumeSlider;
     [SerializeField] private Slider musicVolumeSlider;
     [SerializeField] private Slider effectVolumeSlider;
-    private AudioSource effectTest;
+    private AudioSource musicAudioSource;
+    private AudioSource effectAudioSource;
     //Params
     [SerializeField] private float soundCooldown;
     //Temps
@@ -27,7 +28,10 @@ public class SettingsMenu : PopUpMenu
     private new void Awake()
     {
         base.Awake();
-        effectTest = GetComponent<AudioSource>();
+        playable = true;
+        
+        effectAudioSource = AudioManager.Instance is null ? GetComponent<AudioSource>() : AudioManager.Instance.GetComponent<AudioSource>();
+        musicAudioSource = GameObject.FindGameObjectWithTag("MainCamera").GetComponent<AudioSource>();
 
         musicVolume = PlayerPrefs.GetFloat(MusicVolumeKey, 0.75f);
         effectVolume = PlayerPrefs.GetFloat(EffectVolumeKey, 0.75f);
@@ -36,7 +40,6 @@ public class SettingsMenu : PopUpMenu
         musicVolumeSlider.value = musicVolume;
         effectVolumeSlider.value = effectVolume;
         generalVolumeSlider.value = generalVolume;
-
     }
 
     public void CloseSettings()
@@ -57,22 +60,24 @@ public class SettingsMenu : PopUpMenu
     public void OnMusicVolumeChange()
     {
         musicVolume = musicVolumeSlider.value;
-        GameObject.FindGameObjectWithTag("MainCamera").GetComponent<AudioSource>().volume = musicVolume * generalVolume;
+        musicAudioSource.volume = musicVolume * generalVolume;
     }
 
     public void OnGeneralVolumeChange()
     {
         generalVolume = generalVolumeSlider.value;
-        GameObject.FindGameObjectWithTag("MainCamera").GetComponent<AudioSource>().volume = musicVolume * generalVolume;
-        effectTest.volume = effectVolume * generalVolume;
+        musicAudioSource.volume = musicVolume * generalVolume;
+        effectAudioSource.volume = effectVolume * generalVolume;
     }
     
     public void OnEffectVolumeChange()
     {
         effectVolume = effectVolumeSlider.value;
-        effectTest.volume = effectVolume * generalVolume;
+        effectAudioSource.volume = effectVolume * generalVolume;
+        
         if (!playable) return;
-        effectTest.Play();
+        if (AudioManager.Instance is not null) AudioManager.Instance.PlayAudioEffect(AudioManager.SettingsSound);
+        else effectAudioSource.Play();
         StartCoroutine(RefreshCooldown());
     }
 
@@ -91,7 +96,6 @@ public class SettingsMenu : PopUpMenu
             counter += Time.unscaledDeltaTime;
             yield return null;
         }
-
         playable = true;
     }
 }

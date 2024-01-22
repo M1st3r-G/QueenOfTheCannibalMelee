@@ -1,6 +1,5 @@
 using System.Collections;
 using UnityEngine;
-using UnityEngine.SceneManagement;
 
 [RequireComponent(typeof(AudioSource))]
 public class MainMenuFunction : MonoBehaviour

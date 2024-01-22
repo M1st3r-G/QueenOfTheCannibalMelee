@@ -20,6 +20,7 @@ public class AudioManager : MonoBehaviour
     public const int PlayerHit = 2;
     public const int PlayerBlock = 2; // TODo
     public const int Enemy1Death = 3;
+    public const int SettingsSound = 4; //TODO
 
     public static AudioManager Instance { get; private set; }
 
@@ -65,5 +66,9 @@ public class AudioManager : MonoBehaviour
         musicAudioSource.Play();
     }
     
-    public void PlayAudioEffect(int index) => effectAudioSource.PlayOneShot(clips[index]);
+    public void PlayAudioEffect(int index)
+    {
+        Debug.LogWarning($"Played AudioEffect {index}");
+        effectAudioSource.PlayOneShot(clips[index]);
+    }
 }

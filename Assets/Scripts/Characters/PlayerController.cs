@@ -132,6 +132,7 @@ public class PlayerController : Character
 
     public void OnMaskButton(InputAction.CallbackContext ctx)
     {
+        if (SceneController.IsInLoading) return;
         if (!ctx.performed) return;
         Vector2 dir = ctx.ReadValue<Vector2>();
         int mask = dir.x switch

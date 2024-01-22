@@ -312,7 +312,7 @@ MonoBehaviour:
   m_OnValueChanged:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 0}
+      - m_Target: {fileID: 9080447004405378568}
         m_TargetAssemblyTypeName: SettingsMenu, Assembly-CSharp
         m_MethodName: OnMusicVolumeChange
         m_Mode: 1
@@ -1167,7 +1167,7 @@ MonoBehaviour:
   m_OnValueChanged:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 0}
+      - m_Target: {fileID: 9080447004405378568}
         m_TargetAssemblyTypeName: SettingsMenu, Assembly-CSharp
         m_MethodName: OnEffectVolumeChange
         m_Mode: 1
@@ -1404,8 +1404,8 @@ AudioSource:
   m_Enabled: 1
   serializedVersion: 4
   OutputAudioMixerGroup: {fileID: 0}
-  m_audioClip: {fileID: 0}
-  m_PlayOnAwake: 1
+  m_audioClip: {fileID: 8300000, guid: ac70b728f46400c44887192ea5d05814, type: 3}
+  m_PlayOnAwake: 0
   m_Volume: 1
   m_Pitch: 1
   Loop: 0
@@ -1502,16 +1502,15 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1e35992ec9c89fb48a5a60643dfefa03, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  group: {fileID: 5413240847023474800}
   controllerUI: {fileID: 0}
   playerActions: {fileID: -944628639613478452, guid: 671c9260b7226834a90941635700bce4, type: 3}
   firstSelectionInMenu: {fileID: 5687046491484132995}
-  fadeInTime: 1
+  fadeInTime: 0.3
   pauseMenu: {fileID: 0}
   generalVolumeSlider: {fileID: 9160037098059142440}
   musicVolumeSlider: {fileID: 6830478741519740311}
   effectVolumeSlider: {fileID: 6801909339376573137}
-  soundCooldown: 0.5
+  soundCooldown: 0.75
 --- !u!225 &5413240847023474800
 CanvasGroup:
   m_ObjectHideFlags: 0
@@ -1761,7 +1760,7 @@ MonoBehaviour:
   m_OnValueChanged:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 0}
+      - m_Target: {fileID: 9080447004405378568}
         m_TargetAssemblyTypeName: SettingsMenu, Assembly-CSharp
         m_MethodName: OnGeneralVolumeChange
         m_Mode: 1
