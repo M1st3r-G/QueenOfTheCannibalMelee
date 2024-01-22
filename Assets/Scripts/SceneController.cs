@@ -4,12 +4,12 @@ using UnityEngine.SceneManagement;
 public class SceneController : MonoBehaviour
 {
     private const int MainMenuIndex = 1;
-    public const int DefaultLevelIndex = 2;
+    private const int DefaultLevelIndex = 2;
     private const int LoadingScreenIndex = 3;
     private const int BossLevelIndex = 4;
     
     //ComponentReferences
-    private GameObject player;
+    private PlayerController player;
     //Params
     [SerializeField] private LevelData[] levels;
     //Temps
@@ -32,7 +32,7 @@ public class SceneController : MonoBehaviour
 
     private void Start()
     {
-        player = GameObject.FindGameObjectWithTag("Player");
+        player = GameObject.FindGameObjectWithTag("Player").GetComponent<PlayerController>();
     }
     
     private void OnDestroy() => Instance = null;
@@ -42,13 +42,21 @@ public class SceneController : MonoBehaviour
     /// </summary>
     public void LoadNextScene()
     {
-        player.SetActive(IsInLoading);
+        player.gameObject.SetActive(IsInLoading);
         
         if (!IsInLoading) SceneManager.LoadScene(LoadingScreenIndex);
         else
         {
             currentLevel++;
-            SceneManager.LoadScene(currentLevel == levels.Length - 1 ? BossLevelIndex : DefaultLevelIndex);
+            if (currentLevel == levels.Length - 1)
+            {
+                player.FullHeal();
+                SceneManager.LoadScene(BossLevelIndex);
+            }
+            else
+            {
+                SceneManager.LoadScene(DefaultLevelIndex);
+            }
         }
     }
     

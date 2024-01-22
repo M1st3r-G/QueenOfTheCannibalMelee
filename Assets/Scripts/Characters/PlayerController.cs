@@ -189,4 +189,9 @@ public class PlayerController : Character
     {
         AudioManager.Instance.PlayAudioEffect(AudioManager.PlayerPunch);
     }
+
+    public void FullHeal()
+    {
+        CurrentHealth = Stats.MaxHealth;
+    }
 }
