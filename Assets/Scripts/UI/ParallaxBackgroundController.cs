@@ -1,36 +1,42 @@
 ﻿using System.Collections.Generic;
 using UnityEngine;
 
-public class ParallaxBackgroundController : MonoBehaviour
+namespace UI
 {
-    private CameraController parallaxCamera;
-    List<ParallaxLayerController> parallaxLayers = new();
-
-    private void Awake()
+    public class ParallaxBackgroundController : MonoBehaviour
     {
-        parallaxCamera = GameObject.FindGameObjectWithTag("MainCamera").GetComponent<CameraController>();
-        parallaxCamera.OnCameraTranslate += Move;
-        SetLayers();
-    }
+        private CameraController parallaxCamera;
+        private readonly List<ParallaxLayerController> parallaxLayers = new();
 
-    private void SetLayers()
-    {
-        parallaxLayers.Clear();
-
-        for (int i = 0; i < transform.childCount; i++)
+        private void Awake()
         {
-            ParallaxLayerController layer = transform.GetChild(i).GetComponent<ParallaxLayerController>();
+            parallaxCamera = GameObject.FindGameObjectWithTag("MainCamera").GetComponent<CameraController>();
+            parallaxCamera.OnCameraTranslate += Move;
+            SetLayers();
+        }
+
+        private void SetLayers()
+        {
+            parallaxLayers.Clear();
+
+            for (int i = 0; i < transform.childCount; i++)
+            {
+                ParallaxLayerController layer = transform.GetChild(i).GetComponent<ParallaxLayerController>();
             
-            layer.FixOrder(-5 + i);
-            parallaxLayers.Add(layer);
+                layer.FixOrder(-5 + i);
+                parallaxLayers.Add(layer);
+            }
         }
-    }
 
-    private void Move(float delta)
-    {
-        foreach (ParallaxLayerController layer in parallaxLayers)
+        private void Move(float delta)
         {
-            layer.Move(delta);
+            foreach (ParallaxLayerController layer in parallaxLayers)
+            {
+                layer.Move(delta);
+            }
         }
+    
+        private void OnEnable() => parallaxCamera.OnCameraTranslate += Move;
+        private void OnDisable() => parallaxCamera.OnCameraTranslate -= Move;
     }
 }

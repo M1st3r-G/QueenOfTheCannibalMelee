@@ -1,4 +1,5 @@
 using System.Collections.Generic;
+using UI;
 using UnityEngine;
 using Random = UnityEngine.Random;
 
@@ -8,9 +9,7 @@ public class MaskDrop : MonoBehaviour
 {
     //ComponentReferences
     [SerializeField] private int typeOfMask;
-    //Params
-    //Temps
-    //Publics
+    
     
     private void Awake()
     {
@@ -21,17 +20,15 @@ public class MaskDrop : MonoBehaviour
         }
         typeOfMask = options[Random.Range(0, options.Count)];
     }
-
-    private void Start()
-    {
-        GetComponent<SpriteRenderer>().sprite = MaskUIController.Instance.GetMaskSprite(typeOfMask);
-    }
-
+    
     private void OnTriggerEnter2D(Collider2D other)
     {
         if (!other.gameObject.CompareTag("Player")) return;
+        
         MaskUIController.Instance.UnlockMask(typeOfMask);
-        MaskUIController.Instance.masksFound++;
+        MaskUIController.Instance.MasksFound++;
         Destroy(gameObject);
     }
+    
+    private void Start() => GetComponent<SpriteRenderer>().sprite = MaskUIController.Instance.GetMaskSprite(typeOfMask);
 }

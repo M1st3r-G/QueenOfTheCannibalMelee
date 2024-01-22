@@ -33,11 +33,7 @@ public class EnemyHealthbar : MonoBehaviour
 
     private IEnumerator FadeOut()
     {
-        float current = Time.time;
-        while (Time.time - current < waitTime)
-        {
-            yield return null;
-        }
+        yield return new WaitForSeconds(waitTime);
 
         while (c.alpha > 0)
         {

@@ -1,23 +1,14 @@
-public class GameOverScreen : PopUpMenu
+namespace UI
 {
-    //ComponentReferences
-    //Params
-    //Temps
-    //Public
-
-    private void OnEnable()
+    public class GameOverScreen : PopUpMenu
     {
-        PlayerController.OnGameOver += FadeIn;
-    }
-
-    private void OnDisable()
-    {
-        PlayerController.OnGameOver -= FadeIn;
-    }
+        private void OnEnable() => PlayerController.OnGameOver += FadeIn;
+        private void OnDisable() => PlayerController.OnGameOver -= FadeIn;
     
-    public void ToMainMenu()
-    {
-        JumpTo(false);
-        SceneController.Instance.CleanLoadMainMenu();
+        public void ToMainMenu()
+        {
+            JumpTo(false);
+            SceneController.Instance.CleanLoadMainMenu();
+        }
     }
 }

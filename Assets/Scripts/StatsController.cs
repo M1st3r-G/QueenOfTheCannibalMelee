@@ -25,13 +25,14 @@ public class StatsController : MonoBehaviour
     //Temps
     //Publics
     public delegate void HealthChange(int oldMax, bool higher);
+    public static HealthChange OnHealthChange;
     public delegate void AnimSpeedChange();
     public static AnimSpeedChange OnAnimSpeedChange;
-    public static HealthChange OnHealthChange;
     
     public void ChangeMask(int index)
     {
         if (index < 0 || index >= allMasks.Length) return;
+        
         MaskData newMask = allMasks[index];
         if (newMask == currentMask) return;
         
@@ -40,6 +41,5 @@ public class StatsController : MonoBehaviour
         
         OnHealthChange?.Invoke(oldMax, MaxHealth>oldMax);
         OnAnimSpeedChange?.Invoke();
-        
     }
 }

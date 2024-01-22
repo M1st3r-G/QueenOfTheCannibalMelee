@@ -74,8 +74,8 @@ public class BossController : MonoBehaviour
     {
         if (actionActive) return;
         
-        int playerLine = LayerMask.LayerToName(player.gameObject.layer)[^1] - '1';
-        int enemyLine = LayerMask.LayerToName(gameObject.layer)[^1] - '1';
+        int playerLine = LineManager.GetLine(player.gameObject);
+        int enemyLine = LineManager.GetLine(gameObject);
 
         if (transform.position.x < leftCorner)
         {
@@ -142,7 +142,7 @@ public class BossController : MonoBehaviour
         
         anim.Play("BossLineChange");
         int newLine = Mathf.Clamp(
-            LayerMask.LayerToName(gameObject.layer)[^1] - '1' + dir,
+            LineManager.GetLine(gameObject) + dir,
             0,
             LineManager.Instance.NumberOfLines - 1);
         Vector3 newPos = LineManager.Instance.ChangeLine(gameObject, newLine);

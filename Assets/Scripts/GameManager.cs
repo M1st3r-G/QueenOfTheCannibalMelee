@@ -51,47 +51,30 @@ public class GameManager : MonoBehaviour
         SceneManager.sceneLoaded -= RefreshReference;
         EnemyController.OnEnemyDeath -= OnEnemyDeath;
     }
-
-    private void OnEnemyDeath() => numberOfEnemies--;
-    
-    /// <summary>
-    /// This Method is Triggered when Loading into a new Scene, it resets References and counts up the Levels
-    /// </summary>
-    /// <param name="s">irrelevant</param>
-    /// <param name="m">irrelevant</param>
-    private void RefreshReference(Scene s, LoadSceneMode m)
-    {
-        cam = GameObject.FindGameObjectWithTag("MainCamera").transform;
-    }
     
     private void Update()
     {
-        if (SceneController.IsInLoading || SceneController.IsInBossArena) return;
+        if (SceneController.IsInLoading || SceneController.IsInBossArena || numberOfEnemies >= spawnCap) return;
         
-        if (numberOfEnemies >= spawnCap) return;
         if (counter > spawnTime)
         {
             counter = 0;
             SpawnEnemy();
-            numberOfEnemies++;
         }
 
         counter += Time.deltaTime;
     }
-
-    private void OnDestroy()
-    {
-        Instance = null;
-    }
     
-    /// <summary>
-    /// Spawns an Enemy on the right side of the Camera
-    /// </summary>
     private void SpawnEnemy()
     {
         print("Spawned Enemy");
-        float rnd = Random.Range(0f, 1f);
-        Instantiate(rnd < meleeChance ? CurrentLevel.MeleeEnemyInLevel : CurrentLevel.RangedEnemyInLevel,
+        numberOfEnemies++;
+        Instantiate(
+            Random.Range(0f, 1f) < meleeChance ? CurrentLevel.MeleeEnemyInLevel : CurrentLevel.RangedEnemyInLevel,
             Vector3.right * (cam.position.x + 5), Quaternion.identity);
     }
+    
+    private void OnDestroy() => Instance = null;
+    private void RefreshReference(Scene s, LoadSceneMode m) => cam = GameObject.FindGameObjectWithTag("MainCamera").transform;
+    private void OnEnemyDeath() => numberOfEnemies--;
 }

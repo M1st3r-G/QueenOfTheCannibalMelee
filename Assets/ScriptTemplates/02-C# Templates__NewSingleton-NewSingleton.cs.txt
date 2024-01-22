@@ -7,22 +7,18 @@ public class #SCRIPTNAME# : MonoBehaviour
     //Params
     //Temps
     //Publics
-    private static #SCRIPTNAME# _instance;
-    public static #SCRIPTNAME# Instance => _instance;
+    public static #SCRIPTNAME# Instance { get; private set; }
     #NOTRIM# 
     private void Awake()
     {
-        if (_instance is not null)
+        if (Instance is not null)
         {
             Destroy(gameObject);
             return;
         }
-        _instance = this;
+        Instance = this;
         DontDestroyOnLoad(this);
     }
-    
-    private void OnDestroy()
-    {
-        _instance = null;
-    }
+    #NOTRIM# 
+    private void OnDestroy() => Instance = null;
 }

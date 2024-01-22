@@ -1,3 +1,4 @@
+using UI;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
@@ -41,33 +42,18 @@ public class AudioManager : MonoBehaviour
         effectAudioSource.volume = effectVolume * generalVolume;
     }
 
-    private void OnDestroy()
-    {
-        Instance = null;
-    }
-
-    private void OnEnable()
-    {
-        SceneManager.sceneLoaded += OnSceneLoaded;
-    }
-
-    private void OnDisable()
-    {
-        SceneManager.sceneLoaded -= OnSceneLoaded;
-    }
-
-    private void OnSceneLoaded(Scene s, LoadSceneMode m)
+    private void RefreshMusic(Scene s, LoadSceneMode m)
     {
         if (SceneController.IsInLoading) return;
+        
         musicAudioSource = GameObject.FindGameObjectWithTag("MainCamera").GetComponent<AudioSource>();
         musicAudioSource.clip = GameManager.LevelMusic;
         musicAudioSource.volume = musicVolume * generalVolume;
         musicAudioSource.Play();
     }
     
-    public void PlayAudioEffect(int index)
-    {
-        print($"Played AudioEffect {index}");
-        effectAudioSource.PlayOneShot(clips[index]);
-    }
+    public void PlayAudioEffect(int index) => effectAudioSource.PlayOneShot(clips[index]);
+    private void OnEnable() => SceneManager.sceneLoaded += RefreshMusic;
+    private void OnDisable() => SceneManager.sceneLoaded -= RefreshMusic;
+    private void OnDestroy() => Instance = null;
 }
