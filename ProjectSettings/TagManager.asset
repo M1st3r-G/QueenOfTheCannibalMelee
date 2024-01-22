@@ -10,6 +10,7 @@ TagManager:
   - HealthUI
   - Background
   - MaskImage
+  - Projectile
   layers:
   - Default
   - TransparentFX

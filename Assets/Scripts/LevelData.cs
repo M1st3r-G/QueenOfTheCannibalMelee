@@ -8,9 +8,12 @@ public class LevelData : ScriptableObject
 
     public GameObject Transition => transition;
     [SerializeField] private GameObject transition;
+
+    public GameObject RangedEnemyInLevel => rangedEnemy;
+    [SerializeField] private GameObject rangedEnemy;
     
-    public GameObject EnemyInLevel => enemy;
-    [SerializeField] private GameObject enemy;
+    public GameObject MeleeEnemyInLevel => meleeEnemy;
+    [SerializeField] private GameObject meleeEnemy;
 
     public AudioClip Music => levelMusic;
     [SerializeField] private AudioClip levelMusic;

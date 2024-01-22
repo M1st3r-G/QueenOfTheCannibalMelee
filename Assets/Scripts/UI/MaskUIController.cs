@@ -26,8 +26,6 @@ public class MaskUIController : MonoBehaviour
         Instance = this;
         currentlyActive = -1;
         masksFound = 0;
-
-        Unlocked = new []{false, false, false, false};
         
         foreach (Image mask in maskImages)
         {
@@ -53,5 +51,14 @@ public class MaskUIController : MonoBehaviour
         maskImages[index].color = active;
         currentlyActive = index;
         return true;
+    }
+
+    public void SetUnlocked(bool[] newLock)
+    {
+        Unlocked = newLock;
+        for (int i = 0; i < Unlocked.Length; i++)
+        {
+            if(Unlocked[i]) UnlockMask(i);
+        }
     }
 }
