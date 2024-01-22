@@ -12,8 +12,6 @@ public class SceneController : MonoBehaviour
     private void OnEnable()
     {
         SceneManager.sceneLoaded += RefreshMasks;
-
-        
     }
 
     private void RefreshMasks(Scene s, LoadSceneMode m)
@@ -49,6 +47,8 @@ public class SceneController : MonoBehaviour
         }
         Instance = this;
         DontDestroyOnLoad(this);
+
+        unlocked = new[] { false, false, false, false };
     }
 
     private void Start()

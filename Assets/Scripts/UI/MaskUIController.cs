@@ -26,8 +26,6 @@ public class MaskUIController : MonoBehaviour
         Instance = this;
         currentlyActive = -1;
         masksFound = 0;
-
-        Unlocked = new []{false, false, false, false};
         
         foreach (Image mask in maskImages)
         {

@@ -15,7 +15,7 @@ public class GameManager : MonoBehaviour
     //Temps
     private int numberOfEnemies;
     private float counter;
-    //Publics
+    //Public
     private static GameManager Instance { get; set; }
     public static AudioClip LevelMusic => CurrentLevel.Music;
     
