@@ -121,7 +121,7 @@ public abstract class Character : MonoBehaviour
             attackTarget.GetComponent<Character>()
                 ?.TakeDamage(Stats.Damage, Stats.KnockBackSpeed, Stats.KnockBackDistance);
             attackTarget.GetComponent<BossController>()
-                ?.TakeDamage(Stats.Damage);
+                ?.TakeDamage(Stats.Damage, Stats.KnockBackSpeed, Stats.KnockBackDistance / 2f);
         }
     }
 

@@ -170,12 +170,20 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   hitBoxReference: {fileID: 224934199009170525}
-  maxHealth: 1000
+  hitColor: {r: 1, g: 0.33333334, b: 0.33333334, a: 1}
+  maxHealth: 500
   damage: 10
-  dashSpeed: 15
+  moveSpeed: 3
   knockBackSpeed: 20
   knockBackDistance: 1.5
-  cooldownTime: 1
+  dashSpeed: 10
+  dashCooldown: 5
+  dashDistance: 3
+  dashTriggerDistance: 4
+  waitAfterDash: 1
+  customAttackDistance: 1
+  leftCorner: -6
+  hitCooldown: 0.25
 --- !u!50 &5993345453023989775
 Rigidbody2D:
   serializedVersion: 4
@@ -202,7 +210,7 @@ Rigidbody2D:
   m_Interpolate: 0
   m_SleepingMode: 1
   m_CollisionDetection: 0
-  m_Constraints: 0
+  m_Constraints: 6
 --- !u!70 &6332851392841007846
 CapsuleCollider2D:
   m_ObjectHideFlags: 0
@@ -235,8 +243,8 @@ CapsuleCollider2D:
   m_IsTrigger: 0
   m_UsedByEffector: 0
   m_UsedByComposite: 0
-  m_Offset: {x: 0.05, y: 2.32}
-  m_Size: {x: 0.9, y: 4}
+  m_Offset: {x: 0.027003348, y: 2.1820197}
+  m_Size: {x: 1.375264, y: 4.27596}
   m_Direction: 0
 --- !u!95 &4874500522422597365
 Animator:

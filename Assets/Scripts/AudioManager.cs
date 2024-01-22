@@ -1,4 +1,3 @@
-using UnityEditor;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
@@ -68,7 +67,7 @@ public class AudioManager : MonoBehaviour
     
     public void PlayAudioEffect(int index)
     {
-        Debug.LogWarning($"Played AudioEffect {index}");
+        print($"Played AudioEffect {index}");
         effectAudioSource.PlayOneShot(clips[index]);
     }
 }

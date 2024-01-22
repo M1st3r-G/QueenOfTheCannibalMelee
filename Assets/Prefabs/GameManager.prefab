@@ -51,7 +51,7 @@ MonoBehaviour:
   playerPrefab: {fileID: 5033552880383383475, guid: e3fd0542dae51804f87bb1307bf64f84, type: 3}
   spawnCap: 3
   spawnTime: 5
-  meleeChance: 0.75
+  meleeChance: 0.6
 --- !u!114 &4321711819564825640
 MonoBehaviour:
   m_ObjectHideFlags: 0
