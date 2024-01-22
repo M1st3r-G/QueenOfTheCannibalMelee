@@ -64,8 +64,6 @@ public class SceneController : MonoBehaviour
     public void LoadNextScene()
     {
         player.gameObject.SetActive(IsInLoading);
-        unlocked = MaskUIController.Instance.Unlocked;
-        
         if (!IsInLoading) SceneManager.LoadScene(LoadingScreenIndex);
         else
         {
@@ -77,6 +75,7 @@ public class SceneController : MonoBehaviour
             }
             else
             {
+                unlocked = MaskUIController.Instance.Unlocked;
                 SceneManager.LoadScene(DefaultLevelIndex);
             }
         }
