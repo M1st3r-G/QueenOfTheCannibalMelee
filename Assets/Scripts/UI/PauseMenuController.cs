@@ -22,7 +22,7 @@ public class PauseMenuController : PopUpMenu
     {        
         pauseAction.performed -= OnPause;
         pauseAction.Disable();
-        PlayerController.OnGameOver += OnGameOver;
+        PlayerController.OnGameOver -= OnGameOver;
     }
 
     private void OnGameOver()
@@ -37,7 +37,6 @@ public class PauseMenuController : PopUpMenu
         ToggleMenu();
     }
 
-    
     public void OnSettingsButton()
     {
         JumpTo(false);

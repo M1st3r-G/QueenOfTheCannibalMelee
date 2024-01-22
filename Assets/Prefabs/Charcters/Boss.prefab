@@ -173,8 +173,9 @@ MonoBehaviour:
   maxHealth: 1000
   damage: 10
   dashSpeed: 15
-  knockBackSpeed: 3
-  knockBackDistance: 3
+  knockBackSpeed: 20
+  knockBackDistance: 1.5
+  cooldownTime: 1
 --- !u!50 &5993345453023989775
 Rigidbody2D:
   serializedVersion: 4

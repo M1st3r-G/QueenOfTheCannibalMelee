@@ -106,6 +106,7 @@ public class BossController : MonoBehaviour
     {
         actionActive = true;
         yield return new WaitForSeconds(cooldownTime);
+        actionActive = false;
     }
     
     private IEnumerator DashAttackRoutine()

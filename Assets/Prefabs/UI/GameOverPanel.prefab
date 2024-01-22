@@ -234,6 +234,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: bef02a62b371c6f4c8670e371c02fa7f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  group: {fileID: 5320307729609245332}
   controllerUI: {fileID: 0}
   playerActions: {fileID: -944628639613478452, guid: 671c9260b7226834a90941635700bce4, type: 3}
   firstSelectionInMenu: {fileID: 4369202985886858337}

@@ -22,7 +22,6 @@ public class RangedEnemyController : EnemyController
         if (Mathf.Abs(Target.transform.position.x - transform.position.x) < changeDistance && playerLine != enemyLine)
         {
             StartCoroutine(LineChangeRoutine((int) Mathf.Sign(playerLine - enemyLine)));
-            Debug.LogWarning("LineChange");
         }
         else if (Mathf.Abs(Target.transform.position.x - transform.position.x) < rangeAttackDistance)
         {
