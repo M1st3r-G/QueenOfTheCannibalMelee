@@ -54,4 +54,13 @@ public class MaskUIController : MonoBehaviour
         currentlyActive = index;
         return true;
     }
+
+    public void SetUnlocked(bool[] newLock)
+    {
+        Unlocked = newLock;
+        for (int i = 0; i < Unlocked.Length; i++)
+        {
+            if(Unlocked[i]) UnlockMask(i);
+        }
+    }
 }

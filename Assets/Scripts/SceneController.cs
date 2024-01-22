@@ -1,3 +1,4 @@
+using System;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
@@ -7,7 +8,25 @@ public class SceneController : MonoBehaviour
     private const int DefaultLevelIndex = 2;
     private const int LoadingScreenIndex = 3;
     private const int BossLevelIndex = 4;
+
+    private void OnEnable()
+    {
+        SceneManager.sceneLoaded += RefreshMasks;
+
+        
+    }
+
+    private void RefreshMasks(Scene s, LoadSceneMode m)
+    {
+        if (IsInLoading) return;
+        MaskUIController.Instance.SetUnlocked(unlocked);
+    }
     
+    private void OnDisable()
+    {
+        SceneManager.sceneLoaded -= RefreshMasks;
+    }
+
     //ComponentReferences
     private PlayerController player;
     //Params
@@ -16,6 +35,8 @@ public class SceneController : MonoBehaviour
     public static bool IsInLoading => SceneManager.GetActiveScene().buildIndex == LoadingScreenIndex;
     public static bool IsInBossArena => SceneManager.GetActiveScene().buildIndex == BossLevelIndex;
     [SerializeField] private int currentLevel;
+
+    private bool[] unlocked;
     //Public
     public static SceneController Instance { get; private set; }
 
@@ -43,6 +64,7 @@ public class SceneController : MonoBehaviour
     public void LoadNextScene()
     {
         player.gameObject.SetActive(IsInLoading);
+        unlocked = MaskUIController.Instance.Unlocked;
         
         if (!IsInLoading) SceneManager.LoadScene(LoadingScreenIndex);
         else
@@ -63,7 +85,7 @@ public class SceneController : MonoBehaviour
     public void CleanLoadMainMenu()
     {
         Destroy(gameObject);
-        Destroy(player);
+        Destroy(player.gameObject);
         Time.timeScale = 1f;
         SceneManager.LoadScene(MainMenuIndex);
     }
