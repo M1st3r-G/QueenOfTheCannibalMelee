@@ -1,6 +1,6 @@
 using UnityEngine;
 using UnityEngine.SceneManagement;
-using UnityEngine.Serialization;
+using Random = UnityEngine.Random;
 
 public class GameManager : MonoBehaviour
 {
@@ -31,7 +31,10 @@ public class GameManager : MonoBehaviour
         DontDestroyOnLoad(this);
         
         Instantiate(playerPrefab, Vector3.zero, Quaternion.identity);
-
+    }
+    
+    private void Start()
+    {
         if (SceneController.IsInBossArena) return;
         Instantiate(CurrentLevel.Transition);
         Instantiate(CurrentLevel.LevelObject, Vector3.zero, Quaternion.identity);
