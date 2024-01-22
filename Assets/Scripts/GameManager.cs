@@ -1,16 +1,17 @@
 using UnityEngine;
 using UnityEngine.SceneManagement;
+using UnityEngine.Serialization;
 
 public class GameManager : MonoBehaviour
 {
     //ComponentReferences
     [SerializeField] private GameObject playerPrefab;
-    private GameObject enemyPrefab;
     private static LevelData CurrentLevel => SceneController.Instance.GetCurrentLevel();
     private Transform cam;
     //Params
     [SerializeField] private int spawnCap;
     [SerializeField] private float spawnTime;
+    [SerializeField] private float meleeChance;
     //Temps
     private int numberOfEnemies;
     private float counter;
@@ -32,7 +33,6 @@ public class GameManager : MonoBehaviour
         Instantiate(playerPrefab, Vector3.zero, Quaternion.identity);
 
         if (SceneController.IsInBossArena) return;
-        enemyPrefab = CurrentLevel.EnemyInLevel;
         Instantiate(CurrentLevel.Transition);
         Instantiate(CurrentLevel.LevelObject, Vector3.zero, Quaternion.identity);
     }
@@ -87,6 +87,8 @@ public class GameManager : MonoBehaviour
     private void SpawnEnemy()
     {
         print("Spawned Enemy");
-        Instantiate(enemyPrefab, Vector3.right * (cam.position.x + 5), Quaternion.identity);
+        float rnd = Random.Range(0f, 1f);
+        Instantiate(rnd < meleeChance ? CurrentLevel.MeleeEnemyInLevel : CurrentLevel.RangedEnemyInLevel,
+            Vector3.right * (cam.position.x + 5), Quaternion.identity);
     }
 }

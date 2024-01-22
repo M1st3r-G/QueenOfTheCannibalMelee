@@ -12,6 +12,42 @@ PrefabInstance:
       propertyPath: changeDistance
       value: 7
       objectReference: {fileID: 0}
+    - target: {fileID: 1106203264282123320, guid: 53261a82533fe3a43ac7001b243eab22, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: -1.485
+      objectReference: {fileID: 0}
+    - target: {fileID: 1106203264282123320, guid: 53261a82533fe3a43ac7001b243eab22, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 2.225
+      objectReference: {fileID: 0}
+    - target: {fileID: 1106203264282123320, guid: 53261a82533fe3a43ac7001b243eab22, type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 1106203264282123320, guid: 53261a82533fe3a43ac7001b243eab22, type: 3}
+      propertyPath: m_LocalRotation.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1106203264282123320, guid: 53261a82533fe3a43ac7001b243eab22, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2317472632843837728, guid: 53261a82533fe3a43ac7001b243eab22, type: 3}
+      propertyPath: m_Size.x
+      value: 1.0204077
+      objectReference: {fileID: 0}
+    - target: {fileID: 2317472632843837728, guid: 53261a82533fe3a43ac7001b243eab22, type: 3}
+      propertyPath: m_Size.y
+      value: 3.186655
+      objectReference: {fileID: 0}
+    - target: {fileID: 2317472632843837728, guid: 53261a82533fe3a43ac7001b243eab22, type: 3}
+      propertyPath: m_Offset.x
+      value: -0.20686138
+      objectReference: {fileID: 0}
+    - target: {fileID: 2317472632843837728, guid: 53261a82533fe3a43ac7001b243eab22, type: 3}
+      propertyPath: m_Offset.y
+      value: 1.532023
+      objectReference: {fileID: 0}
     - target: {fileID: 2842877409438490545, guid: 53261a82533fe3a43ac7001b243eab22, type: 3}
       propertyPath: m_LocalPosition.x
       value: 0
@@ -56,6 +92,10 @@ PrefabInstance:
       propertyPath: m_Controller
       value: 
       objectReference: {fileID: 9100000, guid: b1122c22de7961545b7125e2e02c8978, type: 2}
+    - target: {fileID: 6004477804354193143, guid: 53261a82533fe3a43ac7001b243eab22, type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 6616631424286610652, guid: 53261a82533fe3a43ac7001b243eab22, type: 3}
       propertyPath: m_Name
       value: PriestVariant
@@ -106,7 +146,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 8505009499923591163, guid: 53261a82533fe3a43ac7001b243eab22, type: 3}
       propertyPath: baseKnockBackDistance
-      value: 1.5
+      value: 0.5
       objectReference: {fileID: 0}
     m_RemovedComponents:
     - {fileID: 1077334039391615572, guid: 53261a82533fe3a43ac7001b243eab22, type: 3}
@@ -140,8 +180,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   fistReference: {fileID: 4776054588638485018}
-  changeDistance: 7
+  changeDistance: 9
   maskDropPrefab: {fileID: 8685536210988907280, guid: d34f9069992b5644dae7e4ff99d6b2ce, type: 3}
-  projectile: {fileID: 1101618881755190095, guid: 8ce13561ab0b81c40a6b758e8b681316, type: 3}
-  targetPosition: 6.5
-  attackDistance: 6.75
+  projectile: {fileID: 7191183185695096033, guid: d3db240f3a44a444aad41ce6d1a4397b, type: 3}
+  targetPosition: 8.5
+  rangeAttackDistance: 8

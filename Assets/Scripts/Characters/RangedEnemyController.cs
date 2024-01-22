@@ -6,7 +6,7 @@ public class RangedEnemyController : EnemyController
     //Params
     [SerializeField] private GameObject projectile;
     [SerializeField] private float targetPosition;
-    [SerializeField] private float attackDistance;
+    [SerializeField] private float rangeAttackDistance;
     //Temps
     //Public
     
@@ -22,8 +22,9 @@ public class RangedEnemyController : EnemyController
         if (Mathf.Abs(Target.transform.position.x - transform.position.x) < changeDistance && playerLine != enemyLine)
         {
             StartCoroutine(LineChangeRoutine((int) Mathf.Sign(playerLine - enemyLine)));
+            Debug.LogWarning("LineChange");
         }
-        else if (Mathf.Abs(Target.transform.position.x - transform.position.x) < attackDistance)
+        else if (Mathf.Abs(Target.transform.position.x - transform.position.x) < rangeAttackDistance)
         {
             StartCoroutine(AttackRoutine());
         }
@@ -35,8 +36,9 @@ public class RangedEnemyController : EnemyController
 
     protected new void Attack()
     {
-        Debug.LogWarning("Ranged Enemy Shot");
-        Instantiate(projectile, transform.position + Vector3.left * 0.1f, Quaternion.identity);
+        GameObject tmp =  Instantiate(projectile, fistReference.transform.position, Quaternion.identity);
+        tmp.GetComponent<ProjectileController>().SetParams(Stats.Damage, Stats.KnockBackSpeed, Stats.KnockBackDistance);
+        tmp.gameObject.layer = gameObject.layer;
     }
     
     protected new void FixedUpdate()

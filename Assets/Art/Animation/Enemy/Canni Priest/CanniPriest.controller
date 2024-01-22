@@ -72,7 +72,7 @@ AnimatorState:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: CanniPriest_Walk-Right
+  m_Name: EnemyWalkRight
   m_Speed: 1
   m_CycleOffset: 0
   m_Transitions:
@@ -100,7 +100,7 @@ AnimatorState:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: CanniPriest_Attack
+  m_Name: EnemyAttack
   m_Speed: 1
   m_CycleOffset: 0
   m_Transitions:
@@ -174,7 +174,7 @@ AnimatorState:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: CanniPriest_Hit
+  m_Name: EnemyHit
   m_Speed: 1
   m_CycleOffset: 0
   m_Transitions:
@@ -201,7 +201,7 @@ AnimatorState:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: CanniPriest_Walk-Left
+  m_Name: EnemyWalkLeft
   m_Speed: 1
   m_CycleOffset: 0
   m_Transitions:
@@ -236,7 +236,7 @@ AnimatorController:
     m_DefaultFloat: 0
     m_DefaultInt: 0
     m_DefaultBool: 0
-    m_Controller: {fileID: 0}
+    m_Controller: {fileID: 9100000}
   m_AnimatorLayers:
   - serializedVersion: 5
     m_Name: Base Layer
@@ -257,7 +257,7 @@ AnimatorState:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: anniPriest_LineChange
+  m_Name: EnemyLineChange
   m_Speed: 1
   m_CycleOffset: 0
   m_Transitions:
@@ -271,7 +271,7 @@ AnimatorState:
   m_MirrorParameterActive: 0
   m_CycleOffsetParameterActive: 0
   m_TimeParameterActive: 0
-  m_Motion: {fileID: 7400000, guid: 8d38527173f693e4e9648a0a9fa80380, type: 2}
+  m_Motion: {fileID: 7400000, guid: e33febd392df10643a7221b7cf30dc51, type: 2}
   m_Tag: 
   m_SpeedParameter: 
   m_MirrorParameter: 
