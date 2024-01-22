@@ -2,94 +2,100 @@ using System.Collections;
 using UnityEngine;
 using UnityEngine.UI;
 
-namespace UI
+[RequireComponent(typeof(AudioSource))]
+public class SettingsMenu : PopUpMenu
 {
-    [RequireComponent(typeof(AudioSource))]
-    public class SettingsMenu : PopUpMenu
-    {
-        public const string GeneralVolumeKey = "GeneralVolume";
-        public const string EffectVolumeKey = "EffectVolume";
-        public const string MusicVolumeKey = "MusicVolume";
+    public const string GeneralVolumeKey = "GeneralVolume";
+    public const string EffectVolumeKey = "EffectVolume";
+    public const string MusicVolumeKey = "MusicVolume";
 
-        //ComponentReferences
-        [SerializeField] private PauseMenuController pauseMenu;
-        [SerializeField] private Slider generalVolumeSlider;
-        [SerializeField] private Slider musicVolumeSlider;
-        [SerializeField] private Slider effectVolumeSlider;
-        private AudioSource musicAudioSource;
-        private AudioSource effectAudioSource;
-        //Params
-        [SerializeField] private float soundCooldown;
-        //Temps
-        private bool playable;
-        private float musicVolume;
-        private float effectVolume;
-        private float generalVolume;
-        //Public
+    //ComponentReferences
+    [SerializeField] private PauseMenuController pauseMenu;
+    [SerializeField] private Slider generalVolumeSlider;
+    [SerializeField] private Slider musicVolumeSlider;
+    [SerializeField] private Slider effectVolumeSlider;
+    private AudioSource musicAudioSource;
+    private AudioSource effectAudioSource;
+    //Params
+    [SerializeField] private float soundCooldown;
+    //Temps
+    private bool playable;
+    private float musicVolume;
+    private float effectVolume;
+    private float generalVolume;
+    //Public
      
-        private new void Awake()
-        {
-            base.Awake();
-            playable = true;
+    private new void Awake()
+    {
+        base.Awake();
+        playable = true;
         
-            effectAudioSource = AudioManager.Instance is null ? GetComponent<AudioSource>() : AudioManager.Instance.GetComponent<AudioSource>();
-            musicAudioSource = GameObject.FindGameObjectWithTag("MainCamera").GetComponent<AudioSource>();
+        effectAudioSource = AudioManager.Instance is null ? GetComponent<AudioSource>() : AudioManager.Instance.GetComponent<AudioSource>();
+        musicAudioSource = GameObject.FindGameObjectWithTag("MainCamera").GetComponent<AudioSource>();
 
-            musicVolume = PlayerPrefs.GetFloat(MusicVolumeKey, 0.75f);
-            effectVolume = PlayerPrefs.GetFloat(EffectVolumeKey, 0.75f);
-            generalVolume = PlayerPrefs.GetFloat(GeneralVolumeKey, 0.75f);
+        musicVolume = PlayerPrefs.GetFloat(MusicVolumeKey, 0.75f);
+        effectVolume = PlayerPrefs.GetFloat(EffectVolumeKey, 0.75f);
+        generalVolume = PlayerPrefs.GetFloat(GeneralVolumeKey, 0.75f);
         
-            musicVolumeSlider.value = musicVolume;
-            effectVolumeSlider.value = effectVolume;
-            generalVolumeSlider.value = generalVolume;
-        }
+        musicVolumeSlider.value = musicVolume;
+        effectVolumeSlider.value = effectVolume;
+        generalVolumeSlider.value = generalVolume;
+    }
 
-        public void CloseSettings()
-        {
-            // Save in PlayerPrefs
-            PlayerPrefs.SetFloat(MusicVolumeKey, musicVolume);
-            PlayerPrefs.SetFloat(EffectVolumeKey, effectVolume);
-            PlayerPrefs.SetFloat(GeneralVolumeKey, generalVolume);
+    public void CloseSettings()
+    {
+        // Save in PlayerPrefs
+        PlayerPrefs.SetFloat(MusicVolumeKey, musicVolume);
+        PlayerPrefs.SetFloat(EffectVolumeKey, effectVolume);
+        PlayerPrefs.SetFloat(GeneralVolumeKey, generalVolume);
         
-            if (pauseMenu is not null)
-            {
-                JumpTo(false);
-                pauseMenu.JumpTo(true);
-            }
-            else ToggleMenu();
-        }
-    
-        public void OnMusicVolumeChange()
+        if (pauseMenu is not null)
         {
-            musicVolume = musicVolumeSlider.value;
-            musicAudioSource.volume = musicVolume * generalVolume;
+            JumpTo(false);
+            pauseMenu.JumpTo(true);
         }
+        else ToggleMenu();
+    }
+    
+    public void OnMusicVolumeChange()
+    {
+        musicVolume = musicVolumeSlider.value;
+        musicAudioSource.volume = musicVolume * generalVolume;
+    }
 
-        public void OnGeneralVolumeChange()
-        {
-            generalVolume = generalVolumeSlider.value;
-            musicAudioSource.volume = musicVolume * generalVolume;
-            effectAudioSource.volume = effectVolume * generalVolume;
-        }
+    public void OnGeneralVolumeChange()
+    {
+        generalVolume = generalVolumeSlider.value;
+        musicAudioSource.volume = musicVolume * generalVolume;
+        effectAudioSource.volume = effectVolume * generalVolume;
+    }
     
-        public void OnEffectVolumeChange()
-        {
-            effectVolume = effectVolumeSlider.value;
-            effectAudioSource.volume = effectVolume * generalVolume;
+    public void OnEffectVolumeChange()
+    {
+        effectVolume = effectVolumeSlider.value;
+        effectAudioSource.volume = effectVolume * generalVolume;
         
-            if (!playable) return;
-            if (AudioManager.Instance is not null) AudioManager.Instance.PlayAudioEffect(AudioManager.SettingsSound);
-            else effectAudioSource.Play();
-            StartCoroutine(RefreshCooldown());
-        }
-    
-        private IEnumerator RefreshCooldown()
+        if (!playable) return;
+        if (AudioManager.Instance is not null) AudioManager.Instance.PlayAudioEffect(AudioManager.SettingsSound);
+        else effectAudioSource.Play();
+        StartCoroutine(RefreshCooldown());
+    }
+
+    public void WipeSaveData()
+    {
+        print("WipedSaveData");
+        PlayerPrefs.DeleteAll();
+    }
+
+    private IEnumerator RefreshCooldown()
+    {
+        playable = false;
+        float counter = 0;
+        while(counter < soundCooldown)
         {
-            playable = false;
-            yield return new WaitForSecondsRealtime(soundCooldown); 
-            playable = true;
+            counter += Time.unscaledDeltaTime;
+            yield return null;
         }
-    
-        public void WipeSaveData() => PlayerPrefs.DeleteAll();
+        playable = true;
     }
 }

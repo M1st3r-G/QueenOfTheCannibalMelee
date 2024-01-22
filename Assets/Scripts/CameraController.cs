@@ -19,18 +19,18 @@ public class CameraController : MonoBehaviour
     private void Start()
     {
         rb = GetComponent<Rigidbody2D>();
-        target = GameObject.FindGameObjectWithTag("Player");
         oldXPosition = transform.position.x;
+        target = GameObject.FindGameObjectWithTag("Player");
     }
-    
+
+    /// <summary>
+    /// Follows the Player but keeps X Coordinate in the Bounds
+    /// </summary>
     private void FixedUpdate()
     {
-        float currentXPos = transform.position.x;
-        float displacement = Mathf.Max(target.transform.position.x - (xTarget + currentXPos), 0);
-        rb.velocity = speedFactor * displacement * displacement * Vector2.right;
-        
-        if (Math.Abs(oldXPosition - currentXPos) < 0.01f) return;
-        OnCameraTranslate?.Invoke(oldXPosition - currentXPos);
-        oldXPosition = currentXPos;
+        rb.velocity = new Vector2(Mathf.Pow(Mathf.Max(target.transform.position.x - (xTarget + transform.position.x), 0), 2),0) * speedFactor;
+        if (Math.Abs(oldXPosition - transform.position.x) < 0.01f) return;
+        OnCameraTranslate?.Invoke(oldXPosition-transform.position.x);
+        oldXPosition = transform.position.x;
     }
 }

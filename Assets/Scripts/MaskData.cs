@@ -18,4 +18,7 @@ public class MaskData : ScriptableObject
     [SerializeField] private float damageModifier;
     public float KnockBackMod => knockBackModifier;
     [SerializeField] private float knockBackModifier;
+    //Params
+    //Temps
+    //Publics
 }

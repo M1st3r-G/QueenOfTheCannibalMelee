@@ -60,7 +60,7 @@ public abstract class Character : MonoBehaviour
         ActionActive = true;
         Anim.Play(AnimationPath + "LineChange");
         int newLine = Mathf.Clamp(
-            LineManager.GetLine(gameObject) + dir,
+            LayerMask.LayerToName(gameObject.layer)[^1] - '0' + dir - 1,
             0,
             LineManager.Instance.NumberOfLines - 1);
         Vector3 newPos = LineManager.Instance.ChangeLine(gameObject, newLine);
