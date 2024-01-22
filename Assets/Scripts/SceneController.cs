@@ -42,6 +42,8 @@ public class SceneController : MonoBehaviour
     /// </summary>
     public void LoadNextScene()
     {
+        player.SetActive(IsInLoading);
+        
         if (!IsInLoading) SceneManager.LoadScene(LoadingScreenIndex);
         else
         {

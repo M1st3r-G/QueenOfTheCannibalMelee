@@ -5,15 +5,15 @@ public class EnemyController : Character
 {
     
     //ComponentReferences
-    private PlayerController target;
+    protected PlayerController Target;
     private EnemyHealthbar healthBar;
     //Params
-    [SerializeField] private float changeDistance;
-    [SerializeField] private GameObject maskDropPrefab;
+    [SerializeField] protected float changeDistance;
+    [SerializeField] protected GameObject maskDropPrefab;
     private float attackDistance;
     //Temps
     private Coroutine resetTime;
-    //Publics
+    //Public
     public delegate void EnemyDeath();
     public static EnemyDeath OnEnemyDeath;
     
@@ -29,7 +29,7 @@ public class EnemyController : Character
                          (c.direction == CapsuleDirection2D.Vertical ? c.size.y : c.size.x) / 2 *
                          Mathf.Sin(fistReference.transform.rotation.z) * 1.1f;
         
-        target = GameObject.FindGameObjectWithTag("Player").GetComponent<PlayerController>();
+        Target = GameObject.FindGameObjectWithTag("Player").GetComponent<PlayerController>();
         transform.position = LineManager.Instance.SetToLine(gameObject, Random.Range(0, LineManager.Instance.NumberOfLines));
         
         healthBar = GetComponent<EnemyHealthbar>();
@@ -39,18 +39,18 @@ public class EnemyController : Character
     /// <summary>
     /// Controls the AI of the Enemy
     /// </summary>
-    private void Update()
+    protected void Update()
     {
         if (ActionActive) return;
 
-        int playerLine = LayerMask.LayerToName(target.gameObject.layer)[^1] - '0' - 1;
+        int playerLine = LayerMask.LayerToName(Target.gameObject.layer)[^1] - '0' - 1;
         int enemyLine = LayerMask.LayerToName(gameObject.layer)[^1] - '0' - 1;
 
-        if (Mathf.Abs(target.transform.position.x - transform.position.x) < changeDistance && playerLine != enemyLine)
+        if (Mathf.Abs(Target.transform.position.x - transform.position.x) < changeDistance && playerLine != enemyLine)
         {
             StartCoroutine(LineChangeRoutine((int) Mathf.Sign(playerLine - enemyLine)));
         }
-        else if (Mathf.Abs(target.transform.position.x - transform.position.x) < attackDistance)
+        else if (Mathf.Abs(Target.transform.position.x - transform.position.x) < attackDistance)
         {
             StartCoroutine(AttackRoutine());
         }
@@ -58,7 +58,7 @@ public class EnemyController : Character
 
     protected override void FixedUpdate()
     {
-        Direction = !ActionActive ? Mathf.Sign(target.transform.position.x - transform.position.x) : 0;
+        Direction = !ActionActive ? Mathf.Sign(Target.transform.position.x - transform.position.x) : 0;
         Anim.SetFloat(AnimatorDirection, Direction);
         Rb.velocity = Vector2.right * (!KnockedBack ? Direction * Stats.MovementSpeed : CurrentKnockBackSpeed);
     }

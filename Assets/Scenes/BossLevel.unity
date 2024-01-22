@@ -131,9 +131,21 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 1813671849593903039, guid: 38c38cad12600db4293cebab3d340cf9, type: 3}
+      propertyPath: m_AnchorMax.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1900762048433767639, guid: 38c38cad12600db4293cebab3d340cf9, type: 3}
+      propertyPath: m_AnchorMax.y
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 2376120511258840108, guid: 38c38cad12600db4293cebab3d340cf9, type: 3}
       propertyPath: m_Name
       value: Main Camera
+      objectReference: {fileID: 0}
+    - target: {fileID: 2873244053735161822, guid: 38c38cad12600db4293cebab3d340cf9, type: 3}
+      propertyPath: m_AnchorMax.y
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 3422051753023783785, guid: 38c38cad12600db4293cebab3d340cf9, type: 3}
       propertyPath: m_LocalPosition.x
@@ -173,6 +185,18 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 3422051753023783785, guid: 38c38cad12600db4293cebab3d340cf9, type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3783484331803806113, guid: 38c38cad12600db4293cebab3d340cf9, type: 3}
+      propertyPath: m_AnchorMax.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6794583865658033619, guid: 38c38cad12600db4293cebab3d340cf9, type: 3}
+      propertyPath: m_AnchorMax.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8953542009860577591, guid: 38c38cad12600db4293cebab3d340cf9, type: 3}
+      propertyPath: m_AnchorMax.y
       value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents:
@@ -395,7 +419,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 8302521983044542141, guid: 9129a1aa77171654c9e0ae784eea02ad, type: 3}
       propertyPath: m_LocalPosition.x
-      value: 6.79
+      value: 1.71
       objectReference: {fileID: 0}
     - target: {fileID: 8302521983044542141, guid: 9129a1aa77171654c9e0ae784eea02ad, type: 3}
       propertyPath: m_LocalPosition.y
