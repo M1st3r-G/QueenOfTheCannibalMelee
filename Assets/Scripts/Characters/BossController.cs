@@ -1,5 +1,4 @@
 using System.Collections;
-using Unity.VisualScripting;
 using UnityEngine;
 
 [RequireComponent(typeof(Rigidbody2D))]
@@ -19,11 +18,12 @@ public class BossController : MonoBehaviour
     [SerializeField] private float dashSpeed;
     [SerializeField] private float knockBackSpeed;
     [SerializeField] private float knockBackDistance;
+    [SerializeField] private float cooldownTime;
     
     private float attackCooldown;
     private float hitCooldown;
     //Temps
-    private bool IsFlipped => Mathf.Abs(Mathf.Sign(transform.localScale.x) - (-1)) < Mathf.Epsilon;
+    private bool IsFlipped => Mathf.Sign(transform.localScale.x) == -1f;
     private int currentHealth;
     private bool actionActive;
     
@@ -50,8 +50,18 @@ public class BossController : MonoBehaviour
     {
         if (actionActive) return;
 
-        if (Random.Range(0, 2) == 1) StartCoroutine(DashAttackRoutine());
-        else StartCoroutine(AttackRoutine());
+        switch (Random.Range(0, 3))
+        {
+            case 0:
+                StartCoroutine(DashAttackRoutine());
+                break;
+            case 1:
+                StartCoroutine(AttackRoutine());
+                break;
+            case 2:
+                StartCoroutine(Wait());
+                break;
+        }
     }
     
     /// <summary>
@@ -92,19 +102,26 @@ public class BossController : MonoBehaviour
         actionActive = false;
     }
 
+    private IEnumerator Wait()
+    {
+        actionActive = true;
+        yield return new WaitForSeconds(cooldownTime);
+    }
+    
     private IEnumerator DashAttackRoutine()
     {
         hitBox.isTrigger = true;
-        bool currentDirection = IsFlipped;
         anim.Play("BossDash");
-        while (currentDirection ? transform.position.x > -9 : transform.position.x < 9)
+        bool currentlyFlipped = IsFlipped;
+        while (currentlyFlipped ? transform.position.x < 6f : transform.position.x > -6f)
         {
-            rb.velocity = Vector2.right * (dashSpeed * (!currentDirection ? 1 : -1));
+            rb.velocity = dashSpeed * (currentlyFlipped ? Vector2.right : Vector2.left);
             yield return null;
         }
         anim.Play("EmptyIdle");
         rb.velocity = Vector2.zero;
         hitBox.isTrigger = false;
+        Flip();
     }
 
     private IEnumerator AttackRoutine()
@@ -145,5 +162,12 @@ public class BossController : MonoBehaviour
     private void OnTriggerEnter2D(Collider2D other)
     {
         other.gameObject.GetComponent<PlayerController>()?.TakeDamage(damage, 10, 0);
+    }
+
+    private void Flip()
+    {
+        Vector3 localScale = transform.localScale;
+        localScale.x = -localScale.x;
+        transform.localScale = localScale;
     }
 }
