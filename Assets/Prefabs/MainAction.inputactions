@@ -62,6 +62,17 @@
             ],
             "bindings": [
                 {
+                    "name": "",
+                    "id": "83231669-684e-4a04-860f-fb7a112d4baa",
+                    "path": "<Gamepad>/leftStick/x",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "Controller",
+                    "action": "Move",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
                     "name": "1D Axis",
                     "id": "12f36893-ff90-4d5c-a263-7ad056f392d8",
                     "path": "1DAxis",
@@ -90,39 +101,6 @@
                     "interactions": "",
                     "processors": "",
                     "groups": "Default",
-                    "action": "Move",
-                    "isComposite": false,
-                    "isPartOfComposite": true
-                },
-                {
-                    "name": "1D Axis",
-                    "id": "5078ccc5-ca97-480c-9b5b-8a4f27d1bd3a",
-                    "path": "1DAxis",
-                    "interactions": "",
-                    "processors": "",
-                    "groups": "",
-                    "action": "Move",
-                    "isComposite": true,
-                    "isPartOfComposite": false
-                },
-                {
-                    "name": "negative",
-                    "id": "2412fea6-bb0d-4430-9a8f-a1f562374c7b",
-                    "path": "<Gamepad>/leftStick/left",
-                    "interactions": "",
-                    "processors": "",
-                    "groups": "Controller",
-                    "action": "Move",
-                    "isComposite": false,
-                    "isPartOfComposite": true
-                },
-                {
-                    "name": "positive",
-                    "id": "5091a941-9176-46ba-8819-abbc6b606ea6",
-                    "path": "<Gamepad>/leftStick/right",
-                    "interactions": "",
-                    "processors": "",
-                    "groups": "Controller",
                     "action": "Move",
                     "isComposite": false,
                     "isPartOfComposite": true
