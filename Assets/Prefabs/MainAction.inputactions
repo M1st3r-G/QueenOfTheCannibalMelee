@@ -195,6 +195,28 @@
                 },
                 {
                     "name": "",
+                    "id": "1fc4d0c8-5d8d-4f70-bdb3-2a7aabac9c18",
+                    "path": "<Gamepad>/buttonSouth",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "Controller",
+                    "action": "Attack",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "c59d07c0-774a-4987-bf65-dda32ef7a3a6",
+                    "path": "<Gamepad>/rightTrigger",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "Controller",
+                    "action": "Attack",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
                     "id": "5154d044-27bc-4e81-bdee-f64138894c13",
                     "path": "<Keyboard>/w",
                     "interactions": "",
@@ -288,6 +310,17 @@
                     "interactions": "",
                     "processors": "",
                     "groups": "Default",
+                    "action": "Block",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "d248ba54-47cc-4100-8d59-74df0f052d83",
+                    "path": "<Gamepad>/leftTrigger",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "Controller",
                     "action": "Block",
                     "isComposite": false,
                     "isPartOfComposite": false

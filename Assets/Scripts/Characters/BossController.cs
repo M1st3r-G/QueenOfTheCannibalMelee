@@ -53,13 +53,18 @@ public class BossController : MonoBehaviour
         hitBox = GetComponent<CapsuleCollider2D>();
         body = GetComponent<SpriteRenderer>();
         face = transform.GetChild(1).GetComponent<SpriteRenderer>();
-        player = GameObject.FindGameObjectWithTag("Player").GetComponent<PlayerController>();
+
         currentHealth = maxHealth;
-        UpdateCooldown();
         canDash = true;
-        transform.position = LineManager.Instance.SetToLine(gameObject, 0);
+        UpdateCooldown();
     }
-    
+
+    private void Start()
+    {
+        transform.position = LineManager.Instance.SetToLine(gameObject, 0);
+        player = GameObject.FindGameObjectWithTag("Player").GetComponent<PlayerController>();
+    }
+
     private void UpdateCooldown()
     {
         foreach (AnimationClip clip in anim.runtimeAnimatorController.animationClips)
