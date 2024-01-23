@@ -1,5 +1,6 @@
 using System.Collections;
 using UnityEngine;
+using UnityEngine.UI;
 
 [RequireComponent(typeof(Rigidbody2D))]
 [RequireComponent(typeof(Animator))]
@@ -15,6 +16,7 @@ public class BossController : MonoBehaviour
     private CapsuleCollider2D hitBox;
     private PlayerController player;
     [SerializeField] private GameObject hitBoxReference;
+    [SerializeField] private Slider healthBar;
     //Params
     [SerializeField] private Color hitColor;
     
@@ -55,6 +57,7 @@ public class BossController : MonoBehaviour
         face = transform.GetChild(1).GetComponent<SpriteRenderer>();
 
         currentHealth = maxHealth;
+        SetHealthBar();
         canDash = true;
         UpdateCooldown();
     }
@@ -285,8 +288,9 @@ public class BossController : MonoBehaviour
     
     private void SetHealthBar()
     {
-        print($"{currentHealth} / {maxHealth}");
+        healthBar.value = (float) currentHealth / maxHealth;
     }
+    
     private void OnTriggerEnter2D(Collider2D other)
     {
         other.gameObject.GetComponent<PlayerController>()?.TakeDamage(damage, 10, 0);
