@@ -137,6 +137,11 @@ public class BossController : MonoBehaviour
         }
     }
 
+    private void Smite()
+    {
+        print("Boss used Smite");
+    }
+
     private IEnumerator HitRoutine()
     {
         face.color = body.color = hitColor;
