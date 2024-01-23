@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: Cave
   m_EditorClassIdentifier: 
   levelLayout: {fileID: 7743333787412418319, guid: cc70454ab37bacd408a7f7623e1b1705, type: 3}
-  transition: {fileID: 435170179327595573, guid: 348957739b56ca342b3a153fe6d04787, type: 3}
+  transition: {fileID: 1726802161224448160, guid: 89e10886ba591e14fa619579e091a071, type: 3}
   rangedEnemy: {fileID: 5386652399620212785, guid: f21d13858a0d840428d62bb1dd50f127, type: 3}
-  meleeEnemy: {fileID: 0}
+  meleeEnemy: {fileID: 8408283940619626881, guid: 7c0ed232bcf93844087ad214acf8c6c7, type: 3}
   levelMusic: {fileID: 8300000, guid: 9bf320110e9616849bb15953080c17c1, type: 3}

@@ -28,6 +28,26 @@ PrefabInstance:
       propertyPath: changeDistance
       value: 7
       objectReference: {fileID: 0}
+    - target: {fileID: 1106203264282123320, guid: 53261a82533fe3a43ac7001b243eab22, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: -1.05
+      objectReference: {fileID: 0}
+    - target: {fileID: 1106203264282123320, guid: 53261a82533fe3a43ac7001b243eab22, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 1.725
+      objectReference: {fileID: 0}
+    - target: {fileID: 1106203264282123320, guid: 53261a82533fe3a43ac7001b243eab22, type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 1106203264282123320, guid: 53261a82533fe3a43ac7001b243eab22, type: 3}
+      propertyPath: m_LocalRotation.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1106203264282123320, guid: 53261a82533fe3a43ac7001b243eab22, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 2317472632843837728, guid: 53261a82533fe3a43ac7001b243eab22, type: 3}
       propertyPath: m_Size.x
       value: 2.5054843
@@ -88,9 +108,13 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 4532605975128545957, guid: 53261a82533fe3a43ac7001b243eab22, type: 3}
+      propertyPath: m_Controller
+      value: 
+      objectReference: {fileID: 9100000, guid: e464c5a89e08e124195ef75f22d64a58, type: 2}
     - target: {fileID: 6004477804354193143, guid: 53261a82533fe3a43ac7001b243eab22, type: 3}
       propertyPath: m_IsActive
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 6616631424286610652, guid: 53261a82533fe3a43ac7001b243eab22, type: 3}
       propertyPath: m_Name
@@ -142,6 +166,18 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 8505009499923591163, guid: 53261a82533fe3a43ac7001b243eab22, type: 3}
       propertyPath: baseKnockBackDistance
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 8902655456254429878, guid: 53261a82533fe3a43ac7001b243eab22, type: 3}
+      propertyPath: m_Size.x
+      value: 1.16
+      objectReference: {fileID: 0}
+    - target: {fileID: 8902655456254429878, guid: 53261a82533fe3a43ac7001b243eab22, type: 3}
+      propertyPath: m_Size.y
+      value: 0.265
+      objectReference: {fileID: 0}
+    - target: {fileID: 8902655456254429878, guid: 53261a82533fe3a43ac7001b243eab22, type: 3}
+      propertyPath: m_Direction
       value: 1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
