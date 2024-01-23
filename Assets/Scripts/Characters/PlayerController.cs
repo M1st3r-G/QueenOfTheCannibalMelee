@@ -1,4 +1,5 @@
 using System;
+using System.Collections;
 using UnityEngine;
 using UnityEngine.InputSystem;
 using UnityEngine.SceneManagement;
@@ -174,6 +175,21 @@ public class PlayerController : Character
         healthBar.GetComponent<Image>().color = healthGradient.Evaluate(newScale.x);
     }
 
+    protected override IEnumerator HitRoutine()
+    {
+        ActionActive = true;
+        Anim.Play(AnimationPath + "Hit");
+
+        float counter = 0;
+        while (counter < HitCooldown)
+        {
+            counter += Time.deltaTime;
+            yield return null;
+        }
+
+        ActionActive = false;
+    }
+    
     protected override void OnNoHealth()
     {
         AudioManager.Instance.PlayAudioEffect(AudioManager.PlayerDeath);

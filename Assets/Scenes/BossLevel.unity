@@ -281,7 +281,7 @@ PrefabInstance:
     m_RemovedGameObjects: []
     m_AddedGameObjects:
     - targetCorrespondingSourceObject: {fileID: 1038232091295694245, guid: 38c38cad12600db4293cebab3d340cf9, type: 3}
-      insertIndex: -1
+      insertIndex: 0
       addedObject: {fileID: 1466042086}
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 38c38cad12600db4293cebab3d340cf9, type: 3}
@@ -376,7 +376,7 @@ GameObject:
   - component: {fileID: 1466042086}
   - component: {fileID: 1466042087}
   m_Layer: 5
-  m_Name: HealthBar
+  m_Name: EnemyHealthBar
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0

@@ -22,11 +22,9 @@ public class ProjectileController : MonoBehaviour
 
     private void OnTriggerEnter2D(Collider2D other)
     {
-        if (other.gameObject.CompareTag("Player"))
-        {
-            other.gameObject.GetComponent<PlayerController>().TakeDamage(damage, kSpeed, kDistance);
-            Destroy(gameObject);
-        }
+        if (!other.gameObject.CompareTag("Player")) return;
+        other.gameObject.GetComponent<PlayerController>().TakeDamage(damage, kSpeed, kDistance);
+        Destroy(gameObject);
     }
 
     public void SetParams(int pDamage, float pKSpeed, float pKDistance)

@@ -1,3 +1,4 @@
+using System.Collections;
 using UnityEngine;
 using Random = UnityEngine.Random;
 
@@ -7,7 +8,9 @@ public class EnemyController : Character
     //ComponentReferences
     protected PlayerController Target;
     private EnemyHealthbar healthBar;
+    [SerializeField] private SpriteRenderer mainSprite;
     //Params
+    [SerializeField] protected Color hitColor;
     [SerializeField] protected float changeDistance;
     [SerializeField] protected GameObject maskDropPrefab;
     private float attackDistance;
@@ -56,6 +59,13 @@ public class EnemyController : Character
         }
     }
 
+    protected override IEnumerator HitRoutine()
+    {
+        mainSprite.color = hitColor;
+        yield return new WaitForSeconds(HitCooldown);
+        mainSprite.color = Color.white;
+    }
+    
     protected override void FixedUpdate()
     {
         Direction = !ActionActive ? Mathf.Sign(Target.transform.position.x - transform.position.x) : 0;

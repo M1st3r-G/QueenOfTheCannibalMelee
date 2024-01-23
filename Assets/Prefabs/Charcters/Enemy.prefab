@@ -553,6 +553,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   fistReference: {fileID: 6004477804354193143}
+  mainSprite: {fileID: 6734923845253136971}
+  hitColor: {r: 1, g: 0.2216981, b: 0.2216981, a: 1}
   changeDistance: 0
   maskDropPrefab: {fileID: 8685536210988907280, guid: d34f9069992b5644dae7e4ff99d6b2ce, type: 3}
 --- !u!114 &7096965669145698111

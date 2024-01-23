@@ -125,20 +125,6 @@ public abstract class Character : MonoBehaviour
         }
     }
 
-    private IEnumerator HitRoutine()
-    {
-        ActionActive = true;
-        Anim.Play(AnimationPath + "Hit");
-
-        float counter = 0;
-        while (counter < HitCooldown)
-        {
-            counter += Time.deltaTime;
-            yield return null;
-        }
-
-        ActionActive = false;
-    }
 
     private IEnumerator KnockBack(float speed, float distance)
     {
@@ -186,7 +172,6 @@ public abstract class Character : MonoBehaviour
 
         if (!blocking)
         {
-            StopAllCoroutines();
             StartCoroutine(HitRoutine());
             StartCoroutine(KnockBack(kSpeed, kDistance));
         }
@@ -209,4 +194,5 @@ public abstract class Character : MonoBehaviour
     protected abstract void PlayHitSound(bool blocked);
     protected abstract void PlayPunchSound();
     protected abstract void FixedUpdate();
+    protected abstract IEnumerator HitRoutine();
 }

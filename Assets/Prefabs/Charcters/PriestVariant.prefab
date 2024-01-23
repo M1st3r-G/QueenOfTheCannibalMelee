@@ -184,8 +184,15 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   fistReference: {fileID: 4776054588638485018}
+  mainSprite: {fileID: 5504671317016387238}
+  hitColor: {r: 1, g: 0.3726415, b: 0.3726415, a: 1}
   changeDistance: 9
   maskDropPrefab: {fileID: 8685536210988907280, guid: d34f9069992b5644dae7e4ff99d6b2ce, type: 3}
   projectile: {fileID: 7191183185695096033, guid: d3db240f3a44a444aad41ce6d1a4397b, type: 3}
   targetPosition: 8.5
   rangeAttackDistance: 15
+--- !u!212 &5504671317016387238 stripped
+SpriteRenderer:
+  m_CorrespondingSourceObject: {fileID: 6734923845253136971, guid: 53261a82533fe3a43ac7001b243eab22, type: 3}
+  m_PrefabInstance: {fileID: 1230543623940218093}
+  m_PrefabAsset: {fileID: 0}
