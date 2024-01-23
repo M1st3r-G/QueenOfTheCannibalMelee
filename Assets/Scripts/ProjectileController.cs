@@ -25,6 +25,7 @@ public class ProjectileController : MonoBehaviour
         if (other.gameObject.CompareTag("Player"))
         {
             other.gameObject.GetComponent<PlayerController>().TakeDamage(damage, kSpeed, kDistance);
+            Destroy(gameObject);
         }
     }
 
