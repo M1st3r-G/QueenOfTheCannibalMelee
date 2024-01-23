@@ -1,6 +1,7 @@
 using System.Collections;
+using Unity.VisualScripting.Antlr3.Runtime.Misc;
 using UnityEngine;
-using UnityEngine.UI;
+using Slider = UnityEngine.UI.Slider;
 
 [RequireComponent(typeof(Rigidbody2D))]
 [RequireComponent(typeof(Animator))]
@@ -17,6 +18,7 @@ public class BossController : MonoBehaviour
     private PlayerController player;
     [SerializeField] private GameObject hitBoxReference;
     [SerializeField] private Slider healthBar;
+    [SerializeField] private GameObject smiteProjectile;
     //Params
     [SerializeField] private Color hitColor;
     
@@ -39,6 +41,7 @@ public class BossController : MonoBehaviour
     
     private float attackCooldown;
     private float lineCooldown;
+    private float smiteCooldown;
     //Temps
     private bool IsFlipped => Mathf.Sign(transform.localScale.x) == -1f;
     private int currentHealth;
@@ -75,6 +78,7 @@ public class BossController : MonoBehaviour
             if (clip.name.EndsWith("Attack")) attackCooldown = clip.length;
             else if (clip.name.EndsWith("Hit")) hitCooldown = clip.length;
             else if (clip.name.EndsWith("LineChange")) lineCooldown = clip.length;
+            else if (clip.name.EndsWith("Smite")) smiteCooldown = clip.length;
         }
     }
     
@@ -119,7 +123,7 @@ public class BossController : MonoBehaviour
     /// </summary>
     private void Attack()
     {
-        print($"Boss used Attack");
+        print("Boss used Attack");
 
         var fistPosition = hitBoxReference.transform.localPosition;
         if (IsFlipped) fistPosition.x *= -1;
@@ -140,6 +144,9 @@ public class BossController : MonoBehaviour
     private void Smite()
     {
         print("Boss used Smite");
+        GameObject tmp =  Instantiate(smiteProjectile, transform.position, Quaternion.identity);
+        tmp.GetComponent<ProjectileController>().SetParams(damage,1, 0);
+        LineManager.Instance.SetToLine(tmp.gameObject, LineManager.GetLine(gameObject));
     }
 
     private IEnumerator HitRoutine()
@@ -225,7 +232,13 @@ public class BossController : MonoBehaviour
         rb.velocity = Vector2.zero;
         hitBox.isTrigger = false;
         isDashing = false;
-        //StartCoroutine(RangedAttack());
+        StartCoroutine(RangedAttack());
+    }
+
+    private IEnumerator RangedAttack()
+    {
+        anim.Play("BossSmite");
+        yield return new WaitForSeconds(smiteCooldown);
         actionActive = false;
     }
     
@@ -274,8 +287,9 @@ public class BossController : MonoBehaviour
         StartCoroutine(KnockBack(kSpeed, kDistance));
         
         if (currentHealth > 0) return;
-        Destroy(gameObject);
-        print("Player Won");
+        rb.bodyType = RigidbodyType2D.Static;
+        anim.Play("BossDeath");
+        enabled = false;
     }
     
     private IEnumerator KnockBack(float speed, float distance)

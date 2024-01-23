@@ -15,7 +15,7 @@ GameObject:
   - component: {fileID: 5370948566665212138}
   - component: {fileID: 4544713786794634571}
   m_Layer: 0
-  m_Name: Projektile
+  m_Name: Projectile
   m_TagString: Projectile
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -121,6 +121,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 688d1a6adeb20ed438178401db1d8aab, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  destroyAfterHit: 1
   movementSpeed: 10
 --- !u!70 &5370948566665212138
 CapsuleCollider2D:
