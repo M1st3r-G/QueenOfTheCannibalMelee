@@ -14,8 +14,8 @@ public class RangedEnemyController : EnemyController
     {
         if (ActionActive) return;
 
-        int playerLine = LayerMask.LayerToName(Target.gameObject.layer)[^1] - '0' - 1;
-        int enemyLine = LayerMask.LayerToName(gameObject.layer)[^1] - '0' - 1;
+        int playerLine = LineManager.GetLine(Target.gameObject);
+        int enemyLine = LineManager.GetLine(gameObject);
 
         
         
@@ -37,7 +37,7 @@ public class RangedEnemyController : EnemyController
     {
         GameObject tmp =  Instantiate(projectile, fistReference.transform.position, Quaternion.identity);
         tmp.GetComponent<ProjectileController>().SetParams(Stats.Damage, Stats.KnockBackSpeed, Stats.KnockBackDistance);
-        tmp.gameObject.layer = gameObject.layer;
+        LineManager.Instance.SetToLine(tmp.gameObject, LineManager.GetLine(gameObject));
     }
     
     protected new void FixedUpdate()

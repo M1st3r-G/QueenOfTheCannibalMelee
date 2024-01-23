@@ -13,7 +13,7 @@ public class EnemyHealthbar : MonoBehaviour
     //Params
     //Temps
     private Coroutine fadeOut;
-    //Publics
+    //Public
     
     public void SetValue(int amount)
     {

@@ -1,5 +1,4 @@
 using System;
-using System.Collections.Generic;
 using UnityEngine;
 
 public class LineManager : MonoBehaviour
@@ -8,13 +7,13 @@ public class LineManager : MonoBehaviour
     //Params
     public int NumberOfLines => numberOfLines;
     [SerializeField] [Range(1, 5)] private int numberOfLines;
-    public float[] LineHeights { get; private set; }
+    private float[] LineHeights { get; set; }
     [SerializeField] private float heightOfLine;
     [SerializeField] private float firstLine;
     [SerializeField] private float displacementBetweenLines;
 
     //Temps
-    //Publics
+    //Public
     public static LineManager Instance => _instance;
     private static LineManager _instance;
     
@@ -85,5 +84,5 @@ public class LineManager : MonoBehaviour
     /// <param name="g">The GameObject to Search for</param>
     /// <returns>The Index of the Line the GameObjet is in</returns>
     /// <exception cref="IndexOutOfRangeException">Raised if Object not in a Right Layer</exception>
-    private static int GetLine(GameObject g) => LayerMask.LayerToName(g.layer)[^1] - '0' - 1;
+    public static int GetLine(GameObject g) => LayerMask.LayerToName(g.layer)[^1] - '1';
 }

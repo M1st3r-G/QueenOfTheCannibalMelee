@@ -43,8 +43,8 @@ public class EnemyController : Character
     {
         if (ActionActive) return;
 
-        int playerLine = LayerMask.LayerToName(Target.gameObject.layer)[^1] - '0' - 1;
-        int enemyLine = LayerMask.LayerToName(gameObject.layer)[^1] - '0' - 1;
+        int playerLine = LineManager.GetLine(Target.gameObject);
+        int enemyLine = LineManager.GetLine(gameObject);
 
         if (Mathf.Abs(Target.transform.position.x - transform.position.x) < changeDistance && playerLine != enemyLine)
         {
