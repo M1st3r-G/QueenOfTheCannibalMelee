@@ -74,8 +74,8 @@ public class BossController : MonoBehaviour
     {
         if (actionActive) return;
         
-        int playerLine = LayerMask.LayerToName(player.gameObject.layer)[^1] - '1';
-        int enemyLine = LayerMask.LayerToName(gameObject.layer)[^1] - '1';
+        int playerLine = LineManager.GetLine(player.gameObject);
+        int enemyLine = LineManager.GetLine(gameObject);
 
         if (transform.position.x < leftCorner)
         {
