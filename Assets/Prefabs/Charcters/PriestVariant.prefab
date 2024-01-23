@@ -188,4 +188,4 @@ MonoBehaviour:
   maskDropPrefab: {fileID: 8685536210988907280, guid: d34f9069992b5644dae7e4ff99d6b2ce, type: 3}
   projectile: {fileID: 7191183185695096033, guid: d3db240f3a44a444aad41ce6d1a4397b, type: 3}
   targetPosition: 8.5
-  rangeAttackDistance: 8
+  rangeAttackDistance: 15
