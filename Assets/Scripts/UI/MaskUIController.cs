@@ -6,9 +6,6 @@ public class MaskUIController : MonoBehaviour
     //ComponentReferences
     [SerializeField] private Image[] maskImages;
     [SerializeField] private GameObject border;
-    [SerializeField] private Image[] guides;
-    [SerializeField] private Sprite[] controllerGuides;
-    [SerializeField] private Sprite[] keyboardGuides;
     //Params
     private Vector3 nonePosition;
     [SerializeField] private Color unknown;
@@ -24,20 +21,6 @@ public class MaskUIController : MonoBehaviour
         }
     }
 
-    private void OnControlTypeChange(PlayerController.ControlType type)
-    {
-        Sprite[] sprites = type switch
-        {
-            PlayerController.ControlType.Keyboard => keyboardGuides,
-            _ => controllerGuides
-        };
-        
-        for (int i = 0; i < guides.Length; i++)
-        {
-            guides[i].sprite = sprites[i];
-        }
-    }
-    
     public void UnlockMasks(bool[] unlocked)
     {
         for (int i = 0; i < unlocked.Length; i++)
@@ -64,7 +47,4 @@ public class MaskUIController : MonoBehaviour
         if (mask == MaskManager.MaskType.None) return;
         maskImages[(int) mask].color = Color.white;
     }
-    
-    private void OnEnable() => PlayerController.OnControlTypeChange += OnControlTypeChange;
-    private void OnDisable() => PlayerController.OnControlTypeChange -= OnControlTypeChange;
 }
