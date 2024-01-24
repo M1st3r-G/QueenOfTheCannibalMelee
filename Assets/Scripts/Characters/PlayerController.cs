@@ -6,7 +6,7 @@ using UnityEngine.UI;
 
 public class PlayerController : Character
 {
-    private static readonly int AnimatorMaskParameter = Animator.StringToHash("MaskInt");
+    private static readonly int AnimatorMaskParameter = Animator.StringToHash("MaskValue");
     
     //ComponentReferences
     private InputAction moveAction;
@@ -191,12 +191,13 @@ public class PlayerController : Character
         {
             MaskManager.Instance.Dequip();
             Stats.ChangeMask(MaskManager.MaskType.None);
+            maskController.SetFloat(AnimatorMaskParameter, -1);
         }
         else
         {
             if (!MaskManager.Instance.Equip(mask)) return;
             Stats.ChangeMask(mask);
-            maskController.SetInteger(AnimatorMaskParameter, (int) mask);
+            maskController.SetFloat(AnimatorMaskParameter, (int) mask);
         }
     }
     
