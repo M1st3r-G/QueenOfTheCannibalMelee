@@ -17,3 +17,12 @@ MonoBehaviour:
   rangedEnemy: {fileID: 5386652399620212785, guid: f21d13858a0d840428d62bb1dd50f127, type: 3}
   meleeEnemy: {fileID: 6840793961240405268, guid: 4138ec0252a54b84e8edadca63160b53, type: 3}
   levelMusic: {fileID: 8300000, guid: ff464ab6d0e0bd74f96dbf7c21fc4967, type: 3}
+  spiceSprites:
+  - {fileID: -1208345101, guid: 876d0360f8eea524cbfac6f9d7e5b6f4, type: 3}
+  - {fileID: 284941104, guid: fdb9bef71be43dd4fadc57c19e59070b, type: 3}
+  - {fileID: -224450142, guid: fdb9bef71be43dd4fadc57c19e59070b, type: 3}
+  - {fileID: -1095671441, guid: fdb9bef71be43dd4fadc57c19e59070b, type: 3}
+  - {fileID: -344699028, guid: 795e6804089365d41b9c26fbdb0b7541, type: 3}
+  - {fileID: 1129964027, guid: 2fb5f5062d0494a49a21cdc157690594, type: 3}
+  - {fileID: 21300000, guid: 578b658350fbad042b56893e0e3ee2e0, type: 3}
+  - {fileID: 21300000, guid: 12e05613b75f170499e94c9a841a3b06, type: 3}

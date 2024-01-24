@@ -117,8 +117,8 @@ TextureImporter:
         y: 466
         width: 308
         height: 298
-      alignment: 0
-      pivot: {x: 0, y: 0}
+      alignment: 9
+      pivot: {x: 0.56920254, y: 0.29973054}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
@@ -138,8 +138,8 @@ TextureImporter:
         y: 410
         width: 468
         height: 351
-      alignment: 0
-      pivot: {x: 0, y: 0}
+      alignment: 9
+      pivot: {x: 0.5, y: 0.21459378}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
@@ -159,8 +159,8 @@ TextureImporter:
         y: 382
         width: 340
         height: 307
-      alignment: 0
-      pivot: {x: 0, y: 0}
+      alignment: 9
+      pivot: {x: 0.5062689, y: 0.22923096}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
@@ -168,27 +168,6 @@ TextureImporter:
       bones: []
       spriteID: 403517e85774ed24d8521764f2b1033f
       internalID: -1095671441
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: busch_und-stein_rework_6
-      rect:
-        serializedVersion: 2
-        x: 1190
-        y: 527
-        width: 5
-        height: 5
-      alignment: 0
-      pivot: {x: 0, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
-      physicsShape: []
-      tessellationDetail: 0
-      bones: []
-      spriteID: 884dc9cc79c6b264a8540b0e126774d4
-      internalID: -326720380
       vertices: []
       indices: 
       edges: []

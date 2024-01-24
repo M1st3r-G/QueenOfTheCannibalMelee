@@ -17,4 +17,7 @@ public class LevelData : ScriptableObject
 
     public AudioClip Music => levelMusic;
     [SerializeField] private AudioClip levelMusic;
+
+    public Sprite GetRandomSpiceSprite => spiceSprites[Random.Range(0, spiceSprites.Length)]; 
+    [SerializeField] private Sprite[] spiceSprites;
 }

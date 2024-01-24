@@ -17,7 +17,7 @@ public class GameManager : MonoBehaviour
     private float counter;
     private bool ending;
     //Public
-    public static GameManager Instance { get; set; }
+    public static GameManager Instance { get; private set; }
     public static AudioClip LevelMusic => CurrentLevel.Music;
     
     private void Awake()

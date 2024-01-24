@@ -1,6 +1,7 @@
-﻿using UnityEngine;
+﻿using UI.Parallax;
+using UnityEngine;
 
-public class ParallaxLayerController : MonoBehaviour
+public class ParallaxLayerController : MonoBehaviour, IParallaxLayer
 {
     // Param
     [SerializeField] private float parallaxFactor;

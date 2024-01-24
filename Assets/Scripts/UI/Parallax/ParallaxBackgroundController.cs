@@ -1,10 +1,11 @@
 ﻿using System.Collections.Generic;
+using UI.Parallax;
 using UnityEngine;
 
 public class ParallaxBackgroundController : MonoBehaviour
 {
     private CameraController parallaxCamera;
-    List<ParallaxLayerController> parallaxLayers = new();
+    private List<IParallaxLayer> parallaxLayers = new();
 
     private void Awake()
     {
@@ -19,16 +20,16 @@ public class ParallaxBackgroundController : MonoBehaviour
 
         for (int i = 0; i < transform.childCount; i++)
         {
-            ParallaxLayerController layer = transform.GetChild(i).GetComponent<ParallaxLayerController>();
+            IParallaxLayer layer = transform.GetChild(i).GetComponent<IParallaxLayer>();
             
-            layer.FixOrder(-6 + i);
+            layer.FixOrder(-(transform.childCount + 2) + i);
             parallaxLayers.Add(layer);
         }
     }
 
     private void Move(float delta)
     {
-        foreach (ParallaxLayerController layer in parallaxLayers)
+        foreach (IParallaxLayer layer in parallaxLayers)
         {
             layer.Move(delta);
         }
