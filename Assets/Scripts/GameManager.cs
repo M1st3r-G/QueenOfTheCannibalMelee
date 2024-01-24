@@ -15,8 +15,9 @@ public class GameManager : MonoBehaviour
     //Temps
     private int numberOfEnemies;
     private float counter;
+    private bool ending;
     //Public
-    private static GameManager Instance { get; set; }
+    public static GameManager Instance { get; set; }
     public static AudioClip LevelMusic => CurrentLevel.Music;
     
     private void Awake()
@@ -48,9 +49,9 @@ public class GameManager : MonoBehaviour
     {
         cam = GameObject.FindGameObjectWithTag("MainCamera").transform;
         if (SceneController.IsInBossArena || SceneController.IsInLoading) return;
-        Instantiate(CurrentLevel.Transition);
         Instantiate(CurrentLevel.LevelObject, Vector3.zero, Quaternion.identity, cam);
         numberOfEnemies = 0;
+        ending = false;
     }
     
     private void OnEnemyDeath() => numberOfEnemies--;
@@ -59,7 +60,7 @@ public class GameManager : MonoBehaviour
     {
         if (SceneController.IsInLoading || SceneController.IsInBossArena) return;
         
-        if (numberOfEnemies >= spawnCap) return;
+        if (numberOfEnemies >= spawnCap || ending) return;
         if (counter > spawnTime)
         {
             counter = 0;
@@ -75,6 +76,12 @@ public class GameManager : MonoBehaviour
         if(Instance == this) Instance = null;
     }
 
+    public void SpawnEnd()
+    {
+        ending = true;
+        Instantiate(CurrentLevel.Transition, new Vector3(cam.position.x + 15,-1.35f,0), Quaternion.identity);
+    }
+    
     /// <summary>
     /// Spawns an Enemy on the right side of the Camera
     /// </summary>
