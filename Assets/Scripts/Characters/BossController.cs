@@ -1,5 +1,4 @@
 using System.Collections;
-using Unity.VisualScripting.Antlr3.Runtime.Misc;
 using UnityEngine;
 using Slider = UnityEngine.UI.Slider;
 
@@ -50,6 +49,9 @@ public class BossController : MonoBehaviour
     private bool isDashing;
     private float direction;
     private float currentKnockBackSpeed;
+    //Public
+    public delegate void WinDelegate();
+    public static WinDelegate OnWin;
     
     private void Awake()
     {
@@ -291,6 +293,11 @@ public class BossController : MonoBehaviour
         GetComponent<CapsuleCollider2D>().enabled = false;
         anim.Play("BossDeath");
         enabled = false;
+    }
+
+    private void TriggerWin()
+    {
+        OnWin?.Invoke();
     }
     
     private IEnumerator KnockBack(float speed, float distance)
