@@ -288,6 +288,7 @@ public class BossController : MonoBehaviour
         
         if (currentHealth > 0) return;
         rb.bodyType = RigidbodyType2D.Static;
+        GetComponent<CapsuleCollider2D>().enabled = false;
         anim.Play("BossDeath");
         enabled = false;
     }

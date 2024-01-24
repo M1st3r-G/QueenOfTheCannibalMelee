@@ -12,12 +12,13 @@ public class PlayerController : Character
     //ComponentReferences
     private InputAction moveAction;
     private GameObject healthBar;
+    private Sprite defaultSprite;
     [SerializeField] private Animator maskController;
     [SerializeField] private Gradient healthGradient;
     //Params
     [SerializeField] [Range(0f, 1f)] private float relativeEarlyEscape;
     //Temps
-    // Publics
+    //Public
     public delegate void GameOverDelegate();
     public static GameOverDelegate OnGameOver;
 
@@ -32,6 +33,8 @@ public class PlayerController : Character
         moveAction = GetComponent<PlayerInput>().actions.FindAction("Move");
         DontDestroyOnLoad(gameObject);
 
+        defaultSprite = GetComponent<SpriteRenderer>().sprite;
+        
         LineCooldown *= relativeEarlyEscape;
         HitCooldown *= relativeEarlyEscape;
         AttackCooldown *= relativeEarlyEscape;
@@ -86,6 +89,7 @@ public class PlayerController : Character
         Vector3 newPos = transform.position;
         newPos.x = -4;
         transform.position = newPos;
+        GetComponent<SpriteRenderer>().sprite = defaultSprite;
         print($"Reset x-Position to {newPos}");
     }
     
