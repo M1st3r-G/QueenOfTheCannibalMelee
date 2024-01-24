@@ -241,6 +241,7 @@ public class PlayerController : Character
     protected override void OnNoHealth()
     {
         AudioManager.Instance.PlayAudioEffect(AudioManager.PlayerDeath);
+        AudioManager.Instance.PlayAudioEffect(AudioManager.PlayerDeathScream);
         Time.timeScale = 0;
         OnGameOver?.Invoke();
     }
