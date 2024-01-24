@@ -14,17 +14,16 @@ public class LineManager : MonoBehaviour
 
     //Temps
     //Public
-    public static LineManager Instance => _instance;
-    private static LineManager _instance;
-    
+    public static LineManager Instance { get; private set; }
+
     private void Awake()
     {
-        if (_instance is not null)
+        if (Instance is not null)
         {
             Destroy(gameObject);
             return;
         }
-        _instance = this;
+        Instance = this;
         DontDestroyOnLoad(this);
         
         LineHeights = new float[numberOfLines];
@@ -34,10 +33,7 @@ public class LineManager : MonoBehaviour
         }
     }
     
-    private void OnDestroy()
-    {
-        _instance = null;
-    }
+    //private void OnDestroy() => Instance = null;
     
     /// <summary>
     /// Changes the Line the Game Object is in

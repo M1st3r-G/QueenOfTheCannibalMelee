@@ -21,7 +21,7 @@ public class ParallaxBackgroundController : MonoBehaviour
         {
             ParallaxLayerController layer = transform.GetChild(i).GetComponent<ParallaxLayerController>();
             
-            layer.FixOrder(-5 + i);
+            layer.FixOrder(-6 + i);
             parallaxLayers.Add(layer);
         }
     }

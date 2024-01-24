@@ -30,7 +30,7 @@ public class SettingsMenu : PopUpMenu
         base.Awake();
         playable = true;
         
-        effectAudioSource = AudioManager.Instance is null ? GetComponent<AudioSource>() : AudioManager.Instance.GetComponent<AudioSource>();
+        effectAudioSource = SceneController.IsInMainMenu ? GetComponent<AudioSource>() : AudioManager.Instance.GetComponent<AudioSource>();
         musicAudioSource = GameObject.FindGameObjectWithTag("MainCamera").GetComponent<AudioSource>();
 
         musicVolume = PlayerPrefs.GetFloat(MusicVolumeKey, 0.75f);

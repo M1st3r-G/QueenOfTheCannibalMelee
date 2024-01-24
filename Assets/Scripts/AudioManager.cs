@@ -31,7 +31,7 @@ public class AudioManager : MonoBehaviour
             return;
         }
         Instance = this;
-        DontDestroyOnLoad(gameObject);
+        DontDestroyOnLoad(this);
 
         musicVolume = PlayerPrefs.GetFloat(SettingsMenu.MusicVolumeKey, 0.75f);
         effectVolume = PlayerPrefs.GetFloat(SettingsMenu.EffectVolumeKey, 0.75f);
@@ -41,10 +41,7 @@ public class AudioManager : MonoBehaviour
         effectAudioSource.volume = effectVolume * generalVolume;
     }
 
-    private void OnDestroy()
-    {
-        Instance = null;
-    }
+    //private void OnDestroy() => Instance = null;
 
     private void OnEnable()
     {

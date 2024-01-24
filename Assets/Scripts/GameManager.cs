@@ -73,10 +73,7 @@ public class GameManager : MonoBehaviour
         counter += Time.deltaTime;
     }
 
-    private void OnDestroy()
-    {
-        Instance = null;
-    }
+    //private void OnDestroy() => Instance = null;
     
     /// <summary>
     /// Spawns an Enemy on the right side of the Camera
