@@ -49,13 +49,11 @@ public class GameManager : MonoBehaviour
         cam = GameObject.FindGameObjectWithTag("MainCamera").transform;
         if (SceneController.IsInBossArena || SceneController.IsInLoading) return;
         Instantiate(CurrentLevel.Transition);
-        Instantiate(CurrentLevel.LevelObject, Vector3.zero, Quaternion.identity);
+        Instantiate(CurrentLevel.LevelObject, Vector3.zero, Quaternion.identity, cam);
         numberOfEnemies = 0;
     }
     
     private void OnEnemyDeath() => numberOfEnemies--;
-    
-    
     
     private void Update()
     {

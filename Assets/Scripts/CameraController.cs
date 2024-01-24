@@ -30,7 +30,7 @@ public class CameraController : MonoBehaviour
     {
         rb.velocity = new Vector2(Mathf.Pow(Mathf.Max(target.transform.position.x - (xTarget + transform.position.x), 0), 2),0) * speedFactor;
         if (Math.Abs(oldXPosition - transform.position.x) < 0.01f) return;
-        OnCameraTranslate?.Invoke(oldXPosition-transform.position.x);
+        OnCameraTranslate?.Invoke(transform.position.x - oldXPosition);
         oldXPosition = transform.position.x;
     }
 }

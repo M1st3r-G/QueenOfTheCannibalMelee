@@ -5,15 +5,15 @@ public class ParallaxLayerController : MonoBehaviour
     // Param
     [SerializeField] private float parallaxFactor;
     private float loopDistance;
-    private float currentMove;
+    private float startDistance;
     
     private void Awake()
     {
         Sprite s = transform.GetChild(0).GetComponent<SpriteRenderer>().sprite;
         loopDistance = 2 * s.rect.width / s.pixelsPerUnit;
-        currentMove = -2 *  transform.localPosition.x;
+        startDistance = transform.localPosition.x;
     }
-
+    
     public void FixOrder(int layer)
     {
         for (int i = 0; i < transform.childCount; i++)
@@ -24,13 +24,9 @@ public class ParallaxLayerController : MonoBehaviour
     
     public void Move(float delta)
     {
-        transform.localPosition -= Vector3.right * (delta * parallaxFactor);
-        currentMove -= delta*(1-parallaxFactor);
-        
-        if (currentMove < loopDistance) return;
-        print($"{gameObject.name} Looped!");
-        currentMove -= loopDistance;
-        transform.localPosition += Vector3.right * loopDistance;
+        transform.localPosition += (1 - parallaxFactor) * delta * Vector3.left;
 
+        if (startDistance - transform.localPosition.x > loopDistance)
+            transform.localPosition += Vector3.right * loopDistance;
     }
 }
