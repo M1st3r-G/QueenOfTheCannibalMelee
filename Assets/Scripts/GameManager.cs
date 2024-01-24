@@ -32,13 +32,6 @@ public class GameManager : MonoBehaviour
         
         Instantiate(playerPrefab, Vector3.zero, Quaternion.identity);
     }
-    
-    private void Start()
-    {
-        if (SceneController.IsInBossArena) return;
-        Instantiate(CurrentLevel.Transition);
-        Instantiate(CurrentLevel.LevelObject, Vector3.zero, Quaternion.identity);
-    }
 
     private void OnEnable()
     {
@@ -52,17 +45,18 @@ public class GameManager : MonoBehaviour
         EnemyController.OnEnemyDeath -= OnEnemyDeath;
     }
 
-    private void OnEnemyDeath() => numberOfEnemies--;
-    
-    /// <summary>
-    /// This Method is Triggered when Loading into a new Scene, it resets References and counts up the Levels
-    /// </summary>
-    /// <param name="s">irrelevant</param>
-    /// <param name="m">irrelevant</param>
     private void RefreshReference(Scene s, LoadSceneMode m)
     {
         cam = GameObject.FindGameObjectWithTag("MainCamera").transform;
+        if (SceneController.IsInBossArena || SceneController.IsInLoading) return;
+        Instantiate(CurrentLevel.Transition);
+        Instantiate(CurrentLevel.LevelObject, Vector3.zero, Quaternion.identity);
+        numberOfEnemies = 0;
     }
+    
+    private void OnEnemyDeath() => numberOfEnemies--;
+    
+    
     
     private void Update()
     {
