@@ -15,11 +15,12 @@ public class AudioManager : MonoBehaviour
     //Temps
     //Publics
     public const int PlayerPunch = 0;
-    public const int PlayerDeath = 1;
-    public const int PlayerHit = 2;
-    public const int PlayerBlock = 2; // TODo
-    public const int Enemy1Death = 3;
-    public const int SettingsSound = 4; //TODO
+    public const int PlayerHit = 1;
+    public const int PlayerBlock = 1; // TODo
+    public const int PlayerDeath = 2;
+    public const int PlayerDeathScream = 3;
+    public const int Enemy1Death = 4;
+    public const int SettingsSound = 5;
 
     public static AudioManager Instance { get; private set; }
 
