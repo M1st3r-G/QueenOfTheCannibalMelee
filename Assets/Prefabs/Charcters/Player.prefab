@@ -459,7 +459,19 @@ MonoBehaviour:
       m_Calls: []
   m_ActionEvents:
   - m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 8242529955882049647}
+        m_TargetAssemblyTypeName: PlayerController, Assembly-CSharp
+        m_MethodName: OnMoveAction
+        m_Mode: 0
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
     m_ActionId: 2c43c1ad-445e-4c14-900c-c8985862ac35
     m_ActionName: Player/Move[/Keyboard/a,/Keyboard/d]
   - m_PersistentCalls:
@@ -542,10 +554,6 @@ MonoBehaviour:
         m_CallState: 2
     m_ActionId: e3412c26-134c-4f82-8724-ef47ec076d82
     m_ActionName: Player/New action
-  - m_PersistentCalls:
-      m_Calls: []
-    m_ActionId: 39a5e1f7-7782-4dc2-8225-662ef7685c60
-    m_ActionName: UI/Pause[/Keyboard/escape]
   m_NeverAutoSwitchControlSchemes: 0
   m_DefaultControlScheme: 
   m_DefaultActionMap: Player
@@ -609,11 +617,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   currentMask: {fileID: 0}
-  allMasks:
-  - {fileID: 11400000, guid: d1b33e6ec53aa594da25349e7e9ec83d, type: 2}
-  - {fileID: 11400000, guid: 0ddb9c79215dddd4d8b766961c23b542, type: 2}
-  - {fileID: 11400000, guid: 1873858b7e5900f4580075f1693d554b, type: 2}
-  - {fileID: 11400000, guid: 33064eb1cc371e14d9369420b7ca88b0, type: 2}
   baseDamageBlock: 0.3
   baseDamage: 25
   baseMovementSpeed: 5
