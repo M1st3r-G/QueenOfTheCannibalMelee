@@ -1,5 +1,5 @@
 fileFormatVersion: 2
-guid: 5ea30a258c6242e499bc2647b8eb02ea
+guid: fdb9bef71be43dd4fadc57c19e59070b
 TextureImporter:
   internalIDToNameTable: []
   externalObjects: {}
@@ -43,7 +43,7 @@ TextureImporter:
   nPOTScale: 0
   lightmap: 0
   compressionQuality: 50
-  spriteMode: 1
+  spriteMode: 2
   spriteExtrude: 1
   spriteMeshType: 1
   alignment: 0
@@ -108,7 +108,91 @@ TextureImporter:
     forceMaximumCompressionQuality_BC6H_BC7: 0
   spriteSheet:
     serializedVersion: 2
-    sprites: []
+    sprites:
+    - serializedVersion: 2
+      name: busch_und-stein_rework_0
+      rect:
+        serializedVersion: 2
+        x: 632
+        y: 466
+        width: 308
+        height: 298
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 92b4d64ed11bf0c48ba048f9024ed925
+      internalID: 284941104
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: busch_und-stein_rework_1
+      rect:
+        serializedVersion: 2
+        x: 1191
+        y: 410
+        width: 468
+        height: 351
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 6ba655cb09771f54291f55786dbd8db4
+      internalID: -224450142
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: busch_und-stein_rework_3
+      rect:
+        serializedVersion: 2
+        x: 219
+        y: 382
+        width: 340
+        height: 307
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 403517e85774ed24d8521764f2b1033f
+      internalID: -1095671441
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: busch_und-stein_rework_6
+      rect:
+        serializedVersion: 2
+        x: 1190
+        y: 527
+        width: 5
+        height: 5
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 884dc9cc79c6b264a8540b0e126774d4
+      internalID: -326720380
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
     outline: []
     physicsShape: []
     bones: []
@@ -119,7 +203,14 @@ TextureImporter:
     edges: []
     weights: []
     secondaryTextures: []
-    nameFileIdTable: {}
+    nameFileIdTable:
+      busch_und-stein_rework_0: 284941104
+      busch_und-stein_rework_1: -224450142
+      busch_und-stein_rework_2: 1476273546
+      busch_und-stein_rework_3: -1095671441
+      busch_und-stein_rework_4: -1857147303
+      busch_und-stein_rework_5: -1260282283
+      busch_und-stein_rework_6: -326720380
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 
