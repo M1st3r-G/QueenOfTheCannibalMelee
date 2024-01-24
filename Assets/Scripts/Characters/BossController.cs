@@ -294,11 +294,6 @@ public class BossController : MonoBehaviour
         anim.Play("BossDeath");
         enabled = false;
     }
-
-    private void TriggerWin()
-    {
-        OnWin?.Invoke();
-    }
     
     private IEnumerator KnockBack(float speed, float distance)
     {
@@ -322,4 +317,6 @@ public class BossController : MonoBehaviour
     {
         other.gameObject.GetComponent<PlayerController>()?.TakeDamage(damage, 10, 0);
     }
+    
+    private void TriggerWin() => OnWin?.Invoke();
 }
