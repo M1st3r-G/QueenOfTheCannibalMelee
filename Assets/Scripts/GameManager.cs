@@ -95,6 +95,6 @@ public class GameManager : MonoBehaviour
         print("Spawned Enemy");
         float rnd = Random.Range(0f, 1f);
         Instantiate(rnd < meleeChance ? CurrentLevel.MeleeEnemyInLevel : CurrentLevel.RangedEnemyInLevel,
-            Vector3.right * (cam.position.x + 5), Quaternion.identity);
+            Vector3.right * (cam.position.x + 12f), Quaternion.identity);
     }
 }
