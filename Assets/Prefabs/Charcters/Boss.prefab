@@ -184,7 +184,7 @@ MonoBehaviour:
   dashTriggerDistance: 4
   waitAfterDash: 1
   customAttackDistance: 1
-  leftCorner: -6
+  leftCorner: -4.5
   hitCooldown: 0.25
 --- !u!50 &5993345453023989775
 Rigidbody2D:

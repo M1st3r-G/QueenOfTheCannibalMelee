@@ -16,7 +16,7 @@ public class AudioManager : MonoBehaviour
     //Publics
     public const int PlayerPunch = 0;
     public const int PlayerHit = 1;
-    public const int PlayerBlock = 1; // TODo
+    public const int PlayerBlock = 1; // Todo
     public const int PlayerDeath = 2;
     public const int PlayerDeathScream = 3;
     public const int Enemy1Death = 4;
