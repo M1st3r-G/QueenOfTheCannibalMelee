@@ -51,6 +51,7 @@ public class PlayerController : Character
         DontDestroyOnLoad(gameObject);
 
         defaultSprite = GetComponent<SpriteRenderer>().sprite;
+        currentControlType = ControlType.Controller;
         
         LineCooldown *= relativeEarlyEscape;
         HitCooldown *= relativeEarlyEscape;

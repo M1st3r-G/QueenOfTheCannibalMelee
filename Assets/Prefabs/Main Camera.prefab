@@ -1821,9 +1821,21 @@ MonoBehaviour:
   - {fileID: 5564574064766038457}
   - {fileID: 8378359304772414110}
   border: {fileID: 1003439478325074621}
-  guides: []
-  controllerGuides: []
-  keyboardGuides: []
+  guides:
+  - {fileID: 7842725373680990193}
+  - {fileID: 3851754104928267689}
+  - {fileID: 7367394220681602285}
+  - {fileID: 2308677406357073036}
+  controllerGuides:
+  - {fileID: 21300000, guid: 3293c34b22011044aba0083b264e2aea, type: 3}
+  - {fileID: 21300000, guid: 20c416696533ab64e81b7d722f881330, type: 3}
+  - {fileID: 21300000, guid: 99b6566933e5e0945b18e57330ac3ab9, type: 3}
+  - {fileID: 21300000, guid: 1f83bef1afd97304080686d53b7ddf42, type: 3}
+  keyboardGuides:
+  - {fileID: 21300000, guid: cd61e02ee3cfbb54593d2dfea6924eba, type: 3}
+  - {fileID: 21300000, guid: a5b79603a4159a44db7a60b5a5d06d14, type: 3}
+  - {fileID: 21300000, guid: f7c3fc982cd95084fac35bc8567ffd8f, type: 3}
+  - {fileID: 21300000, guid: 511153d12d4a13b48a03df179c611c0b, type: 3}
   unknown: {r: 0, g: 0, b: 0, a: 0.62352943}
 --- !u!1 &9069330589352346690
 GameObject:

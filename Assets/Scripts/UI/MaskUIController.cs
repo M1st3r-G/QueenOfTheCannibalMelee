@@ -18,6 +18,10 @@ public class MaskUIController : MonoBehaviour
     private void Awake()
     {
         nonePosition = border.transform.position;
+        for (int i = 0; i < guides.Length; i++)
+        {
+            guides[i].sprite = controllerGuides[i];
+        }
         foreach (Image mask in maskImages)
         {
             mask.color = unknown;
