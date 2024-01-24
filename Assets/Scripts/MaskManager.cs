@@ -72,7 +72,12 @@ public class MaskManager : MonoBehaviour
         if(Instance == this) Instance = null;
     }
     
-    public void IncreaseMaskFound() => masksFound++;
+    public void IncreaseMaskFound()
+    {
+        masksFound++;
+        if(masksFound == maxMasksPerLevel) GameManager.Instance.SpawnEnd();
+    }
+
     public MaskData GetMask(MaskType type) => type == MaskType.None ? null : allMasks[(int)type];
     private void OnEnable() => SceneManager.sceneLoaded += AwakeInScene;
     private void OnDisable() => SceneManager.sceneLoaded -= AwakeInScene;
