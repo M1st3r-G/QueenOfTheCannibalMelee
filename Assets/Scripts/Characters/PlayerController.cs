@@ -174,7 +174,7 @@ public class PlayerController : Character
         }
         else
         {
-            MaskManager.Instance.Equip(mask);
+            if (!MaskManager.Instance.Equip(mask)) return;
             Stats.ChangeMask(mask);
             maskController.SetInteger(AnimatorMaskParameter, (int) mask);
         }

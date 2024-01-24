@@ -5,15 +5,16 @@ public class MaskUIController : MonoBehaviour
 {
     //ComponentReferences
     [SerializeField] private Image[] maskImages;
+    [SerializeField] private GameObject border;
     //Params
-    [SerializeField] private Color active = Color.white;
+    private Vector3 nonePosition;
     [SerializeField] private Color unknown;
-    [SerializeField] private Color disabled;
     //Temps
     //Public
     
     private void Awake()
     {
+        nonePosition = border.transform.position;
         foreach (Image mask in maskImages)
         {
             mask.color = unknown;
@@ -24,26 +25,26 @@ public class MaskUIController : MonoBehaviour
     {
         for (int i = 0; i < unlocked.Length; i++)
         {
-            if (unlocked[i]) maskImages[i].color = disabled;
-        }        
+            if (unlocked[i]) maskImages[i].color = Color.white;
+        }
     }
     
     public void DisableMask(MaskManager.MaskType mask)
     {
         if (mask == MaskManager.MaskType.None) return;
-        
-        maskImages[(int) mask].color = disabled;
+
+        border.transform.position = nonePosition;
     }
     
     public void SetMaskActive(MaskManager.MaskType mask)
     {
         if (mask == MaskManager.MaskType.None) return;
-        maskImages[(int) mask].color = active;
+        border.transform.position = maskImages[(int)mask].transform.position;
     }
     
     public void SetUnlocked(MaskManager.MaskType mask)
     {
         if (mask == MaskManager.MaskType.None) return;
-        maskImages[(int) mask].color = disabled;
+        maskImages[(int) mask].color = Color.white;
     }
 }

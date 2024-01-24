@@ -54,15 +54,17 @@ public class MaskManager : MonoBehaviour
     public void UnlockMask(MaskType type)
     {
         maskUI.SetUnlocked(type);
+        Unlocked[(int)type] = true;
     }
     
-    public void Equip(MaskType mask)
+    public bool Equip(MaskType mask)
     {
         if (CurrentMaskType == MaskType.None) maskUI.DisableMask(CurrentMaskType);
 
-        if (!Unlocked[(int)mask]) return;
+        if (!Unlocked[(int)mask]) return false;
         CurrentMaskType = mask;
         maskUI.SetMaskActive(CurrentMaskType);
+        return true;
     }
     
     private void OnDestroy()
