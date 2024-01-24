@@ -41,16 +41,9 @@ public class AudioManager : MonoBehaviour
         effectAudioSource.volume = effectVolume * generalVolume;
     }
 
-    //private void OnDestroy() => Instance = null;
-
-    private void OnEnable()
+    private void OnDestroy()
     {
-        SceneManager.sceneLoaded += OnSceneLoaded;
-    }
-
-    private void OnDisable()
-    {
-        SceneManager.sceneLoaded -= OnSceneLoaded;
+        if(Instance == this) Instance = null;
     }
 
     private void OnSceneLoaded(Scene s, LoadSceneMode m)
@@ -67,4 +60,7 @@ public class AudioManager : MonoBehaviour
         print($"Played AudioEffect {index}");
         effectAudioSource.PlayOneShot(clips[index]);
     }
+    
+    private void OnEnable() => SceneManager.sceneLoaded += OnSceneLoaded;
+    private void OnDisable() => SceneManager.sceneLoaded -= OnSceneLoaded;
 }

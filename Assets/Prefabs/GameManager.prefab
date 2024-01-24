@@ -12,8 +12,9 @@ GameObject:
   - component: {fileID: 3747221435243097176}
   - component: {fileID: 4321711819564825640}
   - component: {fileID: 5825266259716157179}
-  - component: {fileID: 2918709054073469661}
   - component: {fileID: 2052377368514745029}
+  - component: {fileID: 5462347432956931162}
+  - component: {fileID: 2918709054073469661}
   m_Layer: 0
   m_Name: GameManager
   m_TagString: Untagged
@@ -86,6 +87,42 @@ MonoBehaviour:
   - {fileID: 8300000, guid: bd9a53f0d0f0f62409adce3a7d3e8941, type: 3}
   - {fileID: 8300000, guid: fd54244525b35ad43a48c6025851ec9b, type: 3}
   - {fileID: 8300000, guid: b84a7012ae2a0e940aedcc81a02b8a86, type: 3}
+--- !u!114 &2052377368514745029
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5666446566486608536}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 18a0504d3332df24fb91ed5c3c518609, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  levels:
+  - {fileID: 11400000, guid: 9f9b3caa33badc045982313a0c15df64, type: 2}
+  - {fileID: 11400000, guid: e133c98eb894efb4ab665f95affa4dbe, type: 2}
+  - {fileID: 11400000, guid: f215fdbf884137e48b924fbd706750ba, type: 2}
+  currentLevel: 0
+--- !u!114 &5462347432956931162
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5666446566486608536}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d4a3a89d0592c9248be2b944c76fa691, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  allMasks:
+  - {fileID: 11400000, guid: d1b33e6ec53aa594da25349e7e9ec83d, type: 2}
+  - {fileID: 11400000, guid: 0ddb9c79215dddd4d8b766961c23b542, type: 2}
+  - {fileID: 11400000, guid: 1873858b7e5900f4580075f1693d554b, type: 2}
+  - {fileID: 11400000, guid: 33064eb1cc371e14d9369420b7ca88b0, type: 2}
+  baseDropRate: 0.2
+  maxMasksPerLevel: 2
 --- !u!82 &2918709054073469661
 AudioSource:
   m_ObjectHideFlags: 0
@@ -182,20 +219,3 @@ AudioSource:
     m_PreInfinity: 2
     m_PostInfinity: 2
     m_RotationOrder: 4
---- !u!114 &2052377368514745029
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 5666446566486608536}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 18a0504d3332df24fb91ed5c3c518609, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  levels:
-  - {fileID: 11400000, guid: 9f9b3caa33badc045982313a0c15df64, type: 2}
-  - {fileID: 11400000, guid: e133c98eb894efb4ab665f95affa4dbe, type: 2}
-  - {fileID: 11400000, guid: f215fdbf884137e48b924fbd706750ba, type: 2}
-  currentLevel: 0

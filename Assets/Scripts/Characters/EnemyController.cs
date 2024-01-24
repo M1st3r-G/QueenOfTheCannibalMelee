@@ -32,7 +32,7 @@ public class EnemyController : Character
                          (c.direction == CapsuleDirection2D.Vertical ? c.size.y : c.size.x) / 2 *
                          Mathf.Sin(fistReference.transform.rotation.z) * 1.1f;
         
-        Target = GameObject.FindGameObjectWithTag("Player").GetComponent<PlayerController>();
+        Target = PlayerController.Instance;
         transform.position = LineManager.Instance.SetToLine(gameObject, Random.Range(0, LineManager.Instance.NumberOfLines));
         
         healthBar = GetComponent<EnemyHealthbar>();
@@ -77,7 +77,7 @@ public class EnemyController : Character
     {
         AudioManager.Instance.PlayAudioEffect(AudioManager.Enemy1Death);
         OnEnemyDeath?.Invoke();
-        if (Random.Range(0f, 1f) < MaskUIController.Instance.MaskDropRate) Instantiate(maskDropPrefab, transform.position, Quaternion.identity);
+        if (Random.Range(0f, 1f) < MaskManager.Instance.MaskDropRate) Instantiate(maskDropPrefab, transform.position, Quaternion.identity);
         Destroy(gameObject);
     }
     

@@ -13,13 +13,11 @@ public class SceneController : MonoBehaviour
     //Params
     [SerializeField] private LevelData[] levels;
     //Temps
+    [SerializeField] private int currentLevel;
+    //Public
     public static bool IsInMainMenu => SceneManager.GetActiveScene().buildIndex == MainMenuIndex;
     public static bool IsInLoading => SceneManager.GetActiveScene().buildIndex == LoadingScreenIndex;
     public static bool IsInBossArena => SceneManager.GetActiveScene().buildIndex == BossLevelIndex;
-    [SerializeField] private int currentLevel;
-
-    private bool[] unlocked;
-    //Public
     public static SceneController Instance { get; private set; }
 
     private void Awake()
@@ -31,24 +29,6 @@ public class SceneController : MonoBehaviour
         }
         Instance = this;
         DontDestroyOnLoad(this);
-
-        unlocked = new[] { false, false, false, false };
-    }
-
-    private void OnEnable()
-    {
-        SceneManager.sceneLoaded += RefreshMasks;
-    }
-
-    private void RefreshMasks(Scene s, LoadSceneMode m)
-    {
-        if (IsInLoading) return;
-        MaskUIController.Instance.SetUnlocked(unlocked);
-    }
-    
-    private void OnDisable()
-    {
-        SceneManager.sceneLoaded -= RefreshMasks;
     }
     
     private void Start()
@@ -56,7 +36,10 @@ public class SceneController : MonoBehaviour
         player = GameObject.FindGameObjectWithTag("Player").GetComponent<PlayerController>();
     }
     
-    //private void OnDestroy() => Instance = null;
+    private void OnDestroy()
+    {
+        if(Instance == this) Instance = null;
+    }
 
     /// <summary>
     /// Loads the Next Scene in BuildSettings, if the Current Scene was the Last Scene, it Resets to Index 0
@@ -64,11 +47,7 @@ public class SceneController : MonoBehaviour
     public void LoadNextScene()
     {
         player.gameObject.SetActive(IsInLoading);
-        if (!IsInLoading)
-        {
-            unlocked = MaskUIController.Instance.Unlocked;
-            SceneManager.LoadScene(LoadingScreenIndex);
-        }
+        if (!IsInLoading) SceneManager.LoadScene(LoadingScreenIndex);
         else
         {
             currentLevel++;
@@ -77,10 +56,7 @@ public class SceneController : MonoBehaviour
                 player.FullHeal();
                 SceneManager.LoadScene(BossLevelIndex);
             }
-            else
-            {
-                SceneManager.LoadScene(DefaultLevelIndex);
-            }
+            else SceneManager.LoadScene(DefaultLevelIndex);
         }
     }
     
@@ -90,6 +66,7 @@ public class SceneController : MonoBehaviour
         Destroy(player.gameObject);
         Time.timeScale = 1f;
         SceneManager.LoadScene(MainMenuIndex);
+        currentLevel = 0;
     }
     
     public static void LoadFirstLevel() => SceneManager.LoadScene(DefaultLevelIndex);

@@ -1,4 +1,3 @@
-using System;
 using System.Collections;
 using UnityEngine;
 using UnityEngine.InputSystem;
@@ -21,10 +20,20 @@ public class PlayerController : Character
     //Public
     public delegate void GameOverDelegate();
     public static GameOverDelegate OnGameOver;
+    public static PlayerController Instance { get; private set; }
 
     private new void Awake()
     {
         base.Awake();
+        
+        if (Instance is not null)
+        {
+            Destroy(gameObject);
+            return;
+        }
+        Instance = this;
+        DontDestroyOnLoad(this);
+        
         AnimationPath = "Player";
         
         healthBar = GameObject.FindGameObjectWithTag("HealthUI");
@@ -38,6 +47,11 @@ public class PlayerController : Character
         LineCooldown *= relativeEarlyEscape;
         HitCooldown *= relativeEarlyEscape;
         AttackCooldown *= relativeEarlyEscape;
+    }
+    
+    private void OnDestroy()
+    {
+        if(Instance == this) Instance = null;
     }
     
     private void OnEnable()
@@ -140,21 +154,30 @@ public class PlayerController : Character
         if (SceneController.IsInLoading) return;
         if (!ctx.performed) return;
         Vector2 dir = ctx.ReadValue<Vector2>();
-        int mask = dir.x switch
+        MaskManager.MaskType mask = dir.x switch
         {
-            -1 => 0,
-            1 => 2,
+            -1 => MaskManager.MaskType.Damage,
+            1 => MaskManager.MaskType.Block,
             _ => dir.y switch
             {
-                1 => 1,
-                -1 => 3,
-                _ => -1
+                1 => MaskManager.MaskType.Speed,
+                -1 => MaskManager.MaskType.Health,
+                _ => MaskManager.MaskType.None
             }
         };
-        if (mask == -1) throw new Exception("Got Wrong Mask input");
-        if (!MaskUIController.Instance.SetMaskActive(mask)) return;
-        Stats.ChangeMask(mask);
-        maskController.SetInteger(AnimatorMaskParameter, mask);
+        if (mask == MaskManager.MaskType.None) Debug.LogError("Mask None is not allowed in this Context");
+        
+        if (mask == MaskManager.Instance.CurrentMaskType)
+        {
+            MaskManager.Instance.Dequip();
+            Stats.ChangeMask(MaskManager.MaskType.None);
+        }
+        else
+        {
+            MaskManager.Instance.Equip(mask);
+            Stats.ChangeMask(mask);
+            maskController.SetInteger(AnimatorMaskParameter, (int) mask);
+        }
     }
     
     protected override void FixedUpdate()

@@ -9,8 +9,8 @@ TagManager:
   - Damage
   - HealthUI
   - Background
-  - MaskImage
   - Projectile
+  - MaskUI
   layers:
   - Default
   - TransparentFX

@@ -68,7 +68,7 @@ public class BossController : MonoBehaviour
     private void Start()
     {
         transform.position = LineManager.Instance.SetToLine(gameObject, 0);
-        player = GameObject.FindGameObjectWithTag("Player").GetComponent<PlayerController>();
+        player = PlayerController.Instance;
     }
 
     private void UpdateCooldown()

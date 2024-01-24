@@ -7,7 +7,7 @@ using Random = UnityEngine.Random;
 public class MaskDrop : MonoBehaviour
 {
     //ComponentReferences
-    [SerializeField] private int typeOfMask;
+    [SerializeField] private MaskManager.MaskType typeOfMask;
     //Params
     //Temps
     //Publics
@@ -17,21 +17,21 @@ public class MaskDrop : MonoBehaviour
         List<int> options = new List<int>();
         for (int i = 0; i < 4; i++)
         {
-            if(!MaskUIController.Instance.Unlocked[i]) options.Add(i);
+            if(!MaskManager.Instance.Unlocked[i]) options.Add(i);
         }
-        typeOfMask = options[Random.Range(0, options.Count)];
+        typeOfMask = (MaskManager.MaskType) options[Random.Range(0, options.Count)];
     }
 
     private void Start()
     {
-        GetComponent<SpriteRenderer>().sprite = MaskUIController.Instance.GetMaskSprite(typeOfMask);
+        GetComponent<SpriteRenderer>().sprite = MaskManager.Instance.GetMaskSprite(typeOfMask);
     }
 
     private void OnTriggerEnter2D(Collider2D other)
     {
         if (!other.gameObject.CompareTag("Player")) return;
-        MaskUIController.Instance.UnlockMask(typeOfMask);
-        MaskUIController.Instance.masksFound++;
+        MaskManager.Instance.UnlockMask(typeOfMask);
+        MaskManager.Instance.IncreaseMaskFound();
         Destroy(gameObject);
     }
 }

@@ -33,7 +33,10 @@ public class LineManager : MonoBehaviour
         }
     }
     
-    //private void OnDestroy() => Instance = null;
+    private void OnDestroy()
+    {
+        if(Instance == this) Instance = null;
+    }
     
     /// <summary>
     /// Changes the Line the Game Object is in

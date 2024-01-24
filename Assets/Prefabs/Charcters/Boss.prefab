@@ -174,7 +174,7 @@ MonoBehaviour:
   smiteProjectile: {fileID: 7050193244136500239, guid: 9149a5f1638203a4ba69805bbfddd7e0, type: 3}
   hitColor: {r: 1, g: 0.33333334, b: 0.33333334, a: 1}
   maxHealth: 500
-  damage: 10
+  damage: 15
   moveSpeed: 3
   knockBackSpeed: 20
   knockBackDistance: 1.5

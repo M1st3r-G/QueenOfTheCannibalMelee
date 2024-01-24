@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using UnityEngine;
 using UnityEngine.UI;
@@ -30,16 +31,20 @@ public class SettingsMenu : PopUpMenu
         base.Awake();
         playable = true;
         
-        effectAudioSource = SceneController.IsInMainMenu ? GetComponent<AudioSource>() : AudioManager.Instance.GetComponent<AudioSource>();
-        musicAudioSource = GameObject.FindGameObjectWithTag("MainCamera").GetComponent<AudioSource>();
-
+        
         musicVolume = PlayerPrefs.GetFloat(MusicVolumeKey, 0.75f);
         effectVolume = PlayerPrefs.GetFloat(EffectVolumeKey, 0.75f);
         generalVolume = PlayerPrefs.GetFloat(GeneralVolumeKey, 0.75f);
         
-        musicVolumeSlider.value = musicVolume;
-        effectVolumeSlider.value = effectVolume;
-        generalVolumeSlider.value = generalVolume;
+        musicVolumeSlider.SetValueWithoutNotify(musicVolume);
+        effectVolumeSlider.SetValueWithoutNotify(effectVolume);
+        generalVolumeSlider.SetValueWithoutNotify(generalVolume); 
+    }
+
+    private void Start()
+    {
+        effectAudioSource = SceneController.IsInMainMenu ? GetComponent<AudioSource>() : AudioManager.Instance.GetComponent<AudioSource>();
+        musicAudioSource = GameObject.FindGameObjectWithTag("MainCamera").GetComponent<AudioSource>();
     }
 
     public void CloseSettings()

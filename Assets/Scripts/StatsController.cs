@@ -4,7 +4,6 @@ public class StatsController : MonoBehaviour
 {
     //ComponentReferences
     [SerializeField] private MaskData currentMask;
-    [SerializeField] private MaskData[] allMasks;
     
     //ReadParams
     public float DamageBlock => baseDamageBlock * (currentMask != null ? currentMask.BlockMod : 1);
@@ -23,23 +22,21 @@ public class StatsController : MonoBehaviour
     public float AnimSpeed => currentMask != null ? currentMask.AnimationMod : 1;
     
     //Temps
-    //Publics
+    //Public
+    
     public delegate void HealthChange(int oldMax, bool higher);
     public delegate void AnimSpeedChange();
     public static AnimSpeedChange OnAnimSpeedChange;
     public static HealthChange OnHealthChange;
     
-    public void ChangeMask(int index)
+    public void ChangeMask(MaskManager.MaskType maskType)
     {
-        if (index < 0 || index >= allMasks.Length) return;
-        MaskData newMask = allMasks[index];
-        if (newMask == currentMask) return;
+        MaskData newMask = MaskManager.Instance.GetMask(maskType);
         
         int oldMax = MaxHealth; 
         currentMask = newMask;
-        
-        OnHealthChange?.Invoke(oldMax, MaxHealth>oldMax);
+
+        OnHealthChange?.Invoke(oldMax, MaxHealth > oldMax);
         OnAnimSpeedChange?.Invoke();
-        
     }
 }
