@@ -19,7 +19,6 @@ public class GameManager : MonoBehaviour
     private static GameManager Instance { get; set; }
     public static AudioClip LevelMusic => CurrentLevel.Music;
     
-    
     private void Awake()
     {
         if (Instance is not null)

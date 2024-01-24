@@ -20,8 +20,16 @@ public class PlayerController : Character
     //Public
     public delegate void GameOverDelegate();
     public static GameOverDelegate OnGameOver;
+    public delegate void ControlChangeDelegate(ControlType type);
+    public static ControlChangeDelegate OnControlTypeChange;
     public static PlayerController Instance { get; private set; }
-
+    private ControlType currentControlType;
+    public enum ControlType
+    {
+        Keyboard, Controller
+    }
+    
+    
     private new void Awake()
     {
         base.Awake();
@@ -47,6 +55,17 @@ public class PlayerController : Character
         LineCooldown *= relativeEarlyEscape;
         HitCooldown *= relativeEarlyEscape;
         AttackCooldown *= relativeEarlyEscape;
+    }
+
+    public void OnMoveAction(InputAction.CallbackContext ctx)
+    {
+        if (!ctx.performed) return;
+        ControlType newControlType =
+            ctx.control.path.Contains("Keyboard") ? ControlType.Keyboard : ControlType.Controller;
+        
+        if (currentControlType == newControlType) return;
+        currentControlType = newControlType;
+        OnControlTypeChange?.Invoke(currentControlType);
     }
     
     private void OnDestroy()
