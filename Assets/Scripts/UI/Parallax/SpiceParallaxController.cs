@@ -22,7 +22,7 @@ public class SpiceParallaxController : MonoBehaviour, IParallaxLayer
         {
             Sprite spice = SceneController.Instance.GetCurrentLevel().GetRandomSpiceSprite;
             GameObject tmp = CreateSpice(spice);
-            float xPos = -6 + i * spiceDistance + Random.Range(0f, randomOffsetRange.x) - randomOffsetRange.x / 2;
+            float xPos = -9 + i * spiceDistance + Random.Range(0f, randomOffsetRange.x) - randomOffsetRange.x / 2;
             tmp.transform.position = new Vector3(xPos, yPos + Random.Range(0f, randomOffsetRange.y) - randomOffsetRange.y / 2, 0);
             
             spices.Add(tmp);
