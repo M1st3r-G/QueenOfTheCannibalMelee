@@ -15,7 +15,7 @@ public class GameManager : MonoBehaviour
     //Temps
     private int numberOfEnemies;
     private float counter;
-    private bool ending;
+    private bool canSpawn;
     //Public
     public static GameManager Instance { get; private set; }
     public static AudioClip LevelMusic => CurrentLevel.Music;
@@ -51,7 +51,7 @@ public class GameManager : MonoBehaviour
         if (SceneController.IsInBossArena || SceneController.IsInLoading) return;
         Instantiate(CurrentLevel.LevelObject, Vector3.zero, Quaternion.identity, cam);
         numberOfEnemies = 0;
-        ending = false;
+        canSpawn = true;
     }
     
     private void OnEnemyDeath() => numberOfEnemies--;
@@ -60,7 +60,7 @@ public class GameManager : MonoBehaviour
     {
         if (SceneController.IsInLoading || SceneController.IsInBossArena) return;
         
-        if (numberOfEnemies >= spawnCap || ending) return;
+        if (numberOfEnemies >= spawnCap || !canSpawn) return;
         if (counter > spawnTime)
         {
             counter = 0;
@@ -78,8 +78,13 @@ public class GameManager : MonoBehaviour
 
     public void SpawnEnd()
     {
-        ending = true;
+        canSpawn = false;
         Instantiate(CurrentLevel.Transition, new Vector3(cam.position.x + 15,-1.35f,0), Quaternion.identity);
+    }
+
+    public void SetCanSpawn(bool state)
+    {
+        canSpawn = state;
     }
     
     /// <summary>
