@@ -68,7 +68,7 @@ MonoBehaviour:
   numberOfLines: 2
   heightOfLine: 1.5
   firstLine: -4
-  displacementBetweenLines: 0.75
+  displacementBetweenLines: 1
 --- !u!114 &5825266259716157179
 MonoBehaviour:
   m_ObjectHideFlags: 0
