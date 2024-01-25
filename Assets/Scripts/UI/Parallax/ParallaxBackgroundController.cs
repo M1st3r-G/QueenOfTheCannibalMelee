@@ -1,37 +1,43 @@
 ﻿using System.Collections.Generic;
-using UI.Parallax;
 using UnityEngine;
 
-public class ParallaxBackgroundController : MonoBehaviour
+namespace UI.Parallax
 {
-    private CameraController parallaxCamera;
-    private List<IParallaxLayer> parallaxLayers = new();
-
-    private void Awake()
+    public class ParallaxBackgroundController : MonoBehaviour
     {
-        parallaxCamera = GameObject.FindGameObjectWithTag("MainCamera").GetComponent<CameraController>();
-        parallaxCamera.OnCameraTranslate += Move;
-        SetLayers();
-    }
+        private CameraController parallaxCamera;
+        private List<IParallaxLayer> parallaxLayers = new();
 
-    private void SetLayers()
-    {
-        parallaxLayers.Clear();
-
-        for (int i = 0; i < transform.childCount; i++)
+        private void Awake()
         {
-            IParallaxLayer layer = transform.GetChild(i).GetComponent<IParallaxLayer>();
-            
-            layer.FixOrder(-(transform.childCount + 2) + i);
-            parallaxLayers.Add(layer);
+            parallaxCamera = GameObject.FindGameObjectWithTag("MainCamera").GetComponent<CameraController>();
+            parallaxCamera.OnCameraTranslate += Move;
         }
-    }
 
-    private void Move(float delta)
-    {
-        foreach (IParallaxLayer layer in parallaxLayers)
+        private void Start()
         {
-            layer.Move(delta);
+            SetLayers();
+        }
+
+        private void SetLayers()
+        {
+            parallaxLayers.Clear();
+
+            for (int i = 0; i < transform.childCount; i++)
+            {
+                IParallaxLayer layer = transform.GetChild(i).GetComponent<IParallaxLayer>();
+            
+                layer.FixOrder(-(transform.childCount + 2) + i);
+                parallaxLayers.Add(layer);
+            }
+        }
+
+        private void Move(float delta)
+        {
+            foreach (IParallaxLayer layer in parallaxLayers)
+            {
+                layer.Move(delta);
+            }
         }
     }
 }
