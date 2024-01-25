@@ -51,12 +51,8 @@ public class SceneController : MonoBehaviour
         else
         {
             currentLevel++;
-            if (currentLevel == levels.Length - 1)
-            {
-                player.FullHeal();
-                SceneManager.LoadScene(BossLevelIndex);
-            }
-            else SceneManager.LoadScene(DefaultLevelIndex);
+            player.FullHeal();
+            SceneManager.LoadScene(currentLevel == levels.Length - 1 ? BossLevelIndex : DefaultLevelIndex);
         }
     }
     
