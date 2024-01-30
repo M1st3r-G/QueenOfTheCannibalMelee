@@ -25,14 +25,36 @@ public class MaskTutorial : PopUpMenu
 
     public void Activate(MaskManager.MaskType mask)
     {
-        infoText.text = mask switch
+        switch (mask)
         {
-            MaskManager.MaskType.Damage => "The Mask seems to be pulsating with Rage.\n\nYou feel how your punches grow stronger.\n\nYou can equip it with (1)",
-            MaskManager.MaskType.Speed => "The Mask seems to be vibrating with electric energy.\n\nYou fell how your body moves faster.\n\nYou can equip it with (2)",
-            MaskManager.MaskType.Block => "The Mask feels heavy and emits a feeling of safety.\n\nYou notice how it is easier for you to block punches now.\n\nYou can equip it with (3).",
-            MaskManager.MaskType.Health => "The Mask feels light and refreshing.\n\nYou feel healthy and your Wounds start to heal\n\nYou can equip it with (4)",
-            _ => throw new ArgumentOutOfRangeException(nameof(mask), mask, null)
-        };
+            case MaskManager.MaskType.Damage:
+                if (PlayerPrefs.GetInt(SettingsMenu.MaskTutorialKeyStrength, 1) == 0) return;
+                infoText.text =
+                    "The Mask seems to be pulsating with Rage.\n\nYou feel how your punches grow stronger.\n\nYou can equip it with (1)";
+                PlayerPrefs.SetInt(SettingsMenu.MaskTutorialKeyStrength, 0);
+                break;
+            case MaskManager.MaskType.Speed:
+                if (PlayerPrefs.GetInt(SettingsMenu.MaskTutorialKeySpeed, 1) == 0) return;
+                infoText.text =
+                    "The Mask seems to be vibrating with electric energy.\n\nYou fell how your body moves faster.\n\nYou can equip it with (2)";
+                PlayerPrefs.SetInt(SettingsMenu.MaskTutorialKeySpeed, 0);
+                break;
+            case MaskManager.MaskType.Block:
+                if (PlayerPrefs.GetInt(SettingsMenu.MaskTutorialKeyBlock, 1) == 0) return;
+                infoText.text =
+                    "The Mask feels heavy and emits a feeling of safety.\n\nYou notice how it is easier for you to block punches now.\n\nYou can equip it with (3).";
+                PlayerPrefs.SetInt(SettingsMenu.MaskTutorialKeyBlock, 0);
+                break;
+            case MaskManager.MaskType.Health:
+                if (PlayerPrefs.GetInt(SettingsMenu.MaskTutorialKeyHealth, 1) == 0) return;
+                infoText.text =
+                    "The Mask feels light and refreshing.\n\nYou feel healthy and your Wounds start to heal\n\nYou can equip it with (4)";
+                PlayerPrefs.SetInt(SettingsMenu.MaskTutorialKeyHealth, 0);
+                break;
+            default:
+                throw new ArgumentOutOfRangeException(nameof(mask), mask, null);
+        }
+
         FadeIn();
     }
     
