@@ -8,7 +8,7 @@ public abstract class PopUpMenu: MonoBehaviour
 {
     //ComponentReferences
     private CanvasGroup group;
-    [SerializeField] private EventSystem controllerUI;
+    [SerializeField] protected EventSystem controllerUI;
     [SerializeField] protected InputActionAsset playerActions;
     [SerializeField] private GameObject firstSelectionInMenu;
     //Params

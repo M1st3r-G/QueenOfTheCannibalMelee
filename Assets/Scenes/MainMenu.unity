@@ -1351,6 +1351,10 @@ PrefabInstance:
       value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 9080447004405378568, guid: f5a9764faf1718f42ba100d71938b93f, type: 3}
+      propertyPath: menuButton
+      value: 
+      objectReference: {fileID: 114544758}
+    - target: {fileID: 9080447004405378568, guid: f5a9764faf1718f42ba100d71938b93f, type: 3}
       propertyPath: controllerUI
       value: 
       objectReference: {fileID: 1764860036}

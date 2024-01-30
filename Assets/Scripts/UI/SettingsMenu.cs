@@ -12,6 +12,7 @@ public class SettingsMenu : PopUpMenu
     public const string TutorialKey = "ShowTutorial";
 
     //ComponentReferences
+    [SerializeField] private GameObject menuButton;
     [SerializeField] private PauseMenuController pauseMenu;
     [SerializeField] private Slider generalVolumeSlider;
     [SerializeField] private Slider musicVolumeSlider;
@@ -60,7 +61,11 @@ public class SettingsMenu : PopUpMenu
             JumpTo(false);
             pauseMenu.JumpTo(true);
         }
-        else ToggleMenu();
+        else
+        {
+            controllerUI.SetSelectedGameObject(menuButton);
+            ToggleMenu();
+        }
     }
     
     public void OnMusicVolumeChange()
