@@ -27,7 +27,7 @@ public class TutorialPanel : MonoBehaviour
     private void Awake()
     {
         group = GetComponent<CanvasGroup>();
-        if (PlayerPrefs.GetInt(SettingsMenu.TutorialKey, 1) == 0) Destroy(gameObject);
+        if (PlayerPrefs.GetInt(SettingsMenu.MovementTutorialKey, 1) == 0) Destroy(gameObject);
         else group.alpha = 1f;
     }
 
@@ -97,6 +97,6 @@ public class TutorialPanel : MonoBehaviour
         }
 
         GameManager.Instance.SetCanSpawn(true);
-        PlayerPrefs.SetInt(SettingsMenu.TutorialKey, 0);
+        PlayerPrefs.SetInt(SettingsMenu.MovementTutorialKey, 0);
     }
 }

@@ -25,9 +25,9 @@ public class StatsController : MonoBehaviour
     //Public
     
     public delegate void HealthChange(int oldMax, bool higher);
+    public static HealthChange OnHealthChange;
     public delegate void AnimSpeedChange();
     public static AnimSpeedChange OnAnimSpeedChange;
-    public static HealthChange OnHealthChange;
     
     public void ChangeMask(MaskManager.MaskType maskType)
     {

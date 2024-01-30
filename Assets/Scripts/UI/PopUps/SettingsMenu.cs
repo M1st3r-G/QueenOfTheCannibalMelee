@@ -1,4 +1,3 @@
-using System;
 using System.Collections;
 using UnityEngine;
 using UnityEngine.UI;
@@ -9,7 +8,13 @@ public class SettingsMenu : PopUpMenu
     public const string GeneralVolumeKey = "GeneralVolume";
     public const string EffectVolumeKey = "EffectVolume";
     public const string MusicVolumeKey = "MusicVolume";
-    public const string TutorialKey = "ShowTutorial";
+    public const string MovementTutorialKey = "ShowMainTutorial";
+    public const string MaskTutorialKeyStrength = "ShowStrengthTutorial";
+    public const string MaskTutorialKeySpeed = "ShowSpeedTutorial";
+    public const string MaskTutorialKeyBlock = "ShowBlockTutorial";
+    public const string MaskTutorialKeyHealth = "ShowHealthTutorial";
+    
+    
 
     //ComponentReferences
     [SerializeField] private GameObject menuButton;

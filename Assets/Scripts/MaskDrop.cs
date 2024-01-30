@@ -33,5 +33,6 @@ public class MaskDrop : MonoBehaviour
         MaskManager.Instance.UnlockMask(typeOfMask);
         MaskManager.Instance.IncreaseMaskFound();
         Destroy(gameObject);
+        MaskTutorial.Instance.Activate(typeOfMask);
     }
 }

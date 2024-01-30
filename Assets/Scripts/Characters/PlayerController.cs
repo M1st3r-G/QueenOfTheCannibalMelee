@@ -102,7 +102,7 @@ public class PlayerController : Character
         }
         else
         {
-            if (CurrentHealth == oldMax) CurrentHealth += Stats.MaxHealth - oldMax;
+            CurrentHealth = (int)((float) CurrentHealth / oldMax * Stats.MaxHealth);
             SetHealthBar(CurrentHealth);
         }
     }
