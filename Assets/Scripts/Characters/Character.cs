@@ -14,13 +14,12 @@ public abstract class Character : MonoBehaviour
     [SerializeField] protected GameObject fistReference;
     //Params
     protected StatsController Stats;
-    private bool IsFlipped => Mathf.Abs(Mathf.Sign(transform.localScale.x) - (-1)) < Mathf.Epsilon;
-
     protected string AnimationPath;
     protected float AttackCooldown;
     protected float LineCooldown;
     protected float HitCooldown;
     //Temps
+    private bool IsFlipped => Mathf.Abs(Mathf.Sign(transform.localScale.x) - (-1)) < Mathf.Epsilon;
     protected float CurrentKnockBackSpeed;
     protected float Direction;
     protected int CurrentHealth;
@@ -118,14 +117,13 @@ public abstract class Character : MonoBehaviour
         {
             if (attackTarget.gameObject == gameObject) continue;
             attackTarget.GetComponent<Character>()
-                ?.TakeDamage(Stats.Damage, Stats.KnockBackSpeed, Stats.KnockBackDistance);
+                ?.TakeDamage(Stats.Damage, Stats.KnockBackSpeed, Stats.KnockBackDistance, gameObject);
             attackTarget.GetComponent<BossController>()
                 ?.TakeDamage(Stats.Damage, Stats.KnockBackSpeed, Stats.KnockBackDistance / 2f);
             PlayPunchSound();
         }
     }
-
-
+    
     private IEnumerator KnockBack(float speed, float distance)
     {
         float counter = 0;
@@ -155,16 +153,19 @@ public abstract class Character : MonoBehaviour
         blocking = false;
         ActionActive = false;
     }
-    
+
     /// <summary>
     /// Used By the Characters to TakeDamage
     /// </summary>
     /// <param name="amount">The amount of Damage</param>
     /// <param name="kSpeed">The KnockBack Speed</param>
     /// <param name="kDistance">The KnockBack Distance</param>
-    public void TakeDamage(int amount, float kSpeed, float kDistance)
+    /// <param name="attacker">The GameObject Triggering the Damage</param>
+    public void TakeDamage(int amount, float kSpeed, float kDistance, GameObject attacker)
     {
-        if (blocking) amount = (int)((1 - Stats.DamageBlock) * amount);
+        if (amount == 0) return;
+        
+        if (blocking) amount = 0;
         CurrentHealth -= amount;
         SetHealthBar(CurrentHealth);
         PlayHitSound(blocking);
@@ -174,6 +175,11 @@ public abstract class Character : MonoBehaviour
         {
             StartCoroutine(HitRoutine());
             StartCoroutine(KnockBack(kSpeed, kDistance));
+        }
+        else
+        {
+            attacker.GetComponent<Character>()?.TakeDamage((int)(amount * Stats.BlockDeflect), kSpeed * 0.5f, kDistance * 0.5f, gameObject);
+            attacker.GetComponent<BossController>()?.TakeDamage((int)(amount * Stats.BlockDeflect), kSpeed * 0.5f, kDistance * 0.5f);
         }
         
         if (CurrentHealth > 0) return;

@@ -10,6 +10,7 @@ public class ProjectileController : MonoBehaviour
     [SerializeField] private bool destroyAfterHit;
     [SerializeField] private float movementSpeed;
     //Temps
+    private GameObject attacker;
     private int damage;
     private float kSpeed;
     private float kDistance;
@@ -25,14 +26,15 @@ public class ProjectileController : MonoBehaviour
     private void OnTriggerEnter2D(Collider2D other)
     {
         if (!other.gameObject.CompareTag("Player")) return;
-        other.gameObject.GetComponent<PlayerController>().TakeDamage(damage, kSpeed, kDistance);
+        other.gameObject.GetComponent<PlayerController>().TakeDamage(damage, kSpeed, kDistance, attacker);
         if (destroyAfterHit) Destroy(gameObject);
     }
 
-    public void SetParams(int pDamage, float pKSpeed, float pKDistance)
+    public void SetParams(int pDamage, float pKSpeed, float pKDistance, GameObject pAttacker)
     {
         damage = pDamage;
         kSpeed = pKSpeed;
         kDistance = pKDistance;
+        attacker = pAttacker;
     }
 }

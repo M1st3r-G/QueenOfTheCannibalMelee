@@ -47,7 +47,7 @@ public class RangedEnemyController : EnemyController
     protected new void Attack()
     {
         GameObject tmp =  Instantiate(projectile, fistReference.transform.position, Quaternion.identity);
-        tmp.GetComponent<ProjectileController>().SetParams(Stats.Damage, Stats.KnockBackSpeed, Stats.KnockBackDistance);
+        tmp.GetComponent<ProjectileController>().SetParams(Stats.Damage, Stats.KnockBackSpeed, Stats.KnockBackDistance, gameObject);
         LineManager.Instance.SetToLine(tmp.gameObject, LineManager.GetLine(gameObject));
     }
 

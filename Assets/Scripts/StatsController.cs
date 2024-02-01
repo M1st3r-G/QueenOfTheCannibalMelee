@@ -6,8 +6,8 @@ public class StatsController : MonoBehaviour
     [SerializeField] private MaskData currentMask;
     
     //ReadParams
-    public float DamageBlock => baseDamageBlock * (currentMask != null ? currentMask.BlockMod : 1);
-    [SerializeField] private float baseDamageBlock;
+    public float BlockDeflect => currentMask != null ? currentMask.Deflect : baseDamageDeflect;
+    [SerializeField] private float baseDamageDeflect;
     public int Damage =>(int)(baseDamage * (currentMask != null ? currentMask.DamageMod : 1));
     [SerializeField] private int baseDamage;
     public float MovementSpeed => baseMovementSpeed * (currentMask != null ? currentMask.MovementMod : 1);

@@ -139,7 +139,7 @@ public class BossController : MonoBehaviour
         foreach (Collider2D attackTarget in attackTargets)
         {
             if (attackTarget.gameObject == gameObject) continue;
-            attackTarget.GetComponent<PlayerController>()?.TakeDamage(damage,knockBackSpeed, knockBackDistance);
+            attackTarget.GetComponent<PlayerController>()?.TakeDamage(damage,knockBackSpeed, knockBackDistance, gameObject);
         }
     }
 
@@ -147,7 +147,7 @@ public class BossController : MonoBehaviour
     {
         print("Boss used Smite");
         GameObject tmp =  Instantiate(smiteProjectile, transform.position, Quaternion.identity);
-        tmp.GetComponent<ProjectileController>().SetParams(damage,1, 0);
+        tmp.GetComponent<ProjectileController>().SetParams(damage,1, 0, gameObject);
         LineManager.Instance.SetToLine(tmp.gameObject, LineManager.GetLine(gameObject));
     }
 
@@ -281,6 +281,8 @@ public class BossController : MonoBehaviour
     /// <param name="kDistance"></param>
     public void TakeDamage(int amount, float kSpeed, float kDistance)
     {
+        if (amount == 0) return;
+
         currentHealth -= amount;
         SetHealthBar();
         print($"Boss Took {amount} Damage and is now at {currentHealth} health");
@@ -315,7 +317,7 @@ public class BossController : MonoBehaviour
     
     private void OnTriggerEnter2D(Collider2D other)
     {
-        other.gameObject.GetComponent<PlayerController>()?.TakeDamage(damage, 10, 0);
+        other.gameObject.GetComponent<PlayerController>()?.TakeDamage(damage, 10, 0, gameObject);
     }
     
     private void TriggerWin() => OnWin?.Invoke();

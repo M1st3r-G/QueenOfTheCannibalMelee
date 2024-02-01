@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: Power
   m_EditorClassIdentifier: 
   sprite: {fileID: 21300000, guid: 2cbd480409272f047a48557ea236598e, type: 3}
-  blockModifier: 1
+  deflectModifier: 0.1
   movementSpeedModifier: 1
   animationSpeedModifier: 1
   healthModifier: 0.75
