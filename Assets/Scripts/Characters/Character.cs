@@ -87,7 +87,6 @@ public abstract class Character : MonoBehaviour
         ActionActive = true;
         Anim.Play(AnimationPath + "Attack");
         
-        PlayPunchSound();
         
         float counter = 0;
         while (counter < AttackCooldown)
@@ -122,6 +121,7 @@ public abstract class Character : MonoBehaviour
                 ?.TakeDamage(Stats.Damage, Stats.KnockBackSpeed, Stats.KnockBackDistance);
             attackTarget.GetComponent<BossController>()
                 ?.TakeDamage(Stats.Damage, Stats.KnockBackSpeed, Stats.KnockBackDistance / 2f);
+            PlayPunchSound();
         }
     }
 
