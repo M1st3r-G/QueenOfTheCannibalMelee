@@ -44,7 +44,7 @@ public class MaskTutorial : PopUpMenu
             case MaskManager.MaskType.Block:
                 if (PlayerPrefs.GetInt(SettingsMenu.MaskTutorialKeyBlock, 1) == 0) return;
                 infoText.text =
-                    "The Mask feels heavy and emits a feeling of safety.\n\nYou notice how it is easier for you to block punches now.\n\nYou can equip it with 3.";
+                    "The Mask feels heavy and emits a feeling of safety.\n\nYou notice how feel pained by your blocked punches.\n\nYou can equip it with 3";
                 PlayerPrefs.SetInt(SettingsMenu.MaskTutorialKeyBlock, 0);
                 break;
             case MaskManager.MaskType.Health:
