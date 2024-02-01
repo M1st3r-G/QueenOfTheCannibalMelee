@@ -21,7 +21,9 @@ public class MaskTutorial : PopUpMenu
     
     private void Close(InputAction.CallbackContext obj)
     {
-        ToggleMenu();
+       ToggleMenu();
+       closeAction.performed -= Close;
+       closeAction.Disable();
     }
     
     public void Activate(MaskManager.MaskType mask)
@@ -43,18 +45,9 @@ public class MaskTutorial : PopUpMenu
         infoText.text = maskValues.TextValue;
         PlayerPrefs.SetInt(maskValues.Key, 0);
 
-        FadeIn();
-    }
-    
-    private void OnEnable()
-    {
         closeAction.Enable();
         closeAction.performed += Close;
-    }
-
-    private void OnDisable()
-    {
-        closeAction.performed -= Close;
-        closeAction.Disable();
+        
+        FadeIn();
     }
 }
