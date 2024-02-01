@@ -572,6 +572,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   fistReference: {fileID: 661644869271904063}
+  defaultSprite: {fileID: 21300000, guid: 20c416696533ab64e81b7d722f881330, type: 3}
   maskController: {fileID: 6628234850031222080}
   healthGradient:
     serializedVersion: 2

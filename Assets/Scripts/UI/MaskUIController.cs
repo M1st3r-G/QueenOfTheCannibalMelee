@@ -28,6 +28,11 @@ public class MaskUIController : MonoBehaviour
         }
     }
 
+    private void Start()
+    {
+        OnControlTypeChange(PlayerController.Instance.CurrentControls);
+    }
+
     private void OnControlTypeChange(PlayerController.ControlType type)
     {
         Sprite[] sprites = type switch

@@ -11,7 +11,6 @@ public class PlayerController : Character
     //ComponentReferences
     private InputAction moveAction;
     private GameObject healthBar;
-    private Sprite defaultSprite;
     [SerializeField] private Animator maskController;
     [SerializeField] private Gradient healthGradient;
     //Params
@@ -23,6 +22,7 @@ public class PlayerController : Character
     public delegate void ControlChangeDelegate(ControlType type);
     public static ControlChangeDelegate OnControlTypeChange;
     public static PlayerController Instance { get; private set; }
+    public ControlType CurrentControls => currentControlType;
     private ControlType currentControlType;
     public enum ControlType
     {
@@ -50,7 +50,6 @@ public class PlayerController : Character
         moveAction = GetComponent<PlayerInput>().actions.FindAction("Move");
         DontDestroyOnLoad(gameObject);
 
-        defaultSprite = GetComponent<SpriteRenderer>().sprite;
         currentControlType = ControlType.Controller;
         
         LineCooldown *= relativeEarlyEscape;
@@ -123,7 +122,6 @@ public class PlayerController : Character
         Vector3 newPos = transform.position;
         newPos.x = -4;
         transform.position = newPos;
-        GetComponent<SpriteRenderer>().sprite = defaultSprite;
         print($"Reset x-Position to {newPos}");
     }
     
