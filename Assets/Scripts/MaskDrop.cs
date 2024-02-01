@@ -32,6 +32,7 @@ public class MaskDrop : MonoBehaviour
         if (!other.gameObject.CompareTag("Player")) return;
         MaskManager.Instance.UnlockMask(typeOfMask);
         MaskManager.Instance.IncreaseMaskFound();
+        AudioManager.Instance.PlayAudioEffect(AudioManager.ItemCollect);
         Destroy(gameObject);
         MaskTutorial.Instance.Activate(typeOfMask);
     }

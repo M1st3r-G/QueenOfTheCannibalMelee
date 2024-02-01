@@ -21,6 +21,7 @@ public class AudioManager : MonoBehaviour
     public const int PlayerDeathScream = 3;
     public const int Enemy1Death = 4;
     public const int SettingsSound = 5;
+    public const int ItemCollect = 6;
 
     public static AudioManager Instance { get; private set; }
 
