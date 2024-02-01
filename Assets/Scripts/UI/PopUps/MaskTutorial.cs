@@ -38,7 +38,7 @@ public class MaskTutorial : PopUpMenu
             case MaskManager.MaskType.Speed:
                 if (PlayerPrefs.GetInt(SettingsMenu.MaskTutorialKeySpeed, 1) == 0) return;
                 infoText.text =
-                    "The Mask seems to be vibrating with electric energy.\n\nYou fell how your body moves faster.\n\nYou can equip it with 2";
+                    "The Mask seems to be vibrating with electric energy.\n\nYou feel how your body moves faster.\n\nYou can equip it with 2";
                 PlayerPrefs.SetInt(SettingsMenu.MaskTutorialKeySpeed, 0);
                 break;
             case MaskManager.MaskType.Block:

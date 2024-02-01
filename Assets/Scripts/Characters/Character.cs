@@ -165,8 +165,7 @@ public abstract class Character : MonoBehaviour
     {
         if (amount == 0) return;
         
-        if (blocking) amount = 0;
-        CurrentHealth -= amount;
+        CurrentHealth -= blocking ? 0 : amount;
         SetHealthBar(CurrentHealth);
         PlayHitSound(blocking);
         print($"{AnimationPath} Took {amount} Damage and is now at {CurrentHealth} health");

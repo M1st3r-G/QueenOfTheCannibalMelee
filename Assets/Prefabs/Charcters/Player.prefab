@@ -617,7 +617,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   currentMask: {fileID: 0}
-  baseDamageBlock: 1
+  baseDamageDeflect: 0
   baseDamage: 25
   baseMovementSpeed: 5
   baseKnockBackSpeed: 3
