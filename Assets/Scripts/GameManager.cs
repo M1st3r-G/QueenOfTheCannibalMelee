@@ -81,11 +81,6 @@ public class GameManager : MonoBehaviour
         canSpawn = false;
         Instantiate(CurrentLevel.Transition, new Vector3(cam.position.x + 15,-2.1f,0), Quaternion.identity);
     }
-
-    public void SetCanSpawn(bool state)
-    {
-        canSpawn = state;
-    }
     
     /// <summary>
     /// Spawns an Enemy on the right side of the Camera
@@ -97,4 +92,6 @@ public class GameManager : MonoBehaviour
         Instantiate(rnd < meleeChance ? CurrentLevel.MeleeEnemyInLevel : CurrentLevel.RangedEnemyInLevel,
             Vector3.right * (cam.position.x + 12f), Quaternion.identity);
     }
+    
+    public void SetCanSpawn(bool state) => canSpawn = state;
 }

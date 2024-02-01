@@ -43,7 +43,7 @@ public abstract class Character : MonoBehaviour
     {
         foreach (AnimationClip clip in Anim.runtimeAnimatorController.animationClips)
         {
-            if (clip.name.EndsWith("Attack"))AttackCooldown = clip.length;
+            if (clip.name.EndsWith("Attack")) AttackCooldown = clip.length;
             else if (clip.name.EndsWith("LineChange")) LineCooldown = clip.length;
             else if (clip.name.EndsWith("Hit")) HitCooldown = clip.length;
         }

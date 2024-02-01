@@ -22,8 +22,8 @@ public class PlayerController : Character
     public delegate void ControlChangeDelegate(ControlType type);
     public static ControlChangeDelegate OnControlTypeChange;
     public static PlayerController Instance { get; private set; }
-    public ControlType CurrentControls => currentControlType;
-    private ControlType currentControlType;
+    public ControlType CurrentControls { get; private set; }
+
     public enum ControlType
     {
         Keyboard, Controller
@@ -50,7 +50,7 @@ public class PlayerController : Character
         moveAction = GetComponent<PlayerInput>().actions.FindAction("Move");
         DontDestroyOnLoad(gameObject);
 
-        currentControlType = ControlType.Controller;
+        CurrentControls = ControlType.Controller;
         
         LineCooldown *= relativeEarlyEscape;
         HitCooldown *= relativeEarlyEscape;
@@ -63,9 +63,9 @@ public class PlayerController : Character
         ControlType newControlType =
             ctx.control.path.Contains("Keyboard") ? ControlType.Keyboard : ControlType.Controller;
         
-        if (currentControlType == newControlType) return;
-        currentControlType = newControlType;
-        OnControlTypeChange?.Invoke(currentControlType);
+        if (CurrentControls == newControlType) return;
+        CurrentControls = newControlType;
+        OnControlTypeChange?.Invoke(CurrentControls);
     }
     
     private void OnDestroy()
