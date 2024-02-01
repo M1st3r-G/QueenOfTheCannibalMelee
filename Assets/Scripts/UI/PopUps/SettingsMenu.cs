@@ -22,6 +22,7 @@ public class SettingsMenu : PopUpMenu
     [SerializeField] private Slider generalVolumeSlider;
     [SerializeField] private Slider musicVolumeSlider;
     [SerializeField] private Slider effectVolumeSlider;
+    [SerializeField] private AudioClip[] clips;
     private AudioSource musicAudioSource;
     private AudioSource effectAudioSource;
     //Params
@@ -56,6 +57,8 @@ public class SettingsMenu : PopUpMenu
 
     public void CloseSettings()
     {
+        effectAudioSource.PlayOneShot(clips[1]);
+
         // Save in PlayerPrefs
         PlayerPrefs.SetFloat(MusicVolumeKey, musicVolume);
         PlayerPrefs.SetFloat(EffectVolumeKey, effectVolume);
@@ -93,16 +96,27 @@ public class SettingsMenu : PopUpMenu
         
         if (!playable) return;
         if (AudioManager.Instance is not null) AudioManager.Instance.PlayAudioEffect(AudioManager.SettingsSound);
-        else effectAudioSource.Play();
+        else effectAudioSource.PlayOneShot(clips[1]);
+        Debug.Log("Played Sound");
         StartCoroutine(RefreshCooldown());
     }
 
     public void WipeSaveData()
     {
         print("WipedSaveData");
+        effectAudioSource.PlayOneShot(clips[1]);
         PlayerPrefs.DeleteAll();
     }
 
+    /// <summary>
+    /// Used By an EventTrigger to Add Sounds while Hovering over the Buttons
+    /// </summary>
+    public void PlayButtonHover()
+    {
+        print("playedHoverSound");
+        effectAudioSource.PlayOneShot(clips[0]);
+    }
+    
     private IEnumerator RefreshCooldown()
     {
         playable = false;
