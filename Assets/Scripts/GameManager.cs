@@ -61,7 +61,7 @@ public class GameManager : MonoBehaviour
         if (SceneController.IsInLoading || SceneController.IsInBossArena) return;
         
         if (numberOfEnemies >= spawnCap || !canSpawn) return;
-        if (counter > spawnTime)
+        if (counter > spawnTime + numberOfEnemies)
         {
             counter = 0;
             SpawnEnemy();
