@@ -1,5 +1,6 @@
 using System;
 using TMPro;
+using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.InputSystem;
 
@@ -15,6 +16,7 @@ public class MaskTutorial : PopUpMenu
     
     private new void Awake()
     {
+        base.Awake();
         Instance = this;
     }
     
@@ -22,7 +24,7 @@ public class MaskTutorial : PopUpMenu
     {
         ToggleMenu();
     }
-
+    
     public void Activate(MaskManager.MaskType mask)
     {
         switch (mask)
@@ -58,6 +60,15 @@ public class MaskTutorial : PopUpMenu
         FadeIn();
     }
     
-    private void OnEnable() => closeAction.performed += Close;
-    private void OnDisable() => closeAction.performed -= Close;
+    private void OnEnable()
+    {
+        closeAction.Enable();
+        closeAction.performed += Close;
+    }
+
+    private void OnDisable()
+    {
+        closeAction.performed -= Close;
+        closeAction.Disable();
+    }
 }
