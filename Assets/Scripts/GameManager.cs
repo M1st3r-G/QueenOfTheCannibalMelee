@@ -79,7 +79,7 @@ public class GameManager : MonoBehaviour
     public void SpawnEnd()
     {
         canSpawn = false;
-        Instantiate(CurrentLevel.Transition, new Vector3(cam.position.x + 15,-1.35f,0), Quaternion.identity);
+        Instantiate(CurrentLevel.Transition, new Vector3(cam.position.x + 15,-2.1f,0), Quaternion.identity);
     }
 
     public void SetCanSpawn(bool state)
